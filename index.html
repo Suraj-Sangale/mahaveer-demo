@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VeloFreight — Modern Logistics</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0d1117;
+  --ink2:#1e2530;
+  --ink3:#374151;
+  --muted:#6b7280;
+  --muted2:#9ca3af;
+  --border:#e5e7eb;
+  --border2:#d1d5db;
+  --surface:#f9fafb;
+  --surface2:#f3f4f6;
+  --white:#ffffff;
+  --blue:#1d4ed8;
+  --blue-lt:#eff6ff;
+  --blue-md:#3b82f6;
+  --blue-dk:#1e40af;
+  --amber:#f59e0b;
+  --amber-lt:#fffbeb;
+  --green:#16a34a;
+  --green-lt:#f0fdf4;
+  --accent:#0ea5e9;
+  --accent-dk:#0284c7;
+  --font-display:'Syne',sans-serif;
+  --font-body:'Instrument Sans',sans-serif;
+  --radius:12px;
+  --radius-lg:20px;
+  --radius-xl:28px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.04);
+  --shadow:0 4px 16px rgba(0,0,0,0.08),0 2px 6px rgba(0,0,0,0.05);
+  --shadow-lg:0 20px 60px rgba(0,0,0,0.1),0 8px 24px rgba(0,0,0,0.06);
+  --shadow-blue:0 8px 32px rgba(14,165,233,0.25);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--white);color:var(--ink);font-family:var(--font-body);overflow-x:hidden;line-height:1.6;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--surface);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:68px;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow 0.3s;
+}
+nav.scrolled{box-shadow:var(--shadow);}
+.nav-logo{
+  font-family:var(--font-display);font-size:1.35rem;font-weight:800;
+  color:var(--ink);letter-spacing:-0.02em;display:flex;align-items:center;gap:0.5rem;
+}
+.nav-logo .dot{
+  width:8px;height:8px;background:var(--accent);border-radius:50%;
+  display:inline-block;animation:pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.4);opacity:0.7;}}
+.nav-center{display:flex;gap:0.25rem;align-items:center;}
+.nav-center a{
+  color:var(--muted);font-size:0.875rem;font-weight:500;padding:0.45rem 1rem;
+  border-radius:8px;transition:all 0.2s;
+}
+.nav-center a:hover{color:var(--ink);background:var(--surface2);}
+.nav-right{display:flex;align-items:center;gap:0.75rem;}
+.btn-ghost{
+  background:none;border:1.5px solid var(--border2);color:var(--ink3);
+  padding:0.5rem 1.25rem;border-radius:8px;font-family:var(--font-body);
+  font-size:0.875rem;font-weight:500;cursor:pointer;transition:all 0.2s;
+}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-nav{
+  background:var(--ink);color:var(--white);padding:0.55rem 1.4rem;
+  border-radius:8px;font-family:var(--font-body);font-size:0.875rem;font-weight:600;
+  border:none;cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
+.btn-nav:hover{background:var(--ink2);transform:translateY(-1px);box-shadow:var(--shadow);}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  padding:68px 5% 0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4rem;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  background:var(--white);
+}
+/* subtle grid bg */
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:48px 48px;
+  opacity:0.5;pointer-events:none;
+}
+/* top gradient fade */
+#hero::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 70% at 60% 40%,rgba(14,165,233,0.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-left{position:relative;z-index:2;padding:4rem 0;}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--blue-lt);border:1px solid #bfdbfe;
+  color:var(--blue);font-size:0.78rem;font-weight:600;
+  letter-spacing:0.04em;padding:0.35rem 1rem;border-radius:100px;
+  margin-bottom:1.75rem;
+  animation:fadeUp 0.7s 0.1s ease-out both;
+}
+.hero-pill .live{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse-dot 1.5s infinite;}
+.hero-h1{
+  font-family:var(--font-display);font-size:clamp(2.8rem,5.5vw,5rem);
+  font-weight:800;line-height:1.05;letter-spacing:-0.03em;
+  color:var(--ink);margin-bottom:1.5rem;
+  animation:fadeUp 0.7s 0.25s ease-out both;
+}
+.hero-h1 .line2{color:var(--accent);}
+.hero-h1 .line3{
+  display:inline-flex;align-items:center;gap:0.5rem;
+}
+.hero-h1 .chip{
+  display:inline-block;background:var(--ink);color:var(--white);
+  font-size:0.48em;font-weight:600;letter-spacing:0.05em;
+  padding:0.2em 0.7em;border-radius:6px;vertical-align:middle;
+  transform:translateY(-0.1em);
+}
+.hero-desc{
+  color:var(--muted);font-size:1.05rem;line-height:1.75;max-width:480px;
+  margin-bottom:2.5rem;animation:fadeUp 0.7s 0.4s ease-out both;
+}
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  animation:fadeUp 0.7s 0.55s ease-out both;
+  margin-bottom:3rem;
+}
+.btn-primary{
+  background:var(--accent);color:var(--white);padding:0.8rem 2rem;
+  border-radius:10px;font-family:var(--font-body);font-size:0.95rem;font-weight:600;
+  border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;
+  transition:all 0.25s;box-shadow:var(--shadow-blue);
+}
+.btn-primary:hover{background:var(--accent-dk);transform:translateY(-2px);box-shadow:0 12px 40px rgba(14,165,233,0.35);}
+.btn-outline{
+  background:var(--white);color:var(--ink);padding:0.8rem 2rem;
+  border-radius:10px;font-family:var(--font-body);font-size:0.95rem;font-weight:600;
+  border:1.5px solid var(--border2);cursor:pointer;display:inline-flex;
+  align-items:center;gap:0.5rem;transition:all 0.25s;
+}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow);}
+
+.hero-trust{
+  display:flex;align-items:center;gap:1.5rem;
+  animation:fadeUp 0.7s 0.7s ease-out both;
+}
+.trust-avatars{display:flex;}
+.trust-avatar{
+  width:34px;height:34px;border-radius:50%;border:2px solid var(--white);
+  object-fit:cover;margin-left:-10px;
+}
+.trust-avatars .trust-avatar:first-child{margin-left:0;}
+.trust-text{font-size:0.82rem;color:var(--muted);}
+.trust-text strong{color:var(--ink);font-weight:600;}
+
+/* Hero right – visual card stack */
+.hero-right{
+  position:relative;z-index:2;
+  display:flex;align-items:center;justify-content:center;
+  padding:5rem 0;
+  animation:fadeIn 1s 0.4s ease-out both;
+}
+.hero-img-wrap{
+  position:relative;width:100%;max-width:500px;
+}
+.hero-main-img{
+  width:100%;height:420px;object-fit:cover;
+  border-radius:var(--radius-xl);
+  box-shadow:var(--shadow-lg);
+}
+.hero-card-float{
+  position:absolute;background:var(--white);border-radius:var(--radius);
+  box-shadow:var(--shadow-lg);padding:1rem 1.25rem;
+  border:1px solid var(--border);
+}
+.hcf-1{bottom:-1.5rem;left:-2rem;min-width:200px;}
+.hcf-2{top:2rem;right:-2rem;min-width:170px;}
+.hcf-tag{font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem;}
+.hcf-val{font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--ink);line-height:1;}
+.hcf-sub{font-size:0.78rem;color:var(--muted);margin-top:0.2rem;}
+.hcf-badge{
+  display:inline-flex;align-items:center;gap:0.3rem;
+  background:var(--green-lt);color:var(--green);
+  font-size:0.72rem;font-weight:600;padding:0.2rem 0.6rem;
+  border-radius:100px;margin-top:0.4rem;
+}
+.hcf-progress{margin-top:0.75rem;}
+.hcf-progress-bar{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;margin-top:0.3rem;}
+.hcf-progress-fill{height:100%;background:linear-gradient(to right,var(--accent),var(--blue-md));width:78%;border-radius:2px;animation:progressIn 1.5s 1.2s ease-out both;}
+@keyframes progressIn{from{width:0}to{width:78%}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+/* ── TICKER ── */
+.ticker-wrap{
+  background:var(--ink);overflow:hidden;padding:0.85rem 0;
+  border-top:1px solid rgba(255,255,255,0.05);
+}
+.ticker{display:flex;width:max-content;animation:ticker 35s linear infinite;}
+.ticker-item{
+  display:flex;align-items:center;gap:0.6rem;
+  font-family:var(--font-display);font-size:0.78rem;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);
+  padding:0 2rem;white-space:nowrap;
+}
+.ticker-item .dot{width:4px;height:4px;background:var(--accent);border-radius:50%;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── SECTION SHARED ── */
+section{padding:6rem 5%;}
+.section-tag{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:0.8rem;
+}
+.section-tag::before{content:'';width:20px;height:2px;background:var(--accent);}
+.section-h{
+  font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);
+  font-weight:800;line-height:1.1;letter-spacing:-0.025em;color:var(--ink);
+}
+.section-h .hl{color:var(--accent);}
+
+/* ── SERVICES ── */
+#services{background:var(--surface);}
+.services-top{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:3.5rem;gap:2rem;flex-wrap:wrap;
+}
+.services-top-left{}
+.services-top-right{
+  max-width:340px;color:var(--muted);font-size:0.95rem;line-height:1.7;
+}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+.svc-card{
+  background:var(--white);border-radius:var(--radius-lg);padding:2rem;
+  border:1px solid var(--border);transition:all 0.3s;position:relative;overflow:hidden;
+  opacity:0;transform:translateY(20px);
+}
+.svc-card.visible{opacity:1;transform:translateY(0);}
+.svc-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.svc-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(to right,var(--accent),var(--blue-md));
+  transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease;
+}
+.svc-card:hover::before{transform:scaleX(1);}
+.svc-icon-wrap{
+  width:52px;height:52px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;font-size:1.5rem;
+}
+.ic-blue{background:var(--blue-lt);}
+.ic-amber{background:var(--amber-lt);}
+.ic-green{background:var(--green-lt);}
+.ic-sky{background:#f0f9ff;}
+.svc-title{font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:0.6rem;color:var(--ink);}
+.svc-desc{color:var(--muted);font-size:0.88rem;line-height:1.65;margin-bottom:1.25rem;}
+.svc-link{
+  display:inline-flex;align-items:center;gap:0.35rem;
+  color:var(--accent);font-size:0.82rem;font-weight:600;
+  letter-spacing:0.02em;transition:gap 0.2s;
+}
+.svc-link:hover{gap:0.65rem;}
+.svc-img{
+  width:100%;height:160px;object-fit:cover;border-radius:10px;
+  margin-bottom:1.25rem;
+}
+.svc-tag{
+  display:inline-block;font-size:0.7rem;font-weight:600;letter-spacing:0.06em;
+  text-transform:uppercase;padding:0.2rem 0.7rem;border-radius:100px;
+  margin-bottom:0.8rem;
+}
+.tag-blue{background:var(--blue-lt);color:var(--blue);}
+.tag-green{background:var(--green-lt);color:var(--green);}
+.tag-amber{background:var(--amber-lt);color:#b45309;}
+.tag-sky{background:#f0f9ff;color:#0284c7;}
+
+/* ── NUMBERS ── */
+#numbers{
+  background:var(--ink);color:var(--white);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  padding:0;
+}
+.num-item{
+  padding:3.5rem 2.5rem;border-right:1px solid rgba(255,255,255,0.06);
+  position:relative;overflow:hidden;transition:background 0.3s;
+}
+.num-item:last-child{border-right:none;}
+.num-item:hover{background:rgba(255,255,255,0.03);}
+.num-item::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--accent),var(--blue-md));
+  transform:scaleX(0);transform-origin:left;transition:transform 0.4s;
+}
+.num-item:hover::after{transform:scaleX(1);}
+.num-val{
+  font-family:var(--font-display);font-size:3rem;font-weight:800;
+  letter-spacing:-0.03em;color:var(--white);line-height:1;
+  margin-bottom:0.5rem;
+}
+.num-val span{color:var(--accent);}
+.num-label{font-size:0.82rem;color:rgba(255,255,255,0.45);font-weight:500;line-height:1.5;}
+
+/* ── ABOUT ── */
+#about{
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;
+  align-items:center;background:var(--white);
+}
+.about-img-col{position:relative;}
+.about-main-img{
+  width:100%;height:520px;object-fit:cover;
+  border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);
+}
+.about-badge-card{
+  position:absolute;bottom:-2rem;right:-2rem;
+  background:var(--white);border-radius:var(--radius);
+  box-shadow:var(--shadow-lg);padding:1.5rem 2rem;
+  border:1px solid var(--border);min-width:180px;text-align:center;
+}
+.abt-badge-num{
+  font-family:var(--font-display);font-size:2.8rem;
+  font-weight:800;color:var(--accent);line-height:1;
+}
+.abt-badge-txt{font-size:0.8rem;color:var(--muted);margin-top:0.3rem;line-height:1.4;}
+.about-img-tag{
+  position:absolute;top:2rem;left:-1.5rem;
+  background:var(--ink);color:var(--white);
+  padding:0.7rem 1.2rem;border-radius:var(--radius);
+  font-size:0.78rem;font-weight:600;letter-spacing:0.04em;
+  writing-mode:vertical-rl;text-orientation:mixed;
+  transform:rotate(180deg);
+}
+.about-content .section-tag{margin-bottom:0.8rem;}
+.about-content .section-h{margin-bottom:1.25rem;}
+.about-content .desc{color:var(--muted);line-height:1.75;font-size:0.95rem;margin-bottom:1rem;}
+.about-feats{
+  display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;
+  margin:1.75rem 0;
+}
+.feat-row{
+  display:flex;align-items:center;gap:0.6rem;
+  font-size:0.88rem;font-weight:500;color:var(--ink3);
+}
+.feat-row::before{
+  content:'✓';width:20px;height:20px;background:var(--accent);color:white;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:0.65rem;font-weight:700;flex-shrink:0;
+  line-height:1;text-align:center;padding-top:1px;
+}
+
+/* ── HOW IT WORKS ── */
+#process{background:var(--surface);}
+.process-head{text-align:center;margin-bottom:4.5rem;}
+.process-head .section-tag{justify-content:center;}
+.process-head .section-tag::before{display:none;}
+.process-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;
+  position:relative;
+}
+.process-steps::before{
+  content:'';position:absolute;
+  top:2.5rem;left:calc(12.5% + 1rem);right:calc(12.5% + 1rem);
+  height:1px;background:linear-gradient(to right,transparent,var(--accent),transparent);
+}
+.pstep{text-align:center;opacity:0;transform:translateY(20px);}
+.pstep.visible{opacity:1;transform:translateY(0);}
+.pstep-num{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--white);border:2px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:1.1rem;font-weight:800;
+  color:var(--muted);margin:0 auto 1.5rem;
+  transition:all 0.3s;position:relative;z-index:1;
+}
+.pstep:hover .pstep-num{
+  background:var(--accent);border-color:var(--accent);
+  color:var(--white);box-shadow:var(--shadow-blue);
+}
+.pstep-title{
+  font-family:var(--font-display);font-size:1rem;font-weight:700;
+  color:var(--ink);margin-bottom:0.5rem;
+}
+.pstep-desc{color:var(--muted);font-size:0.85rem;line-height:1.6;}
+
+/* ── FLEET GALLERY ── */
+#fleet{background:var(--white);}
+.fleet-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:2.5rem;flex-wrap:wrap;gap:1.5rem;
+}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  grid-template-rows:240px 240px;
+  gap:1rem;
+}
+.gitem{position:relative;border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;}
+.gitem img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.5s ease,filter 0.4s;
+  filter:brightness(0.85);
+}
+.gitem:hover img{transform:scale(1.06);filter:brightness(0.7);}
+.gitem.tall{grid-row:span 2;}
+.glabel{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:1.25rem 1.5rem;
+  background:linear-gradient(to top,rgba(13,17,23,0.9) 0%,transparent 100%);
+  transform:translateY(4px);opacity:0;transition:all 0.35s;
+}
+.gitem:hover .glabel{opacity:1;transform:translateY(0);}
+.glabel h4{
+  font-family:var(--font-display);font-size:1rem;font-weight:700;
+  color:white;margin-bottom:0.15rem;
+}
+.glabel p{font-size:0.78rem;color:rgba(255,255,255,0.65);}
+.gitem-tag{
+  position:absolute;top:1rem;left:1rem;
+  background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);
+  color:white;font-size:0.7rem;font-weight:600;letter-spacing:0.06em;
+  text-transform:uppercase;padding:0.3rem 0.75rem;border-radius:100px;
+  border:1px solid rgba(255,255,255,0.2);
+}
+
+/* ── TRACKING ── */
+#tracking{
+  background:linear-gradient(135deg,var(--ink) 0%,#1a2744 100%);
+  position:relative;overflow:hidden;
+}
+#tracking::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(14,165,233,0.15),transparent);
+  pointer-events:none;
+}
+.tracking-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;position:relative;z-index:1;
+}
+.track-left .section-tag{color:var(--accent);}
+.track-left .section-h{color:var(--white);margin-bottom:1rem;}
+.track-left p{color:rgba(255,255,255,0.55);line-height:1.75;font-size:0.95rem;margin-bottom:2rem;}
+.track-form-wrap{display:flex;flex-direction:column;gap:0.75rem;}
+.track-input-row{
+  display:flex;background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);border-radius:10px;overflow:hidden;
+  transition:border-color 0.25s;
+}
+.track-input-row:focus-within{border-color:var(--accent);}
+.track-input{
+  flex:1;background:transparent;border:none;outline:none;
+  padding:0.9rem 1.25rem;color:white;font-family:var(--font-body);font-size:0.95rem;
+}
+.track-input::placeholder{color:rgba(255,255,255,0.3);}
+.track-btn{
+  background:var(--accent);color:white;border:none;
+  padding:0.9rem 1.5rem;cursor:pointer;font-family:var(--font-body);
+  font-size:0.9rem;font-weight:600;transition:background 0.2s;white-space:nowrap;
+}
+.track-btn:hover{background:var(--accent-dk);}
+.track-hints{
+  display:flex;gap:1.5rem;flex-wrap:wrap;
+}
+.track-hint{
+  display:flex;align-items:center;gap:0.4rem;
+  color:rgba(255,255,255,0.4);font-size:0.78rem;
+}
+.track-hint::before{content:'✓';color:var(--accent);}
+/* mini track status card */
+.track-right{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:var(--radius-xl);padding:2.5rem;
+}
+.tcard-header{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:1.75rem;
+}
+.tcard-id{font-family:var(--font-display);font-size:0.9rem;font-weight:700;color:white;}
+.tcard-status{
+  background:rgba(34,197,94,0.15);color:#4ade80;
+  font-size:0.72rem;font-weight:600;letter-spacing:0.06em;
+  padding:0.3rem 0.8rem;border-radius:100px;
+  border:1px solid rgba(34,197,94,0.2);
+}
+.tcard-route{
+  display:flex;align-items:center;gap:1rem;margin-bottom:2rem;
+}
+.tcard-city{flex:1;}
+.tcard-city-name{
+  font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:white;
+}
+.tcard-city-code{color:rgba(255,255,255,0.35);font-size:0.75rem;}
+.tcard-arrow{color:var(--accent);font-size:1.2rem;}
+.tcard-timeline{display:flex;flex-direction:column;gap:0;}
+.tl-item{
+  display:flex;gap:1rem;padding:0.75rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.tl-item:last-child{border-bottom:none;}
+.tl-dot{
+  width:10px;height:10px;border-radius:50%;
+  flex-shrink:0;margin-top:5px;
+}
+.tl-done{background:var(--accent);}
+.tl-current{background:#f59e0b;animation:pulse-dot 1.5s infinite;}
+.tl-pending{background:rgba(255,255,255,0.15);}
+.tl-text{}
+.tl-title{font-size:0.85rem;font-weight:500;color:white;}
+.tl-time{font-size:0.75rem;color:rgba(255,255,255,0.35);margin-top:0.1rem;}
+
+/* ── TESTIMONIALS ── */
+#testimonials{background:var(--surface);}
+.test-head{text-align:center;margin-bottom:4rem;}
+.test-head .section-tag{justify-content:center;}
+.test-head .section-tag::before{display:none;}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.tcard{
+  background:var(--white);border-radius:var(--radius-lg);
+  padding:2rem;border:1px solid var(--border);
+  transition:all 0.3s;opacity:0;transform:translateY(20px);
+}
+.tcard.visible{opacity:1;transform:translateY(0);}
+.tcard:hover{box-shadow:var(--shadow-lg);border-color:transparent;transform:translateY(-4px);}
+.tcard-stars{color:var(--amber);font-size:0.85rem;letter-spacing:0.1em;margin-bottom:1rem;}
+.tcard-text{
+  color:var(--ink3);font-size:0.92rem;line-height:1.75;
+  margin-bottom:1.5rem;font-style:italic;
+}
+.tcard-author{display:flex;align-items:center;gap:0.875rem;}
+.tcard-avatar{
+  width:42px;height:42px;border-radius:50%;
+  object-fit:cover;border:2px solid var(--border);
+}
+.tcard-name{font-size:0.88rem;font-weight:600;color:var(--ink);}
+.tcard-role{font-size:0.78rem;color:var(--muted);margin-top:0.1rem;}
+
+/* ── CLIENTS ── */
+#clients{
+  background:var(--white);padding:4rem 5%;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.clients-inner{
+  display:flex;align-items:center;gap:3rem;flex-wrap:wrap;
+  justify-content:center;
+}
+.clients-label{
+  font-size:0.75rem;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted2);white-space:nowrap;
+}
+.clients-logos{
+  display:flex;align-items:center;gap:3rem;
+  flex-wrap:wrap;justify-content:center;
+}
+.clogo{
+  font-family:var(--font-display);font-size:1.1rem;font-weight:800;
+  letter-spacing:0.05em;color:var(--muted2);
+  transition:color 0.25s;cursor:default;
+}
+.clogo:hover{color:var(--ink);}
+
+/* ── CTA ── */
+#cta{
+  background:var(--ink);position:relative;
+  overflow:hidden;text-align:center;padding:8rem 5%;
+}
+#cta::before{
+  content:'';position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80&auto=format&fit=crop');
+  background-size:cover;background-position:center;
+  opacity:0.08;
+}
+#cta::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(14,165,233,0.2),transparent);
+  pointer-events:none;
+}
+.cta-inner{position:relative;z-index:2;max-width:680px;margin:0 auto;}
+.cta-inner .section-tag{justify-content:center;color:var(--accent);}
+.cta-inner .section-tag::before{display:none;}
+.cta-inner .section-h{color:white;font-size:clamp(2.5rem,5vw,4rem);margin-bottom:1.25rem;}
+.cta-inner p{color:rgba(255,255,255,0.5);line-height:1.75;font-size:1rem;margin-bottom:2.5rem;}
+.cta-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-white{
+  background:white;color:var(--ink);padding:0.85rem 2rem;
+  border-radius:10px;font-family:var(--font-body);font-size:0.95rem;font-weight:600;
+  border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;
+  transition:all 0.25s;
+}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,255,255,0.15);}
+.btn-wghost{
+  background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);
+  padding:0.85rem 2rem;border-radius:10px;font-family:var(--font-body);
+  font-size:0.95rem;font-weight:600;border:1.5px solid rgba(255,255,255,0.12);
+  cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;
+  transition:all 0.25s;
+}
+.btn-wghost:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ── FOOTER ── */
+footer{background:#080c14;padding:5rem 5% 2rem;}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:4rem;margin-bottom:4rem;
+  padding-bottom:4rem;border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.f-brand .nav-logo{color:white;font-size:1.5rem;display:block;margin-bottom:1rem;}
+.f-brand p{color:rgba(255,255,255,0.35);font-size:0.875rem;line-height:1.7;max-width:260px;}
+.f-socials{display:flex;gap:0.6rem;margin-top:1.5rem;}
+.f-soc{
+  width:36px;height:36px;border-radius:8px;
+  border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.78rem;font-weight:600;transition:all 0.25s;
+}
+.f-soc:hover{border-color:var(--accent);color:var(--accent);}
+.f-col h4{
+  font-family:var(--font-display);font-size:0.8rem;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.5);margin-bottom:1.5rem;
+}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:0.65rem;}
+.f-links a{
+  color:rgba(255,255,255,0.35);font-size:0.875rem;
+  transition:color 0.2s;display:flex;align-items:center;gap:0.4rem;
+}
+.f-links a:hover{color:white;}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-bottom p{color:rgba(255,255,255,0.2);font-size:0.8rem;}
+
+/* ── FLOATING BTN ── */
+.fab{
+  position:fixed;bottom:2rem;right:2rem;z-index:300;
+  background:var(--accent);color:white;width:52px;height:52px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;box-shadow:0 8px 32px rgba(14,165,233,0.45);
+  animation:fab-pulse 3s ease-in-out infinite;cursor:pointer;
+  border:none;transition:background 0.25s,transform 0.2s;
+}
+.fab:hover{background:var(--accent-dk);transform:scale(1.08);}
+@keyframes fab-pulse{0%,100%{box-shadow:0 8px 32px rgba(14,165,233,0.45);}50%{box-shadow:0 8px 48px rgba(14,165,233,0.7);}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  #hero{grid-template-columns:1fr;padding-top:68px;}
+  .hero-right{display:none;}
+  #about{grid-template-columns:1fr;}
+  .about-img-col{display:none;}
+  #numbers{grid-template-columns:1fr 1fr;}
+  .num-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.06);}
+  .process-steps{grid-template-columns:1fr 1fr;}
+  .process-steps::before{display:none;}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .gitem.tall{grid-row:span 1;}
+  .tracking-grid{grid-template-columns:1fr;}
+  .test-grid{grid-template-columns:1fr 1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:640px){
+  .nav-center{display:none;}
+  #numbers{grid-template-columns:1fr 1fr;}
+  .test-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:1fr;}
+  section{padding:4rem 5%;}
+}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo"><span>Velo</span>Freight<div class="dot"></div></div>
+  <div class="nav-center">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#fleet">Fleet</a>
+    <a href="#tracking">Track</a>
+    <a href="#testimonials">Reviews</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-ghost">Log in</button>
+    <button class="btn-nav">Get Quote →</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-pill"><span class="live"></span> Live tracking across 180+ countries</div>
+    <h1 class="hero-h1">
+      Logistics<br>
+      <span class="line2">Redefined</span><br>
+      <span class="line3">For Modern<span class="chip">2025</span></span>
+    </h1>
+    <p class="hero-desc">
+      End-to-end freight solutions powered by real-time AI routing, live shipment tracking, and a global carrier network built for speed.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary">Start Shipping →</button>
+      <button class="btn-outline">▶ Watch Demo</button>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-avatars">
+        <img class="trust-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face" alt="">
+        <img class="trust-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face" alt="">
+        <img class="trust-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face" alt="">
+      </div>
+      <div class="trust-text"><strong>4,800+</strong> businesses trust VeloFreight</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <img class="hero-main-img" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80&auto=format&fit=crop" alt="Logistics Operations">
+      <!-- Float card 1 -->
+      <div class="hero-card-float hcf-1">
+        <div class="hcf-tag">Monthly Deliveries</div>
+        <div class="hcf-val" id="hero-count">0</div>
+        <div class="hcf-sub">shipments this month</div>
+        <div class="hcf-badge">↑ 18% vs last month</div>
+        <div class="hcf-progress">
+          <div class="hcf-tag" style="margin-top:0.6rem">Capacity used</div>
+          <div class="hcf-progress-bar"><div class="hcf-progress-fill"></div></div>
+        </div>
+      </div>
+      <!-- Float card 2 -->
+      <div class="hero-card-float hcf-2">
+        <div class="hcf-tag">On-time Rate</div>
+        <div class="hcf-val" id="hero-pct">0%</div>
+        <div class="hcf-sub">last 90 days</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item"><span class="dot"></span>Air Freight</span>
+    <span class="ticker-item"><span class="dot"></span>Ocean Shipping</span>
+    <span class="ticker-item"><span class="dot"></span>Road Transport</span>
+    <span class="ticker-item"><span class="dot"></span>Cold Chain</span>
+    <span class="ticker-item"><span class="dot"></span>Customs Clearance</span>
+    <span class="ticker-item"><span class="dot"></span>Warehousing & 3PL</span>
+    <span class="ticker-item"><span class="dot"></span>Last Mile Delivery</span>
+    <span class="ticker-item"><span class="dot"></span>Project Cargo</span>
+    <span class="ticker-item"><span class="dot"></span>Air Freight</span>
+    <span class="ticker-item"><span class="dot"></span>Ocean Shipping</span>
+    <span class="ticker-item"><span class="dot"></span>Road Transport</span>
+    <span class="ticker-item"><span class="dot"></span>Cold Chain</span>
+    <span class="ticker-item"><span class="dot"></span>Customs Clearance</span>
+    <span class="ticker-item"><span class="dot"></span>Warehousing & 3PL</span>
+    <span class="ticker-item"><span class="dot"></span>Last Mile Delivery</span>
+    <span class="ticker-item"><span class="dot"></span>Project Cargo</span>
+  </div>
+</div>
+
+<!-- CLIENTS -->
+<div id="clients">
+  <div class="clients-inner">
+    <span class="clients-label">Trusted by</span>
+    <div class="clients-logos">
+      <div class="clogo">MAHINDRA</div>
+      <div class="clogo">RELIANCE</div>
+      <div class="clogo">INFOSYS</div>
+      <div class="clogo">WIPRO</div>
+      <div class="clogo">ADANI</div>
+      <div class="clogo">GODREJ</div>
+      <div class="clogo">TATA</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-top reveal">
+    <div>
+      <div class="section-tag">What we do</div>
+      <h2 class="section-h">Complete <span class="hl">Logistics</span><br>Under One Roof</h2>
+    </div>
+    <p class="services-top-right">From a single parcel to a full container — we handle every mode, every route, with zero compromise on visibility.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="svc-card" style="transition-delay:0.05s">
+      <img class="svc-img" src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80&auto=format&fit=crop" alt="Air Freight">
+      <span class="svc-tag tag-sky">Express</span>
+      <div class="svc-icon-wrap ic-sky">✈️</div>
+      <h3 class="svc-title">Air Freight</h3>
+      <p class="svc-desc">Priority air cargo with door-to-door tracking. Partnered with 40+ airlines for daily worldwide departures.</p>
+      <a href="#" class="svc-link">Learn more →</a>
+    </div>
+    <div class="svc-card" style="transition-delay:0.12s">
+      <img class="svc-img" src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80&auto=format&fit=crop" alt="Sea Freight">
+      <span class="svc-tag tag-blue">FCL / LCL</span>
+      <div class="svc-icon-wrap ic-blue">🚢</div>
+      <h3 class="svc-title">Sea Freight</h3>
+      <p class="svc-desc">Cost-effective ocean freight across all major trade lanes. Full container or groupage — we handle it all.</p>
+      <a href="#" class="svc-link">Learn more →</a>
+    </div>
+    <div class="svc-card" style="transition-delay:0.19s">
+      <img class="svc-img" src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80&auto=format&fit=crop" alt="Road">
+      <span class="svc-tag tag-amber">FTL / LTL</span>
+      <div class="svc-icon-wrap ic-amber">🚛</div>
+      <h3 class="svc-title">Road Transport</h3>
+      <p class="svc-desc">GPS-tracked trucks across the full road network. Temperature-controlled options available nationwide.</p>
+      <a href="#" class="svc-link">Learn more →</a>
+    </div>
+    <div class="svc-card" style="transition-delay:0.26s">
+      <img class="svc-img" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80&auto=format&fit=crop" alt="Warehouse">
+      <span class="svc-tag tag-green">3PL</span>
+      <div class="svc-icon-wrap ic-green">🏭</div>
+      <h3 class="svc-title">Warehousing & 3PL</h3>
+      <p class="svc-desc">Smart fulfillment centers with WMS integration, pick & pack, kitting, and same-day dispatch capability.</p>
+      <a href="#" class="svc-link">Learn more →</a>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<div id="numbers">
+  <div class="num-item">
+    <div class="num-val" data-target="12400">0<span>+</span></div>
+    <div class="num-label">Monthly shipments processed globally</div>
+  </div>
+  <div class="num-item">
+    <div class="num-val" data-target="99">0<span>%</span></div>
+    <div class="num-label">On-time delivery rate, 90-day average</div>
+  </div>
+  <div class="num-item">
+    <div class="num-val" data-target="180">0<span>+</span></div>
+    <div class="num-label">Countries in our active network</div>
+  </div>
+  <div class="num-item">
+    <div class="num-val" data-target="25">0<span> yrs</span></div>
+    <div class="num-label">Years of logistics experience</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-img-col">
+    <div class="about-img-tag">Since 1999</div>
+    <img class="about-main-img" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&q=80&auto=format&fit=crop" alt="Operations">
+    <div class="about-badge-card">
+      <div class="abt-badge-num">4.9★</div>
+      <div class="abt-badge-txt">Average client rating across 1,200+ reviews</div>
+    </div>
+  </div>
+  <div class="about-content">
+    <div class="section-tag reveal">Our Story</div>
+    <h2 class="section-h reveal" style="transition-delay:0.1s">Built for Scale.<br><span class="hl">Trusted by All.</span></h2>
+    <p class="desc reveal" style="transition-delay:0.2s">VeloFreight was founded in 1999 with a single idea: logistics should be transparent, fast, and accessible to every business. Today, we operate in 40+ countries with a team of 3,200 specialists and a proprietary TMS platform that gives clients full supply chain visibility.</p>
+    <p class="desc reveal" style="transition-delay:0.25s">Our AI-powered routing engine selects the best combination of speed, cost, and carbon efficiency for every shipment — automatically.</p>
+    <div class="about-feats reveal" style="transition-delay:0.3s">
+      <div class="feat-row">ISO 9001 Certified</div>
+      <div class="feat-row">IATA Accredited</div>
+      <div class="feat-row">24/7 Control Tower</div>
+      <div class="feat-row">AI-Powered Routing</div>
+      <div class="feat-row">Carbon Neutral 2030</div>
+      <div class="feat-row">Real-time Visibility</div>
+    </div>
+    <div class="reveal" style="transition-delay:0.35s">
+      <button class="btn-primary">Meet The Team →</button>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="process">
+  <div class="process-head reveal">
+    <div class="section-tag">Simple Process</div>
+    <h2 class="section-h">Ship in <span class="hl">4 Steps</span></h2>
+  </div>
+  <div class="process-steps">
+    <div class="pstep" style="transition-delay:0.05s">
+      <div class="pstep-num">01</div>
+      <h3 class="pstep-title">Get a Quote</h3>
+      <p class="pstep-desc">Fill our form in under 60 seconds. Our AI returns an instant, competitive quote for your route.</p>
+    </div>
+    <div class="pstep" style="transition-delay:0.15s">
+      <div class="pstep-num">02</div>
+      <h3 class="pstep-title">We Plan the Route</h3>
+      <p class="pstep-desc">Our logistics team designs the optimal path using AI routing, carrier rates, and customs intelligence.</p>
+    </div>
+    <div class="pstep" style="transition-delay:0.25s">
+      <div class="pstep-num">03</div>
+      <h3 class="pstep-title">Pickup & Transit</h3>
+      <p class="pstep-desc">Your cargo is collected on schedule and moves through our vetted, insured carrier network.</p>
+    </div>
+    <div class="pstep" style="transition-delay:0.35s">
+      <div class="pstep-num">04</div>
+      <h3 class="pstep-title">Delivered ✓</h3>
+      <p class="pstep-desc">Track in real time. Receive photo proof of delivery and full digital documentation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section id="fleet">
+  <div class="fleet-head reveal">
+    <div>
+      <div class="section-tag">Our Fleet</div>
+      <h2 class="section-h">Built to <span class="hl">Deliver</span></h2>
+    </div>
+    <button class="btn-outline">View All Fleet →</button>
+  </div>
+  <div class="gallery-grid">
+    <div class="gitem tall">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&auto=format&fit=crop" alt="Heavy Trucks">
+      <div class="gitem-tag">Road</div>
+      <div class="glabel"><h4>Heavy Haulage Fleet</h4><p>200+ trucks across India</p></div>
+    </div>
+    <div class="gitem">
+      <img src="https://images.unsplash.com/photo-1562408590-e32931084e23?w=500&q=80&auto=format&fit=crop" alt="Ships">
+      <div class="gitem-tag">Ocean</div>
+      <div class="glabel"><h4>Container Vessels</h4><p>40,000+ TEU capacity</p></div>
+    </div>
+    <div class="gitem">
+      <img src="https://images.unsplash.com/photo-1627579809897-38afb36a8b4c?w=500&q=80&auto=format&fit=crop" alt="Air">
+      <div class="gitem-tag">Air</div>
+      <div class="glabel"><h4>Air Cargo Network</h4><p>40+ airline partners</p></div>
+    </div>
+    <div class="gitem">
+      <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=500&q=80&auto=format&fit=crop" alt="Warehouse">
+      <div class="gitem-tag">Storage</div>
+      <div class="glabel"><h4>Smart Warehouses</h4><p>3M sq.ft managed space</p></div>
+    </div>
+    <div class="gitem">
+      <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=500&q=80&auto=format&fit=crop" alt="Tech">
+      <div class="gitem-tag">Last Mile</div>
+      <div class="glabel"><h4>Urban Delivery Tech</h4><p>EV fleet + drone pilots</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACKING -->
+<section id="tracking">
+  <div class="tracking-grid">
+    <div class="track-left reveal">
+      <div class="section-tag">Real-Time</div>
+      <h2 class="section-h">Track Your<br><span class="hl">Shipment</span></h2>
+      <p>Enter your tracking ID for instant live updates — location, status, customs clearance, and ETA in one view.</p>
+      <div class="track-form-wrap">
+        <div class="track-input-row">
+          <input class="track-input" id="trackInput" type="text" placeholder="e.g. VF-2025-00812">
+          <button class="track-btn" id="trackBtn">Track Now</button>
+        </div>
+        <div class="track-hints">
+          <span class="track-hint">No login needed</span>
+          <span class="track-hint">Live map view</span>
+          <span class="track-hint">SMS alerts</span>
+        </div>
+      </div>
+    </div>
+    <div class="track-right reveal" style="transition-delay:0.2s">
+      <div class="tcard-header">
+        <div class="tcard-id">#VF-2025-00812</div>
+        <div class="tcard-status">● In Transit</div>
+      </div>
+      <div class="tcard-route">
+        <div class="tcard-city">
+          <div class="tcard-city-name">Mumbai</div>
+          <div class="tcard-city-code">BOM · Origin</div>
+        </div>
+        <div class="tcard-arrow">→</div>
+        <div class="tcard-city" style="text-align:right">
+          <div class="tcard-city-name">Frankfurt</div>
+          <div class="tcard-city-code">FRA · Destination</div>
+        </div>
+      </div>
+      <div class="tcard-timeline">
+        <div class="tl-item">
+          <div class="tl-dot tl-done"></div>
+          <div class="tl-text">
+            <div class="tl-title">Picked up from sender</div>
+            <div class="tl-time">May 28 · 09:14 AM</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot tl-done"></div>
+          <div class="tl-text">
+            <div class="tl-title">Departed Mumbai Airport</div>
+            <div class="tl-time">May 28 · 11:40 PM</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot tl-current"></div>
+          <div class="tl-text">
+            <div class="tl-title">In transit — Dubai layover</div>
+            <div class="tl-time">May 29 · 04:22 AM · Now</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot tl-pending"></div>
+          <div class="tl-text">
+            <div class="tl-title">Arriving Frankfurt</div>
+            <div class="tl-time">May 30 · Est. 08:00 AM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="test-head reveal">
+    <div class="section-tag">Client Stories</div>
+    <h2 class="section-h">What They <span class="hl">Say</span></h2>
+  </div>
+  <div class="test-grid">
+    <div class="tcard" style="transition-delay:0.05s">
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">"VeloFreight cut our import lead time from 3 weeks to 9 days. The tracking platform is genuinely world-class — our ops team loves it."</p>
+      <div class="tcard-author">
+        <img class="tcard-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face" alt="">
+        <div>
+          <div class="tcard-name">Rajesh Mehta</div>
+          <div class="tcard-role">Supply Chain Director, Tata Consumer</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard" style="transition-delay:0.15s">
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">"We handle 500+ shipments monthly across 30 countries. Zero-exception customs handling and brilliant account support sets VeloFreight apart."</p>
+      <div class="tcard-author">
+        <img class="tcard-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face" alt="">
+        <div>
+          <div class="tcard-name">Priya Sharma</div>
+          <div class="tcard-role">Head of Operations, GlobalMed</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard" style="transition-delay:0.25s">
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">"Cold chain precision is non-negotiable for us. VeloFreight's refrigerated fleet and monitoring gave us confidence to expand into five new markets."</p>
+      <div class="tcard-author">
+        <img class="tcard-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face" alt="">
+        <div>
+          <div class="tcard-name">Arjun Kapoor</div>
+          <div class="tcard-role">CEO, FreshRoute Agri</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-inner reveal">
+    <div class="section-tag">Get Started</div>
+    <h2 class="section-h">Ready to Ship<br><span class="hl">Smarter?</span></h2>
+    <p>Get a free consultation with our experts. No commitment, no hidden fees — just the best logistics solution for your business.</p>
+    <div class="cta-actions">
+      <button class="btn-white">Get Free Quote →</button>
+      <button class="btn-wghost">📞 Call +91 22 4001 8000</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="f-brand">
+      <span class="nav-logo">Velo<span style="opacity:0.4">Freight</span></span>
+      <p>Delivering the world's goods with precision, speed, and care. Your trusted partner in global logistics since 1999.</p>
+      <div class="f-socials">
+        <a href="#" class="f-soc">in</a>
+        <a href="#" class="f-soc">tw</a>
+        <a href="#" class="f-soc">yt</a>
+        <a href="#" class="f-soc">ig</a>
+      </div>
+    </div>
+    <div class="f-col">
+      <h4>Services</h4>
+      <ul class="f-links">
+        <li><a href="#">Air Freight</a></li>
+        <li><a href="#">Sea Freight</a></li>
+        <li><a href="#">Road Transport</a></li>
+        <li><a href="#">Warehousing</a></li>
+        <li><a href="#">Cold Chain</a></li>
+        <li><a href="#">Customs</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Company</h4>
+      <ul class="f-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Contact</h4>
+      <ul class="f-links">
+        <li><a href="#">📍 Mumbai, India</a></li>
+        <li><a href="#">📞 +91 22 4001 8000</a></li>
+        <li><a href="#">✉️ hello@velofreight.com</a></li>
+        <li><a href="#">🌐 velofreight.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 VeloFreight Logistics Pvt. Ltd. All rights reserved.</p>
+    <p>Privacy · Terms · Sitemap</p>
+  </div>
+</footer>
+
+<button class="fab" title="Chat with us">💬</button>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
+});
+
+// IntersectionObserver for reveals
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.12});
+document.querySelectorAll('.reveal,.svc-card,.pstep,.tcard').forEach(el=>io.observe(el));
+
+// Counter animation
+function animateCount(el,target,suffix){
+  let v=0;const step=target/60;
+  const t=setInterval(()=>{
+    v=Math.min(v+step,target);
+    el.innerHTML=Math.floor(v).toLocaleString()+'<span>'+suffix+'</span>';
+    if(v>=target)clearInterval(t);
+  },25);
+}
+const numIo=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;
+      const t=parseInt(el.getAttribute('data-target'));
+      const s=el.querySelector('span').textContent;
+      animateCount(el,t,s);
+      numIo.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.num-val[data-target]').forEach(el=>numIo.observe(el));
+
+// Hero count-up cards
+let hStarted=false;
+const heroCountIo=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!hStarted){
+    hStarted=true;
+    let v=0;
+    const t=setInterval(()=>{v=Math.min(v+220,12400);document.getElementById('hero-count').textContent=v.toLocaleString();if(v>=12400)clearInterval(t);},20);
+    let p=0;
+    const t2=setInterval(()=>{p=Math.min(p+2,99);document.getElementById('hero-pct').textContent=p+'%';if(p>=99)clearInterval(t2);},30);
+  }
+},{threshold:0.3});
+const heroEl=document.getElementById('hero');if(heroEl)heroCountIo.observe(heroEl);
+
+// Track button
+document.getElementById('trackBtn').addEventListener('click',function(){
+  const val=document.getElementById('trackInput').value.trim();
+  if(val){
+    this.textContent='✓ Found!';
+    this.style.background='#16a34a';
+    setTimeout(()=>{this.textContent='Track Now';this.style.background='';},2500);
+  } else {
+    document.getElementById('trackInput').style.borderColor='#ef4444';
+    setTimeout(()=>{document.getElementById('trackInput').style.borderColor='';},2000);
+  }
+});
+</script>
+</body>
+</html>
