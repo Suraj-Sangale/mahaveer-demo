@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VeloFreight — Modern Logistics</title>
+  <title>MahaveerTrans — Modern Logistics</title>
 
   <!-- All font options preloaded -->
   <link
@@ -2041,26 +2041,285 @@
     }
 
     /* ═══════════════════════════════════════════
-   RESPONSIVE
+   MOBILE NAV — Hamburger + Drawer
+═══════════════════════════════════════════ */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      border: 1.5px solid var(--border2);
+      border-radius: 8px;
+      background: none;
+      cursor: pointer;
+      padding: 8px;
+      transition: border-color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .hamburger:hover {
+      border-color: var(--accent);
+    }
+
+    .ham-line {
+      width: 100%;
+      height: 1.5px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    .hamburger.open .ham-line:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+
+    .hamburger.open .ham-line:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger.open .ham-line:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    /* Mobile drawer overlay */
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 250;
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .mobile-nav-overlay.open {
+      opacity: 1;
+    }
+
+    /* Mobile drawer panel */
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(320px, 85vw);
+      background: var(--card);
+      z-index: 260;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      border-left: 1px solid var(--border);
+    }
+
+    .mobile-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .drawer-logo {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .drawer-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border2);
+      background: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .drawer-close:hover {
+      background: var(--bg3);
+      color: var(--ink);
+    }
+
+    .drawer-links {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 0;
+      flex: 1;
+    }
+
+    .drawer-links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.25rem;
+      color: var(--ink3);
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .drawer-links a:last-of-type {
+      border-bottom: none;
+    }
+
+    .drawer-links a:hover {
+      color: var(--accent);
+      background: var(--accent-lt);
+      padding-left: 1.5rem;
+    }
+
+    .drawer-links a::after {
+      content: '→';
+      color: var(--muted2);
+      font-size: 0.8rem;
+      transition: transform 0.2s;
+    }
+
+    .drawer-links a:hover::after {
+      transform: translateX(4px);
+      color: var(--accent);
+    }
+
+    .drawer-actions {
+      padding: 1.25rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    .drawer-settings {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: var(--bg2);
+      border-radius: 10px;
+    }
+
+    .drawer-settings-lbl {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink3);
+    }
+
+    .drawer-theme-row {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .drawer-font-btn {
+      width: 100%;
+      background: none;
+      border: 1.5px solid var(--border2);
+      color: var(--ink3);
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .drawer-font-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════
+   RESPONSIVE — TABLET (≤1024px)
 ═══════════════════════════════════════════ */
     @media(max-width:1024px) {
+
+      /* Nav */
+      .nav-links,
+      .nav-right .btn-ghost,
+      .nav-right .btn-cta,
+      .font-btn {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-nav-overlay {
+        display: block;
+      }
+
+      /* Hero */
       #hero {
         grid-template-columns: 1fr;
         padding-top: 66px;
+        min-height: auto;
+        padding-bottom: 3rem;
       }
 
       .hero-right {
         display: none;
       }
 
+      .hero-left {
+        padding: 3rem 0 0;
+      }
+
+      .hero-h1 {
+        font-size: clamp(2.4rem, 6vw, 4rem);
+      }
+
+      /* About */
       #about {
         grid-template-columns: 1fr;
+        gap: 0;
+        padding: 4rem 5%;
       }
 
       .about-img-col {
+        display: block;
+        margin-bottom: 2.5rem;
+      }
+
+      .about-main-img {
+        height: 300px;
+      }
+
+      .about-badge {
+        bottom: -1rem;
+        right: -0.5rem;
+      }
+
+      .about-tag-strip {
         display: none;
       }
 
+      /* Numbers */
       #numbers {
         grid-template-columns: 1fr 1fr;
       }
@@ -2070,59 +2329,366 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       }
 
+      .num-item:nth-child(odd) {
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .num-val {
+        font-size: 2.2rem;
+      }
+
+      /* Process */
       .proc-steps {
         grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
       }
 
       .proc-steps::before {
         display: none;
       }
 
+      /* Fleet */
       .gal-grid {
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto;
+        grid-template-rows: 220px 220px 220px;
       }
 
       .gi.tall {
         grid-row: span 1;
       }
 
+      /* Tracking */
       .track-grid {
         grid-template-columns: 1fr;
+        gap: 2.5rem;
       }
 
+      /* Testimonials */
       .test-grid {
         grid-template-columns: 1fr 1fr;
       }
 
+      /* Footer */
       .f-top {
         grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+
+      /* Services */
+      .svc-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      /* Font panel full on tablet */
+      .font-panel {
+        width: 340px;
       }
     }
 
+    /* ═══════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤640px)
+═══════════════════════════════════════════ */
     @media(max-width:640px) {
-      .nav-links {
-        display: none;
+      section {
+        padding: 3rem 4%;
       }
 
+      /* Nav */
+      nav {
+        padding: 0 4%;
+        height: 60px;
+      }
+
+      .nav-logo {
+        font-size: 1.1rem;
+      }
+
+      /* Hero */
+      #hero {
+        padding: 60px 4% 2.5rem;
+        gap: 0;
+      }
+
+      .hero-left {
+        padding: 2rem 0 0;
+      }
+
+      .hero-h1 {
+        font-size: clamp(2rem, 9vw, 3rem);
+        line-height: 1.08;
+      }
+
+      .hero-desc {
+        font-size: 0.92rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        gap: 0.65rem;
+      }
+
+      .hero-actions .btn-primary,
+      .hero-actions .btn-outline {
+        width: 100%;
+        justify-content: center;
+        padding: 0.85rem 1rem;
+      }
+
+      .hero-pill {
+        font-size: 0.7rem;
+        padding: 0.28rem 0.75rem;
+      }
+
+      .hero-trust {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.65rem;
+      }
+
+      .hero-chip {
+        font-size: 0.38em;
+      }
+
+      /* Ticker */
+      .t-item {
+        padding: 0 1.2rem;
+        font-size: 0.7rem;
+      }
+
+      /* Clients */
+      #clients {
+        padding: 2rem 4%;
+      }
+
+      .clients-inner {
+        flex-direction: column;
+        gap: 1.25rem;
+        text-align: center;
+      }
+
+      .clients-logos {
+        gap: 1.5rem;
+      }
+
+      .clogo {
+        font-size: 0.9rem;
+      }
+
+      /* Services */
+      .svc-top {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .svc-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .svc-img {
+        height: 130px;
+      }
+
+      /* Numbers */
       #numbers {
         grid-template-columns: 1fr 1fr;
       }
 
+      .num-item {
+        padding: 2rem 1.25rem;
+      }
+
+      .num-val {
+        font-size: 1.9rem;
+      }
+
+      .num-lbl {
+        font-size: 0.74rem;
+      }
+
+      /* About */
+      #about {
+        padding: 3rem 4%;
+      }
+
+      .about-main-img {
+        height: 230px;
+        border-radius: var(--radius-lg);
+      }
+
+      .about-badge {
+        bottom: -0.75rem;
+        right: 0.5rem;
+        padding: 0.85rem 1.1rem;
+      }
+
+      .ab-num {
+        font-size: 1.9rem;
+      }
+
+      .about-feats {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      /* Process */
+      .proc-steps {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      .pstep {
+        text-align: left;
+        display: flex;
+        gap: 1.1rem;
+        align-items: flex-start;
+      }
+
+      .pstep-n {
+        margin: 0;
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+      }
+
+      .pstep-content {
+        flex: 1;
+      }
+
+      /* Fleet gallery — single column stacked */
+      .gal-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 0.65rem;
+      }
+
+      .gi {
+        height: 200px;
+      }
+
+      .gi.tall {
+        height: 200px;
+        grid-row: span 1;
+      }
+
+      .gi-label {
+        opacity: 1;
+        transform: translateY(0);
+        background: linear-gradient(to top, rgba(13, 17, 23, 0.85), transparent);
+      }
+
+      /* Tracking */
+      .track-grid {
+        gap: 2rem;
+      }
+
+      .track-right {
+        padding: 1.5rem;
+      }
+
+      .tc-route {
+        gap: 0.6rem;
+      }
+
+      .tc-city-name {
+        font-size: 0.92rem;
+      }
+
+      /* Testimonials */
       .test-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
       }
 
+      /* CTA */
+      #cta {
+        padding: 4.5rem 4%;
+      }
+
+      .cta-btns {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-w,
+      .btn-wg {
+        width: 100%;
+        max-width: 340px;
+        justify-content: center;
+      }
+
+      /* Footer */
       .f-top {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .f-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+
+      footer {
+        padding: 3rem 4% 1.5rem;
+      }
+
+      /* Font panel */
+      .font-panel {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--border);
+      }
+
+      .fp-color {
+        width: 28px;
+        height: 28px;
+      }
+
+      /* Sections label centered on mobile */
+      .svc-top .sec-tag,
+      .fleet-head .sec-tag {
+        justify-content: flex-start;
+      }
+
+      .fleet-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .fleet-head .btn-outline {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* ═══════════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE (≤380px)
+═══════════════════════════════════════════ */
+    @media(max-width:380px) {
+      .hero-h1 {
+        font-size: 1.9rem;
+      }
+
+      .sec-h {
+        font-size: 1.7rem;
+      }
+
+      #numbers {
         grid-template-columns: 1fr;
       }
 
-      section {
-        padding: 3.75rem 5%;
+      .num-item:nth-child(odd) {
+        border-right: none;
       }
 
-      .font-panel {
-        width: 100%;
+      .num-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       }
     }
   </style>
@@ -2167,46 +2733,40 @@
         <div id="displayFonts">
           <div class="fp-font-opt active" data-role="display" data-font="Syne">
             <div class="fopt-name">Syne</div>
-            <div class="fopt-preview" style="font-family:'Syne',sans-serif;font-weight:800;">Mahaveer Trans solutions
-            </div>
+            <div class="fopt-preview" style="font-family:'Syne',sans-serif;font-weight:800;">Global Logistics</div>
             <div class="fopt-hint">💡 Great for tech brands — geometric, bold, very modern. Best paired with a humanist
               body font like Instrument Sans or Plus Jakarta Sans.</div>
           </div>
           <div class="fp-font-opt" data-role="display" data-font="Playfair Display">
             <div class="fopt-name">Playfair Display</div>
-            <div class="fopt-preview" style="font-family:'Playfair Display',serif;font-weight:700;">Mahaveer Trans
-              solutions
+            <div class="fopt-preview" style="font-family:'Playfair Display',serif;font-weight:700;">Global Logistics
             </div>
             <div class="fopt-hint">💡 Elegant serif — ideal for premium or luxury positioning. Gives a high-end,
               editorial feel. Pairs well with Outfit or Nunito body fonts.</div>
           </div>
           <div class="fp-font-opt" data-role="display" data-font="Outfit">
             <div class="fopt-name">Outfit</div>
-            <div class="fopt-preview" style="font-family:'Outfit',sans-serif;font-weight:700;">Mahaveer Trans solutions
-            </div>
+            <div class="fopt-preview" style="font-family:'Outfit',sans-serif;font-weight:700;">Global Logistics</div>
             <div class="fopt-hint">💡 Clean, rounded, approachable. Perfect for SaaS or startup feel. Works great as
               both display and body — use weight 700+ for headings.</div>
           </div>
           <div class="fp-font-opt" data-role="display" data-font="Josefin Sans">
             <div class="fopt-name">Josefin Sans</div>
-            <div class="fopt-preview" style="font-family:'Josefin Sans',sans-serif;font-weight:700;">Mahaveer Trans
-              solutions
+            <div class="fopt-preview" style="font-family:'Josefin Sans',sans-serif;font-weight:700;">Global Logistics
             </div>
             <div class="fopt-hint">💡 Narrow, art-deco inspired — very distinctive and stylish. Great for
               logistics/industrial brands. Best with a neutral body font for contrast.</div>
           </div>
           <div class="fp-font-opt" data-role="display" data-font="Cormorant Garamond">
             <div class="fopt-name">Cormorant Garamond</div>
-            <div class="fopt-preview" style="font-family:'Cormorant Garamond',serif;font-weight:700;">Mahaveer Trans
-              solutions
+            <div class="fopt-preview" style="font-family:'Cormorant Garamond',serif;font-weight:700;">Global Logistics
             </div>
             <div class="fopt-hint">💡 Classic Roman serif — ultra-refined, almost fashion-magazine feel. Use large sizes
               only (48px+). Best paired with a clean sans body like Space Grotesk.</div>
           </div>
           <div class="fp-font-opt" data-role="display" data-font="Space Grotesk">
             <div class="fopt-name">Space Grotesk</div>
-            <div class="fopt-preview" style="font-family:'Space Grotesk',sans-serif;font-weight:700;">Mahaveer Trans
-              solutions
+            <div class="fopt-preview" style="font-family:'Space Grotesk',sans-serif;font-weight:700;">Global Logistics
             </div>
             <div class="fopt-hint">💡 Techy, slightly quirky grotesque — loved in fintech and logistics apps. Maintains
               readability at all sizes. Pairs naturally with Plus Jakarta Sans.</div>
@@ -2259,9 +2819,42 @@
     </div>
   </div>
 
+  <!-- ═══ MOBILE OVERLAY ═══ -->
+  <div class="mobile-nav-overlay" id="mobileOverlay"></div>
+
+  <!-- ═══ MOBILE DRAWER ═══ -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <div class="drawer-logo">Mahaveer<span style="opacity:0.45">Trans Solutions</span></div>
+      <button class="drawer-close" id="drawerClose">✕</button>
+    </div>
+    <div class="drawer-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#fleet">Fleet</a>
+      <a href="#tracking">Track Shipment</a>
+      <a href="#testimonials">Client Reviews</a>
+      <a href="#cta">Get a Quote</a>
+    </div>
+    <div class="drawer-actions">
+      <div class="drawer-settings">
+        <span class="drawer-settings-lbl">☀️ / 🌙 Theme</span>
+        <div class="drawer-theme-row">
+          <button class="theme-toggle" id="themeToggleMobile"></button>
+        </div>
+      </div>
+      <button class="drawer-font-btn" id="fontToggleBtnMobile">
+        <span>Aa</span> Fonts & Accent Color
+      </button>
+      <button class="btn-cta" style="width:100%;padding:0.75rem;justify-content:center;display:flex;" id="drawerCta">
+        Get Free Quote →
+      </button>
+    </div>
+  </div>
+
   <!-- ═══ NAV ═══ -->
   <nav id="navbar">
-    <div class="nav-logo" id="navLogo"><span>Velo</span>Freight<div class="dot"></div>
+    <div class="nav-logo" id="navLogo"><span>Mahaveer</span>Trans Solutions<div class="dot"></div>
     </div>
     <div class="nav-links" id="navLinks">
       <a href="#services">Services</a>
@@ -2275,12 +2868,17 @@
         <span class="font-btn-icon">Aa</span> Fonts & Style
       </button>
       <div style="display:flex;align-items:center;gap:0.55rem;">
-        <span class="theme-icon" id="themeIcon">☀️</span>
+        <span class="theme-icon">☀️</span>
         <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode"></button>
-        <span class="theme-icon" id="themeIcon2">🌙</span>
+        <span class="theme-icon">🌙</span>
       </div>
-      <button class="btn-ghost" id="loginBtn">Log in</button>
-      <button class="btn-cta" id="getQuoteBtn">Get Quote →</button>
+      <button class="btn-ghost">Log in</button>
+      <button class="btn-cta">Get Quote →</button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+      </button>
     </div>
   </nav>
 
@@ -2303,7 +2901,7 @@
       <div class="hero-trust">
         <div class="trust-avs" id="trustAvatars"></div>
         <div class="trust-txt"><strong id="trustCount">4,800+</strong> <span id="trustLabel">businesses trust
-            VeloFreight</span></div>
+            MahaveerTrans</span></div>
       </div>
     </div>
     <div class="hero-right">
@@ -2468,14 +3066,14 @@
   <footer>
     <div class="f-top" id="footerTop">
       <div class="f-brand">
-        <span class="f-brand-logo">VeloFreight</span>
+        <span class="f-brand-logo">MahaveerTrans</span>
         <p id="footerTagline">Loading...</p>
         <div class="f-socs" id="footerSocials"></div>
       </div>
       <!-- columns rendered by JS -->
     </div>
     <div class="f-bottom">
-      <p id="footerCopy">© 2025 VeloFreight Logistics Pvt. Ltd.</p>
+      <p id="footerCopy">© 2025 MahaveerTrans Logistics Pvt. Ltd.</p>
       <p>Privacy · Terms · Sitemap</p>
     </div>
   </footer>
@@ -2489,12 +3087,12 @@
     /* ─── EMBEDDED JSON DATA ─── */
     const SITE_DATA = {
       "company": {
-        "name": "VeloFreight",
-        "tagline": "Delivering the world's goods with precision, speed, and care — your trusted partner in Mahaveer Trans solutions since 1999.",
+        "name": "MahaveerTrans",
+        "tagline": "Delivering the world's goods with precision, speed, and care — your trusted partner in global logistics since 1999.",
         "founded": "1999",
         "phone": "+91 22 4001 8000",
-        "email": "hello@velofreight.com",
-        "website": "velofreight.com",
+        "email": "hello@MahaveerTrans.com",
+        "website": "MahaveerTrans.com",
         "address": "Mumbai, India",
         "rating": "4.9★",
         "ratingLabel": "Average rating across 1,200+ reviews"
@@ -2509,7 +3107,7 @@
         "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80&auto=format&fit=crop",
         "trust": {
           "count": "4,800+",
-          "label": "businesses trust VeloFreight",
+          "label": "businesses trust MahaveerTrans",
           "avatars": [
             "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face",
             "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face",
@@ -2537,7 +3135,7 @@
       ],
       "about": {
         "title": "Built for Scale.\nTrusted by All.",
-        "p1": "VeloFreight was founded in 1999 with a single idea: logistics should be transparent, fast, and accessible to every business. Today we operate in 40+ countries with 3,200 specialists and a proprietary TMS platform that gives clients full supply chain visibility.",
+        "p1": "MahaveerTrans was founded in 1999 with a single idea: logistics should be transparent, fast, and accessible to every business. Today we operate in 40+ countries with 3,200 specialists and a proprietary TMS platform that gives clients full supply chain visibility.",
         "p2": "Our AI-powered routing engine selects the best combination of speed, cost, and carbon efficiency for every shipment — automatically optimised in real time.",
         "image": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&q=80&auto=format&fit=crop",
         "features": ["ISO 9001 Certified", "IATA Accredited", "24/7 Control Tower", "AI-Powered Routing", "Carbon Neutral 2030", "Real-time Visibility"]
@@ -2571,9 +3169,9 @@
         }
       },
       "testimonials": [
-        { "stars": "★★★★★", "text": "VeloFreight cut our import lead time from 3 weeks to 9 days. The tracking platform is genuinely world-class — our ops team loves it.", "name": "Rajesh Mehta", "role": "Supply Chain Director, Tata Consumer", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face" },
-        { "stars": "★★★★★", "text": "We handle 500+ shipments monthly across 30 countries. Zero-exception customs handling and brilliant account support sets VeloFreight apart.", "name": "Priya Sharma", "role": "Head of Operations, GlobalMed", "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face" },
-        { "stars": "★★★★★", "text": "Cold chain precision is non-negotiable for us. VeloFreight's refrigerated fleet and monitoring gave us confidence to expand into five new markets.", "name": "Arjun Kapoor", "role": "CEO, FreshRoute Agri", "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face" }
+        { "stars": "★★★★★", "text": "MahaveerTrans cut our import lead time from 3 weeks to 9 days. The tracking platform is genuinely world-class — our ops team loves it.", "name": "Rajesh Mehta", "role": "Supply Chain Director, Tata Consumer", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face" },
+        { "stars": "★★★★★", "text": "We handle 500+ shipments monthly across 30 countries. Zero-exception customs handling and brilliant account support sets MahaveerTrans apart.", "name": "Priya Sharma", "role": "Head of Operations, GlobalMed", "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face" },
+        { "stars": "★★★★★", "text": "Cold chain precision is non-negotiable for us. MahaveerTrans's refrigerated fleet and monitoring gave us confidence to expand into five new markets.", "name": "Arjun Kapoor", "role": "CEO, FreshRoute Agri", "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face" }
       ],
       "cta": {
         "title": "Ready to Ship Smarter?",
@@ -2592,9 +3190,9 @@
         "columns": [
           { "heading": "Services", "links": [["Air Freight", "#"], ["Sea Freight", "#"], ["Road Transport", "#"], ["Warehousing", "#"], ["Cold Chain", "#"], ["Customs", "#"]] },
           { "heading": "Company", "links": [["About Us", "#"], ["Careers", "#"], ["Sustainability", "#"], ["Press", "#"], ["Contact", "#"]] },
-          { "heading": "Contact", "links": [["📍 Mumbai, India", "#"], ["📞 +91 22 4001 8000", "#"], ["✉️ hello@velofreight.com", "#"], ["🌐 velofreight.com", "#"]] }
+          { "heading": "Contact", "links": [["📍 Mumbai, India", "#"], ["📞 +91 22 4001 8000", "#"], ["✉️ hello@MahaveerTrans.com", "#"], ["🌐 MahaveerTrans.com", "#"]] }
         ],
-        "copyright": "© 2025 VeloFreight Logistics Pvt. Ltd. All rights reserved."
+        "copyright": "© 2025 MahaveerTrans Logistics Pvt. Ltd. All rights reserved."
       }
     };
 
@@ -2651,8 +3249,10 @@
       document.getElementById('procSteps').innerHTML = d.process.map((p, i) => `
     <div class="pstep" style="transition-delay:${i * 0.1}s">
       <div class="pstep-n">${p.num}</div>
-      <h3 class="pstep-title">${p.title}</h3>
-      <p class="pstep-desc">${p.desc}</p>
+      <div class="pstep-content">
+        <h3 class="pstep-title">${p.title}</h3>
+        <p class="pstep-desc">${p.desc}</p>
+      </div>
     </div>`).join('');
 
       /* Fleet */
@@ -2766,20 +3366,52 @@
       if (hero) hio.observe(hero);
     }
 
-    /* ─── THEME TOGGLE ─── */
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-      const isDark = document.documentElement.dataset.theme === 'dark';
-      document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
-      localStorage.setItem('vf-theme', isDark ? 'light' : 'dark');
-    });
-    // Restore saved theme
+    /* ─── THEME TOGGLE (desktop + mobile) ─── */
+    function applyTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem('vf-theme', theme);
+    }
+    function toggleTheme() {
+      applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+    }
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    document.getElementById('themeToggleMobile').addEventListener('click', toggleTheme);
     const saved = localStorage.getItem('vf-theme');
-    if (saved) document.documentElement.dataset.theme = saved;
+    if (saved) applyTheme(saved);
 
-    /* ─── FONT PANEL ─── */
+    /* ─── HAMBURGER / DRAWER ─── */
+    const hamburger = document.getElementById('hamburger');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function openDrawer() {
+      hamburger.classList.add('open');
+      mobileDrawer.classList.add('open');
+      mobileOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      hamburger.classList.remove('open');
+      mobileDrawer.classList.remove('open');
+      mobileOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    hamburger.addEventListener('click', openDrawer);
+    document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+    mobileOverlay.addEventListener('click', closeDrawer);
+    // Close drawer on nav link click
+    document.querySelectorAll('.drawer-links a').forEach(a => {
+      a.addEventListener('click', closeDrawer);
+    });
+
+    /* ─── FONT PANEL (desktop + mobile trigger) ─── */
     const fontPanel = document.getElementById('fontPanel');
-    document.getElementById('fontToggleBtn').addEventListener('click', () => fontPanel.classList.toggle('open'));
+    function toggleFontPanel() {
+      fontPanel.classList.toggle('open');
+      closeDrawer();
+    }
+    document.getElementById('fontToggleBtn').addEventListener('click', toggleFontPanel);
+    document.getElementById('fontToggleBtnMobile').addEventListener('click', toggleFontPanel);
     document.getElementById('fpClose').addEventListener('click', () => fontPanel.classList.remove('open'));
 
     // Display font
