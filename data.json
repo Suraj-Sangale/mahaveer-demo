@@ -1,0 +1,56 @@
+{
+  "pageInfo": {
+    "title": "Mahaveer — Modern Logistics",
+    "description": "Modern logistics and freight services",
+    "language": "en",
+    "charset": "UTF-8",
+    "viewport": "width=device-width, initial-scale=1.0"
+  },
+  "company": {
+    "name": "Mahaveer",
+    "tagline": "Modern Logistics",
+    "industry": "Logistics & Freight Services"
+  },
+  "colors": {
+    "primary": "#0ea5e9",
+    "primaryDark": "#0284c7",
+    "secondary": "#1d4ed8",
+    "accent": "#f59e0b",
+    "text": "#0d1117",
+    "textMuted": "#6b7280",
+    "background": "#ffffff"
+  },
+  "fonts": {
+    "display": "Syne",
+    "body": "Instrument Sans",
+    "weights": ["300", "400", "500", "600", "700", "800"]
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "name": "Navigation",
+      "type": "Header"
+    },
+    {
+      "id": "hero",
+      "name": "Hero Section",
+      "type": "Banner"
+    },
+    {
+      "id": "features",
+      "name": "Features",
+      "type": "Content"
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "type": "Footer"
+    }
+  ],
+  "metadata": {
+    "author": "Mahaveer Team",
+    "createdDate": "2024",
+    "version": "1.0",
+    "theme": "light"
+  }
+}
