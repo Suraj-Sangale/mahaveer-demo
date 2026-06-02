@@ -129,7 +129,7 @@
       border: none;
       cursor: pointer;
       position: relative;
-      transition: background 0.3s;
+      transition: background .3s;
       flex-shrink: 0;
     }
 
@@ -142,8 +142,8 @@
       height: 18px;
       border-radius: 50%;
       background: var(--bg);
-      transition: transform 0.3s, background 0.3s;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      transition: transform .3s, background .3s;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
     }
 
     [data-theme="dark"] .theme-toggle {
@@ -155,7 +155,7 @@
     }
 
     .theme-icon {
-      font-size: 0.85rem;
+      font-size: .85rem;
       pointer-events: none;
     }
 
@@ -170,10 +170,10 @@
       width: 320px;
       background: var(--card);
       border-left: 1px solid var(--border);
-      box-shadow: -8px 0 40px rgba(0, 0, 0, 0.12);
+      box-shadow: -8px 0 40px rgba(0, 0, 0, .12);
       z-index: 500;
       transform: translateX(100%);
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform .4s cubic-bezier(.4, 0, .2, 1);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -197,7 +197,7 @@
       font-size: 1rem;
       font-weight: 700;
       color: var(--ink);
-      letter-spacing: 0.02em;
+      letter-spacing: .02em;
     }
 
     .fp-close {
@@ -212,7 +212,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
+      transition: all .2s;
     }
 
     .fp-close:hover {
@@ -231,15 +231,15 @@
     }
 
     .fp-section-label {
-      font-size: 0.7rem;
+      font-size: .7rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 0.85rem;
+      margin-bottom: .85rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: .5rem;
     }
 
     .fp-section-label::after {
@@ -249,14 +249,13 @@
       background: var(--border);
     }
 
-    /* Font option card */
     .fp-font-opt {
       border: 1.5px solid var(--border);
       border-radius: 10px;
-      padding: 0.85rem 1rem;
-      margin-bottom: 0.6rem;
+      padding: .85rem 1rem;
+      margin-bottom: .6rem;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all .2s;
       position: relative;
       background: var(--bg);
     }
@@ -274,46 +273,45 @@
     .fp-font-opt.active::after {
       content: '✓';
       position: absolute;
-      top: 0.75rem;
-      right: 0.85rem;
+      top: .75rem;
+      right: .85rem;
       color: var(--accent);
-      font-size: 0.8rem;
+      font-size: .8rem;
       font-weight: 700;
     }
 
     .fopt-name {
-      font-size: 0.82rem;
+      font-size: .82rem;
       font-weight: 600;
       color: var(--ink);
-      margin-bottom: 0.25rem;
+      margin-bottom: .25rem;
     }
 
     .fopt-preview {
       font-size: 1.15rem;
       color: var(--ink2);
       line-height: 1.2;
-      margin-bottom: 0.3rem;
+      margin-bottom: .3rem;
     }
 
     .fopt-hint {
-      font-size: 0.7rem;
+      font-size: .7rem;
       color: var(--muted);
       line-height: 1.4;
       background: var(--bg3);
       border-radius: 6px;
-      padding: 0.35rem 0.6rem;
-      margin-top: 0.4rem;
+      padding: .35rem .6rem;
+      margin-top: .4rem;
       border-left: 2px solid var(--accent);
     }
 
     .fp-font-opt.active .fopt-hint {
-      background: rgba(14, 165, 233, 0.08);
+      background: rgba(14, 165, 233, .08);
     }
 
-    /* Accent color picker */
     .fp-colors {
       display: flex;
-      gap: 0.5rem;
+      gap: .5rem;
       flex-wrap: wrap;
     }
 
@@ -323,7 +321,7 @@
       border-radius: 50%;
       cursor: pointer;
       border: 2px solid transparent;
-      transition: all 0.2s;
+      transition: all .2s;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -341,25 +339,24 @@
     .fp-color.active::after {
       content: '✓';
       color: white;
-      font-size: 0.75rem;
+      font-size: .75rem;
       font-weight: 700;
     }
 
-    /* Font panel trigger */
     .font-btn {
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: .45rem;
       border: 1.5px solid var(--border2);
       border-radius: 8px;
-      padding: 0.42rem 0.85rem;
+      padding: .42rem .85rem;
       background: none;
       cursor: pointer;
       color: var(--ink3);
-      font-size: 0.8rem;
+      font-size: .8rem;
       font-weight: 600;
       font-family: var(--font-body);
-      transition: all 0.2s;
+      transition: all .2s;
     }
 
     .font-btn:hover {
@@ -368,12 +365,9 @@
     }
 
     .font-btn-icon {
-      font-size: 0.95rem;
+      font-size: .95rem;
     }
 
-    /* ═══════════════════════════════════════════
-   NAVBAR
-═══════════════════════════════════════════ */
     nav {
       position: fixed;
       top: 0;
@@ -385,15 +379,15 @@
       justify-content: space-between;
       padding: 0 5%;
       height: 66px;
-      background: rgba(var(--bg-rgb, 255, 255, 255), 0.88);
+      background: rgba(255, 255, 255, .88);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
-      transition: box-shadow 0.3s, background 0.3s, border-color 0.3s;
+      transition: box-shadow .3s, background .3s, border-color .3s;
     }
 
     [data-theme="dark"] nav {
-      background: rgba(13, 17, 23, 0.88);
+      background: rgba(13, 17, 23, .88);
     }
 
     nav.scrolled {
@@ -405,10 +399,10 @@
       font-size: 1.3rem;
       font-weight: 800;
       color: var(--ink);
-      letter-spacing: -0.02em;
+      letter-spacing: -.02em;
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: .45rem;
       white-space: nowrap;
     }
 
@@ -430,24 +424,24 @@
       }
 
       50% {
-        opacity: 0.5;
+        opacity: .5;
         transform: scale(1.4);
       }
     }
 
     .nav-links {
       display: flex;
-      gap: 0.15rem;
+      gap: .15rem;
       align-items: center;
     }
 
     .nav-links a {
       color: var(--muted);
-      font-size: 0.855rem;
+      font-size: .855rem;
       font-weight: 500;
-      padding: 0.4rem 0.85rem;
+      padding: .4rem .85rem;
       border-radius: 8px;
-      transition: all 0.2s;
+      transition: all .2s;
     }
 
     .nav-links a:hover {
@@ -458,20 +452,20 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: .65rem;
     }
 
     .btn-ghost {
       background: none;
       border: 1.5px solid var(--border2);
       color: var(--ink3);
-      padding: 0.46rem 1.1rem;
+      padding: .46rem 1.1rem;
       border-radius: 8px;
       font-family: var(--font-body);
-      font-size: 0.855rem;
+      font-size: .855rem;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all .2s;
       white-space: nowrap;
     }
 
@@ -483,26 +477,23 @@
     .btn-cta {
       background: var(--ink);
       color: var(--bg);
-      padding: 0.5rem 1.3rem;
+      padding: .5rem 1.3rem;
       border-radius: 8px;
       font-family: var(--font-body);
-      font-size: 0.855rem;
+      font-size: .855rem;
       font-weight: 600;
       border: none;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all .2s;
       white-space: nowrap;
     }
 
     .btn-cta:hover {
-      opacity: 0.85;
+      opacity: .85;
       transform: translateY(-1px);
       box-shadow: var(--shadow);
     }
 
-    /* ═══════════════════════════════════════════
-   HERO
-═══════════════════════════════════════════ */
     #hero {
       min-height: 100vh;
       padding: 66px 5% 0;
@@ -518,17 +509,16 @@
     .hero-grid-bg {
       position: absolute;
       inset: 0;
-      background-image: linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
       background-size: 52px 52px;
-      opacity: 0.45;
+      opacity: .45;
       pointer-events: none;
     }
 
     .hero-glow {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 60% at 65% 45%, rgba(14, 165, 233, 0.08), transparent 70%);
+      background: radial-gradient(ellipse 70% 60% at 65% 45%, rgba(14, 165, 233, .08), transparent 70%);
       pointer-events: none;
     }
 
@@ -541,17 +531,17 @@
     .hero-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: .5rem;
       background: var(--accent-lt);
-      border: 1px solid rgba(14, 165, 233, 0.25);
+      border: 1px solid rgba(14, 165, 233, .25);
       color: var(--accent);
-      font-size: 0.75rem;
+      font-size: .75rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 0.32rem 0.9rem;
+      letter-spacing: .04em;
+      padding: .32rem .9rem;
       border-radius: 100px;
       margin-bottom: 1.6rem;
-      animation: fadeUp 0.6s 0.1s ease-out both;
+      animation: fadeUp .6s .1s ease-out both;
     }
 
     .live-dot {
@@ -567,10 +557,10 @@
       font-size: clamp(2.6rem, 5.2vw, 4.8rem);
       font-weight: 800;
       line-height: 1.06;
-      letter-spacing: -0.03em;
+      letter-spacing: -.03em;
       color: var(--ink);
       margin-bottom: 1.4rem;
-      animation: fadeUp 0.6s 0.22s ease-out both;
+      animation: fadeUp .6s .22s ease-out both;
     }
 
     .hero-h1 .hl {
@@ -581,13 +571,13 @@
       display: inline-block;
       background: var(--ink);
       color: var(--bg);
-      font-size: 0.42em;
+      font-size: .42em;
       font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 0.22em 0.7em;
+      letter-spacing: .06em;
+      padding: .22em .7em;
       border-radius: 6px;
       vertical-align: middle;
-      transform: translateY(-0.12em);
+      transform: translateY(-.12em);
       font-family: var(--font-body);
     }
 
@@ -602,54 +592,54 @@
       line-height: 1.75;
       max-width: 460px;
       margin-bottom: 2.25rem;
-      animation: fadeUp 0.6s 0.35s ease-out both;
+      animation: fadeUp .6s .35s ease-out both;
     }
 
     .hero-actions {
       display: flex;
-      gap: 0.85rem;
+      gap: .85rem;
       flex-wrap: wrap;
       margin-bottom: 2.75rem;
-      animation: fadeUp 0.6s 0.48s ease-out both;
+      animation: fadeUp .6s .48s ease-out both;
     }
 
     .btn-primary {
       background: var(--accent);
       color: #fff;
-      padding: 0.78rem 1.9rem;
+      padding: .78rem 1.9rem;
       border-radius: 10px;
       font-family: var(--font-body);
-      font-size: 0.92rem;
+      font-size: .92rem;
       font-weight: 600;
       border: none;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      transition: all 0.25s;
+      gap: .45rem;
+      transition: all .25s;
       box-shadow: var(--shadow-bl);
     }
 
     .btn-primary:hover {
       background: var(--accent-dk);
       transform: translateY(-2px);
-      box-shadow: 0 12px 36px rgba(14, 165, 233, 0.35);
+      box-shadow: 0 12px 36px rgba(14, 165, 233, .35);
     }
 
     .btn-outline {
       background: var(--bg);
       color: var(--ink);
-      padding: 0.78rem 1.9rem;
+      padding: .78rem 1.9rem;
       border-radius: 10px;
       font-family: var(--font-body);
-      font-size: 0.92rem;
+      font-size: .92rem;
       font-weight: 600;
       border: 1.5px solid var(--border2);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      transition: all 0.25s;
+      gap: .45rem;
+      transition: all .25s;
     }
 
     .btn-outline:hover {
@@ -662,7 +652,7 @@
       display: flex;
       align-items: center;
       gap: 1.25rem;
-      animation: fadeUp 0.6s 0.6s ease-out both;
+      animation: fadeUp .6s .6s ease-out both;
     }
 
     .trust-avs {
@@ -683,7 +673,7 @@
     }
 
     .trust-txt {
-      font-size: 0.8rem;
+      font-size: .8rem;
       color: var(--muted);
     }
 
@@ -691,7 +681,6 @@
       color: var(--ink);
     }
 
-    /* Hero right */
     .hero-right {
       position: relative;
       z-index: 2;
@@ -699,7 +688,7 @@
       align-items: center;
       justify-content: center;
       padding: 5rem 0;
-      animation: fadeIn 0.9s 0.4s ease-out both;
+      animation: fadeIn .9s .4s ease-out both;
     }
 
     .hero-img-wrap {
@@ -738,12 +727,12 @@
     }
 
     .hf-tag {
-      font-size: 0.67rem;
+      font-size: .67rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 0.25rem;
+      margin-bottom: .25rem;
     }
 
     .hf-val {
@@ -755,26 +744,26 @@
     }
 
     .hf-sub {
-      font-size: 0.74rem;
+      font-size: .74rem;
       color: var(--muted);
-      margin-top: 0.15rem;
+      margin-top: .15rem;
     }
 
     .hf-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: .3rem;
       background: var(--green-lt);
       color: var(--green);
-      font-size: 0.68rem;
+      font-size: .68rem;
       font-weight: 700;
-      padding: 0.18rem 0.55rem;
+      padding: .18rem .55rem;
       border-radius: 100px;
-      margin-top: 0.4rem;
+      margin-top: .4rem;
     }
 
     .hf-bar-wrap {
-      margin-top: 0.7rem;
+      margin-top: .7rem;
     }
 
     .hf-bar {
@@ -782,7 +771,7 @@
       background: var(--bg3);
       border-radius: 2px;
       overflow: hidden;
-      margin-top: 0.25rem;
+      margin-top: .25rem;
     }
 
     .hf-fill {
@@ -825,13 +814,10 @@
       }
     }
 
-    /* ═══════════════════════════════════════════
-   TICKER
-═══════════════════════════════════════════ */
     .ticker-wrap {
       background: var(--dark-bg);
       overflow: hidden;
-      padding: 0.82rem 0;
+      padding: .82rem 0;
     }
 
     .ticker {
@@ -843,14 +829,14 @@
     .t-item {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: .5rem;
       padding: 0 1.8rem;
       font-family: var(--font-display);
-      font-size: 0.75rem;
+      font-size: .75rem;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.45);
+      color: rgba(255, 255, 255, .45);
       white-space: nowrap;
     }
 
@@ -871,9 +857,6 @@
       }
     }
 
-    /* ═══════════════════════════════════════════
-   SHARED SECTION
-═══════════════════════════════════════════ */
     section {
       padding: 5.5rem 5%;
     }
@@ -881,13 +864,13 @@
     .sec-tag {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.72rem;
+      gap: .5rem;
+      font-size: .72rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 0.75rem;
+      margin-bottom: .75rem;
     }
 
     .sec-tag::before {
@@ -902,7 +885,7 @@
       font-size: clamp(1.85rem, 3.8vw, 2.9rem);
       font-weight: 800;
       line-height: 1.1;
-      letter-spacing: -0.025em;
+      letter-spacing: -.025em;
       color: var(--ink);
     }
 
@@ -910,9 +893,6 @@
       color: var(--accent);
     }
 
-    /* ═══════════════════════════════════════════
-   CLIENTS
-═══════════════════════════════════════════ */
     #clients {
       background: var(--bg);
       padding: 3rem 5%;
@@ -929,9 +909,9 @@
     }
 
     .clients-lbl {
-      font-size: 0.72rem;
+      font-size: .72rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--muted2);
       white-space: nowrap;
@@ -949,9 +929,9 @@
       font-family: var(--font-display);
       font-size: 1.05rem;
       font-weight: 800;
-      letter-spacing: 0.06em;
+      letter-spacing: .06em;
       color: var(--muted2);
-      transition: color 0.25s;
+      transition: color .25s;
       cursor: default;
     }
 
@@ -959,9 +939,6 @@
       color: var(--ink);
     }
 
-    /* ═══════════════════════════════════════════
-   SERVICES
-═══════════════════════════════════════════ */
     #services {
       background: var(--bg2);
     }
@@ -978,7 +955,7 @@
     .svc-top-desc {
       max-width: 330px;
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: .92rem;
       line-height: 1.7;
     }
 
@@ -993,7 +970,7 @@
       border-radius: var(--radius-lg);
       padding: 1.75rem;
       border: 1px solid var(--border);
-      transition: all 0.3s;
+      transition: all .3s;
       position: relative;
       overflow: hidden;
       opacity: 0;
@@ -1021,7 +998,7 @@
       background: linear-gradient(to right, var(--accent), #60a5fa);
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.4s;
+      transition: transform .4s;
     }
 
     .svc-card:hover::before {
@@ -1038,13 +1015,13 @@
 
     .svc-tag-pill {
       display: inline-block;
-      font-size: 0.67rem;
+      font-size: .67rem;
       font-weight: 700;
-      letter-spacing: 0.07em;
+      letter-spacing: .07em;
       text-transform: uppercase;
-      padding: 0.18rem 0.65rem;
+      padding: .18rem .65rem;
       border-radius: 100px;
-      margin-bottom: 0.75rem;
+      margin-bottom: .75rem;
     }
 
     .tp-sky {
@@ -1069,7 +1046,7 @@
 
     .svc-icon {
       font-size: 1.6rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: .75rem;
     }
 
     .svc-title {
@@ -1077,12 +1054,12 @@
       font-size: 1.08rem;
       font-weight: 700;
       color: var(--ink);
-      margin-bottom: 0.5rem;
+      margin-bottom: .5rem;
     }
 
     .svc-desc {
       color: var(--muted);
-      font-size: 0.86rem;
+      font-size: .86rem;
       line-height: 1.65;
       margin-bottom: 1rem;
     }
@@ -1090,20 +1067,17 @@
     .svc-link {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: .3rem;
       color: var(--accent);
-      font-size: 0.8rem;
+      font-size: .8rem;
       font-weight: 600;
-      transition: gap 0.2s;
+      transition: gap .2s;
     }
 
     .svc-link:hover {
-      gap: 0.6rem;
+      gap: .6rem;
     }
 
-    /* ═══════════════════════════════════════════
-   NUMBERS
-═══════════════════════════════════════════ */
     #numbers {
       background: var(--dark-bg);
       display: grid;
@@ -1113,10 +1087,10 @@
 
     .num-item {
       padding: 3.25rem 2.25rem;
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      border-right: 1px solid rgba(255, 255, 255, .05);
       position: relative;
       overflow: hidden;
-      transition: background 0.3s;
+      transition: background .3s;
     }
 
     .num-item:last-child {
@@ -1124,7 +1098,7 @@
     }
 
     .num-item:hover {
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(255, 255, 255, .02);
     }
 
     .num-item::after {
@@ -1137,7 +1111,7 @@
       background: linear-gradient(to right, var(--accent), #60a5fa);
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.4s;
+      transition: transform .4s;
     }
 
     .num-item:hover::after {
@@ -1148,10 +1122,10 @@
       font-family: var(--font-display);
       font-size: 2.85rem;
       font-weight: 800;
-      letter-spacing: -0.03em;
+      letter-spacing: -.03em;
       color: #fff;
       line-height: 1;
-      margin-bottom: 0.45rem;
+      margin-bottom: .45rem;
     }
 
     .num-val .suf {
@@ -1159,15 +1133,12 @@
     }
 
     .num-lbl {
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.38);
+      font-size: .8rem;
+      color: rgba(255, 255, 255, .38);
       font-weight: 500;
       line-height: 1.5;
     }
 
-    /* ═══════════════════════════════════════════
-   ABOUT
-═══════════════════════════════════════════ */
     #about {
       background: var(--bg);
       display: grid;
@@ -1209,9 +1180,9 @@
     }
 
     .ab-txt {
-      font-size: 0.76rem;
+      font-size: .76rem;
       color: var(--muted);
-      margin-top: 0.25rem;
+      margin-top: .25rem;
       line-height: 1.4;
     }
 
@@ -1221,11 +1192,11 @@
       left: -1.25rem;
       background: var(--ink);
       color: var(--bg);
-      padding: 0.65rem 1.1rem;
+      padding: .65rem 1.1rem;
       border-radius: var(--radius);
-      font-size: 0.75rem;
+      font-size: .75rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: .06em;
       writing-mode: vertical-rl;
       transform: rotate(180deg);
     }
@@ -1233,22 +1204,22 @@
     .about-content p.desc {
       color: var(--muted);
       line-height: 1.75;
-      font-size: 0.93rem;
-      margin-bottom: 0.9rem;
+      font-size: .93rem;
+      margin-bottom: .9rem;
     }
 
     .about-feats {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.65rem;
+      gap: .65rem;
       margin: 1.5rem 0;
     }
 
     .feat {
       display: flex;
       align-items: center;
-      gap: 0.55rem;
-      font-size: 0.85rem;
+      gap: .55rem;
+      font-size: .85rem;
       font-weight: 500;
       color: var(--ink3);
     }
@@ -1263,16 +1234,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.6rem;
+      font-size: .6rem;
       font-weight: 800;
       flex-shrink: 0;
       text-align: center;
       line-height: 19px;
     }
 
-    /* ═══════════════════════════════════════════
-   PROCESS
-═══════════════════════════════════════════ */
     #process {
       background: var(--bg2);
     }
@@ -1332,7 +1300,7 @@
       font-weight: 800;
       color: var(--muted);
       margin: 0 auto 1.35rem;
-      transition: all 0.3s;
+      transition: all .3s;
       position: relative;
       z-index: 1;
     }
@@ -1346,21 +1314,18 @@
 
     .pstep-title {
       font-family: var(--font-display);
-      font-size: 0.98rem;
+      font-size: .98rem;
       font-weight: 700;
       color: var(--ink);
-      margin-bottom: 0.45rem;
+      margin-bottom: .45rem;
     }
 
     .pstep-desc {
       color: var(--muted);
-      font-size: 0.83rem;
+      font-size: .83rem;
       line-height: 1.6;
     }
 
-    /* ═══════════════════════════════════════════
-   FLEET GALLERY
-═══════════════════════════════════════════ */
     #fleet {
       background: var(--bg);
     }
@@ -1378,7 +1343,7 @@
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
       grid-template-rows: 235px 235px;
-      gap: 0.85rem;
+      gap: .85rem;
     }
 
     .gi {
@@ -1392,13 +1357,13 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s, filter 0.4s;
-      filter: brightness(0.82);
+      transition: transform .5s, filter .4s;
+      filter: brightness(.82);
     }
 
     .gi:hover img {
       transform: scale(1.05);
-      filter: brightness(0.65);
+      filter: brightness(.65);
     }
 
     .gi.tall {
@@ -1407,18 +1372,18 @@
 
     .gi-tag {
       position: absolute;
-      top: 0.9rem;
-      left: 0.9rem;
-      background: rgba(0, 0, 0, 0.35);
+      top: .9rem;
+      left: .9rem;
+      background: rgba(0, 0, 0, .35);
       backdrop-filter: blur(8px);
       color: #fff;
-      font-size: 0.67rem;
+      font-size: .67rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: .08em;
       text-transform: uppercase;
-      padding: 0.25rem 0.7rem;
+      padding: .25rem .7rem;
       border-radius: 100px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, .18);
     }
 
     .gi-label {
@@ -1427,10 +1392,10 @@
       left: 0;
       right: 0;
       padding: 1.1rem 1.35rem;
-      background: linear-gradient(to top, rgba(13, 17, 23, 0.92), transparent);
+      background: linear-gradient(to top, rgba(13, 17, 23, .92), transparent);
       transform: translateY(4px);
       opacity: 0;
-      transition: all 0.3s;
+      transition: all .3s;
     }
 
     .gi:hover .gi-label {
@@ -1440,20 +1405,17 @@
 
     .gi-label h4 {
       font-family: var(--font-display);
-      font-size: 0.95rem;
+      font-size: .95rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 0.1rem;
+      margin-bottom: .1rem;
     }
 
     .gi-label p {
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.55);
+      font-size: .75rem;
+      color: rgba(255, 255, 255, .55);
     }
 
-    /* ═══════════════════════════════════════════
-   TRACKING
-═══════════════════════════════════════════ */
     #tracking {
       background: linear-gradient(135deg, #0d1117 0%, #0f1e35 100%);
       position: relative;
@@ -1464,7 +1426,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 55% 75% at 80% 50%, rgba(14, 165, 233, 0.13), transparent);
+      background: radial-gradient(ellipse 55% 75% at 80% 50%, rgba(14, 165, 233, .13), transparent);
       pointer-events: none;
     }
 
@@ -1483,29 +1445,29 @@
 
     .track-left .sec-h {
       color: #f1f5f9;
-      margin-bottom: 0.9rem;
+      margin-bottom: .9rem;
     }
 
     .track-left>p {
-      color: rgba(255, 255, 255, 0.45);
+      color: rgba(255, 255, 255, .45);
       line-height: 1.75;
-      font-size: 0.93rem;
+      font-size: .93rem;
       margin-bottom: 1.75rem;
     }
 
     .track-form {
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
+      gap: .65rem;
     }
 
     .t-input-row {
       display: flex;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, .05);
+      border: 1.5px solid rgba(255, 255, 255, .1);
       border-radius: 10px;
       overflow: hidden;
-      transition: border-color 0.25s;
+      transition: border-color .25s;
     }
 
     .t-input-row:focus-within {
@@ -1517,26 +1479,26 @@
       background: transparent;
       border: none;
       outline: none;
-      padding: 0.85rem 1.2rem;
+      padding: .85rem 1.2rem;
       color: #fff;
       font-family: var(--font-body);
-      font-size: 0.92rem;
+      font-size: .92rem;
     }
 
     .t-input::placeholder {
-      color: rgba(255, 255, 255, 0.28);
+      color: rgba(255, 255, 255, .28);
     }
 
     .t-btn {
       background: var(--accent);
       color: #fff;
       border: none;
-      padding: 0.85rem 1.35rem;
+      padding: .85rem 1.35rem;
       cursor: pointer;
       font-family: var(--font-body);
-      font-size: 0.88rem;
+      font-size: .88rem;
       font-weight: 600;
-      transition: background 0.2s;
+      transition: background .2s;
       white-space: nowrap;
     }
 
@@ -1551,11 +1513,11 @@
     }
 
     .t-hint {
-      color: rgba(255, 255, 255, 0.35);
-      font-size: 0.75rem;
+      color: rgba(255, 255, 255, .35);
+      font-size: .75rem;
       display: flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: .35rem;
     }
 
     .t-hint::before {
@@ -1563,10 +1525,9 @@
       color: var(--accent);
     }
 
-    /* Status card */
     .track-right {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .07);
       border-radius: var(--radius-xl);
       padding: 2.25rem;
     }
@@ -1580,26 +1541,26 @@
 
     .tc-id {
       font-family: var(--font-display);
-      font-size: 0.88rem;
+      font-size: .88rem;
       font-weight: 700;
       color: #f1f5f9;
     }
 
     .tc-status {
-      background: rgba(34, 197, 94, 0.15);
+      background: rgba(34, 197, 94, .15);
       color: #4ade80;
-      font-size: 0.68rem;
+      font-size: .68rem;
       font-weight: 700;
-      letter-spacing: 0.07em;
-      padding: 0.25rem 0.75rem;
+      letter-spacing: .07em;
+      padding: .25rem .75rem;
       border-radius: 100px;
-      border: 1px solid rgba(34, 197, 94, 0.2);
+      border: 1px solid rgba(34, 197, 94, .2);
     }
 
     .tc-route {
       display: flex;
       align-items: center;
-      gap: 0.9rem;
+      gap: .9rem;
       margin-bottom: 1.75rem;
     }
 
@@ -1615,9 +1576,9 @@
     }
 
     .tc-city-code {
-      color: rgba(255, 255, 255, 0.32);
-      font-size: 0.72rem;
-      margin-top: 0.1rem;
+      color: rgba(255, 255, 255, .32);
+      font-size: .72rem;
+      margin-top: .1rem;
     }
 
     .tc-arrow {
@@ -1632,9 +1593,9 @@
 
     .tl-row {
       display: flex;
-      gap: 0.9rem;
-      padding: 0.65rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      gap: .9rem;
+      padding: .65rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
     }
 
     .tl-row:last-child {
@@ -1659,24 +1620,21 @@
     }
 
     .tl-pending {
-      background: rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, .14);
     }
 
     .tl-title {
-      font-size: 0.83rem;
+      font-size: .83rem;
       font-weight: 500;
       color: #e2e8f0;
     }
 
     .tl-time {
-      font-size: 0.72rem;
-      color: rgba(255, 255, 255, 0.32);
-      margin-top: 0.08rem;
+      font-size: .72rem;
+      color: rgba(255, 255, 255, .32);
+      margin-top: .08rem;
     }
 
-    /* ═══════════════════════════════════════════
-   TESTIMONIALS
-═══════════════════════════════════════════ */
     #testimonials {
       background: var(--bg2);
     }
@@ -1705,7 +1663,7 @@
       border-radius: var(--radius-lg);
       padding: 1.85rem;
       border: 1px solid var(--border);
-      transition: all 0.3s;
+      transition: all .3s;
       opacity: 0;
       transform: translateY(18px);
     }
@@ -1723,14 +1681,14 @@
 
     .tc-stars {
       color: var(--amber);
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      margin-bottom: 0.9rem;
+      font-size: .82rem;
+      letter-spacing: .12em;
+      margin-bottom: .9rem;
     }
 
     .tc-text {
       color: var(--ink3);
-      font-size: 0.9rem;
+      font-size: .9rem;
       line-height: 1.75;
       margin-bottom: 1.35rem;
       font-style: italic;
@@ -1739,7 +1697,7 @@
     .tc-author {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: .8rem;
     }
 
     .tc-av {
@@ -1751,20 +1709,17 @@
     }
 
     .tc-name {
-      font-size: 0.86rem;
+      font-size: .86rem;
       font-weight: 600;
       color: var(--ink);
     }
 
     .tc-role {
-      font-size: 0.75rem;
+      font-size: .75rem;
       color: var(--muted);
-      margin-top: 0.08rem;
+      margin-top: .08rem;
     }
 
-    /* ═══════════════════════════════════════════
-   CTA
-═══════════════════════════════════════════ */
     #cta {
       background: var(--dark-bg);
       position: relative;
@@ -1780,14 +1735,14 @@
       background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80&auto=format&fit=crop');
       background-size: cover;
       background-position: center;
-      opacity: 0.07;
+      opacity: .07;
     }
 
     #cta::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 55% 75% at 50% 50%, rgba(14, 165, 233, 0.18), transparent);
+      background: radial-gradient(ellipse 55% 75% at 50% 50%, rgba(14, 165, 233, .18), transparent);
       pointer-events: none;
     }
 
@@ -1814,15 +1769,15 @@
     }
 
     .cta-inner>p {
-      color: rgba(255, 255, 255, 0.42);
+      color: rgba(255, 255, 255, .42);
       line-height: 1.75;
-      font-size: 0.97rem;
+      font-size: .97rem;
       margin-bottom: 2.25rem;
     }
 
     .cta-btns {
       display: flex;
-      gap: 0.85rem;
+      gap: .85rem;
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -1830,38 +1785,38 @@
     .btn-w {
       background: #fff;
       color: var(--dark-bg);
-      padding: 0.82rem 1.9rem;
+      padding: .82rem 1.9rem;
       border-radius: 10px;
       font-family: var(--font-body);
-      font-size: 0.92rem;
+      font-size: .92rem;
       font-weight: 700;
       border: none;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      transition: all 0.25s;
+      gap: .45rem;
+      transition: all .25s;
     }
 
     .btn-w:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(255, 255, 255, 0.12);
+      box-shadow: 0 12px 40px rgba(255, 255, 255, .12);
     }
 
     .btn-wg {
-      background: rgba(255, 255, 255, 0.07);
-      color: rgba(255, 255, 255, 0.78);
-      padding: 0.82rem 1.9rem;
+      background: rgba(255, 255, 255, .07);
+      color: rgba(255, 255, 255, .78);
+      padding: .82rem 1.9rem;
       border-radius: 10px;
       font-family: var(--font-body);
-      font-size: 0.92rem;
+      font-size: .92rem;
       font-weight: 600;
-      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border: 1.5px solid rgba(255, 255, 255, .1);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      transition: all 0.25s;
+      gap: .45rem;
+      transition: all .25s;
     }
 
     .btn-wg:hover {
@@ -1869,9 +1824,6 @@
       color: var(--accent);
     }
 
-    /* ═══════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════ */
     footer {
       background: var(--dark-bar);
       padding: 4.5rem 5% 2rem;
@@ -1883,7 +1835,7 @@
       gap: 3.5rem;
       margin-bottom: 3.5rem;
       padding-bottom: 3.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, .05);
     }
 
     .f-brand-logo {
@@ -1892,20 +1844,20 @@
       font-weight: 800;
       color: #fff;
       display: block;
-      margin-bottom: 0.9rem;
-      letter-spacing: -0.02em;
+      margin-bottom: .9rem;
+      letter-spacing: -.02em;
     }
 
     .f-brand p {
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 0.855rem;
+      color: rgba(255, 255, 255, .3);
+      font-size: .855rem;
       line-height: 1.7;
       max-width: 240px;
     }
 
     .f-socs {
       display: flex;
-      gap: 0.55rem;
+      gap: .55rem;
       margin-top: 1.35rem;
     }
 
@@ -1913,14 +1865,14 @@
       width: 34px;
       height: 34px;
       border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      color: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, .07);
+      color: rgba(255, 255, 255, .35);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.75rem;
+      font-size: .75rem;
       font-weight: 700;
-      transition: all 0.2s;
+      transition: all .2s;
     }
 
     .f-soc:hover {
@@ -1930,11 +1882,11 @@
 
     .f-col h4 {
       font-family: var(--font-display);
-      font-size: 0.76rem;
+      font-size: .76rem;
       font-weight: 700;
-      letter-spacing: 0.13em;
+      letter-spacing: .13em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.42);
+      color: rgba(255, 255, 255, .42);
       margin-bottom: 1.35rem;
     }
 
@@ -1942,13 +1894,13 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: .6rem;
     }
 
     .f-links a {
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 0.855rem;
-      transition: color 0.2s;
+      color: rgba(255, 255, 255, .3);
+      font-size: .855rem;
+      transition: color .2s;
     }
 
     .f-links a:hover {
@@ -1960,17 +1912,14 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 0.9rem;
+      gap: .9rem;
     }
 
     .f-bottom p {
-      color: rgba(255, 255, 255, 0.18);
-      font-size: 0.78rem;
+      color: rgba(255, 255, 255, .18);
+      font-size: .78rem;
     }
 
-    /* ═══════════════════════════════════════════
-   LOADING SKELETON (while JSON fetches)
-═══════════════════════════════════════════ */
     .skeleton {
       background: linear-gradient(90deg, var(--bg3) 25%, var(--border) 50%, var(--bg3) 75%);
       background-size: 200% 100%;
@@ -1988,9 +1937,6 @@
       }
     }
 
-    /* ═══════════════════════════════════════════
-   FAB & REVEAL
-═══════════════════════════════════════════ */
     .fab {
       position: fixed;
       bottom: 1.75rem;
@@ -2005,11 +1951,11 @@
       align-items: center;
       justify-content: center;
       font-size: 1.25rem;
-      box-shadow: 0 8px 28px rgba(14, 165, 233, 0.42);
+      box-shadow: 0 8px 28px rgba(14, 165, 233, .42);
       animation: fab-p 3s ease-in-out infinite;
       cursor: pointer;
       border: none;
-      transition: all 0.25s;
+      transition: all .25s;
     }
 
     .fab:hover {
@@ -2021,18 +1967,18 @@
 
       0%,
       100% {
-        box-shadow: 0 8px 28px rgba(14, 165, 233, 0.42);
+        box-shadow: 0 8px 28px rgba(14, 165, 233, .42);
       }
 
       50% {
-        box-shadow: 0 8px 44px rgba(14, 165, 233, 0.68);
+        box-shadow: 0 8px 44px rgba(14, 165, 233, .68);
       }
     }
 
     .reveal {
       opacity: 0;
       transform: translateY(22px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
+      transition: opacity .65s ease, transform .65s ease;
     }
 
     .reveal.vis {
@@ -2040,9 +1986,6 @@
       transform: translateY(0);
     }
 
-    /* ═══════════════════════════════════════════
-   MOBILE NAV — Hamburger + Drawer
-═══════════════════════════════════════════ */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -2055,7 +1998,7 @@
       background: none;
       cursor: pointer;
       padding: 8px;
-      transition: border-color 0.2s;
+      transition: border-color .2s;
       flex-shrink: 0;
     }
 
@@ -2068,7 +2011,7 @@
       height: 1.5px;
       background: var(--ink);
       border-radius: 2px;
-      transition: transform 0.3s ease, opacity 0.3s ease;
+      transition: transform .3s ease, opacity .3s ease;
       transform-origin: center;
     }
 
@@ -2085,23 +2028,21 @@
       transform: translateY(-6.5px) rotate(-45deg);
     }
 
-    /* Mobile drawer overlay */
     .mobile-nav-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, .45);
       z-index: 250;
       backdrop-filter: blur(4px);
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity .3s;
     }
 
     .mobile-nav-overlay.open {
       opacity: 1;
     }
 
-    /* Mobile drawer panel */
     .mobile-drawer {
       position: fixed;
       top: 0;
@@ -2111,7 +2052,7 @@
       background: var(--card);
       z-index: 260;
       transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform .35s cubic-bezier(.4, 0, .2, 1);
       display: flex;
       flex-direction: column;
       overflow-y: auto;
@@ -2136,7 +2077,7 @@
       font-size: 1.2rem;
       font-weight: 800;
       color: var(--ink);
-      letter-spacing: -0.02em;
+      letter-spacing: -.02em;
     }
 
     .drawer-close {
@@ -2151,7 +2092,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
+      transition: all .2s;
     }
 
     .drawer-close:hover {
@@ -2170,12 +2111,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.85rem 1.25rem;
+      padding: .85rem 1.25rem;
       color: var(--ink3);
-      font-size: 0.95rem;
+      font-size: .95rem;
       font-weight: 500;
       border-bottom: 1px solid var(--border);
-      transition: all 0.2s;
+      transition: all .2s;
     }
 
     .drawer-links a:last-of-type {
@@ -2191,8 +2132,8 @@
     .drawer-links a::after {
       content: '→';
       color: var(--muted2);
-      font-size: 0.8rem;
-      transition: transform 0.2s;
+      font-size: .8rem;
+      transition: transform .2s;
     }
 
     .drawer-links a:hover::after {
@@ -2205,7 +2146,7 @@
       border-top: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
+      gap: .65rem;
       flex-shrink: 0;
     }
 
@@ -2213,13 +2154,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.75rem 1.25rem;
+      padding: .75rem 1.25rem;
       background: var(--bg2);
       border-radius: 10px;
     }
 
     .drawer-settings-lbl {
-      font-size: 0.82rem;
+      font-size: .82rem;
       font-weight: 600;
       color: var(--ink3);
     }
@@ -2227,7 +2168,7 @@
     .drawer-theme-row {
       display: flex;
       align-items: center;
-      gap: 0.55rem;
+      gap: .55rem;
     }
 
     .drawer-font-btn {
@@ -2235,17 +2176,17 @@
       background: none;
       border: 1.5px solid var(--border2);
       color: var(--ink3);
-      padding: 0.65rem 1rem;
+      padding: .65rem 1rem;
       border-radius: 8px;
       font-family: var(--font-body);
-      font-size: 0.88rem;
+      font-size: .88rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all .2s;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      gap: .5rem;
     }
 
     .drawer-font-btn:hover {
@@ -2253,12 +2194,8 @@
       color: var(--accent);
     }
 
-    /* ═══════════════════════════════════════════
-   RESPONSIVE — TABLET (≤1024px)
-═══════════════════════════════════════════ */
     @media(max-width:1024px) {
 
-      /* Nav */
       .nav-links,
       .nav-right .btn-ghost,
       .nav-right .btn-cta,
@@ -2274,7 +2211,6 @@
         display: block;
       }
 
-      /* Hero */
       #hero {
         grid-template-columns: 1fr;
         padding-top: 66px;
@@ -2294,7 +2230,6 @@
         font-size: clamp(2.4rem, 6vw, 4rem);
       }
 
-      /* About */
       #about {
         grid-template-columns: 1fr;
         gap: 0;
@@ -2312,32 +2247,30 @@
 
       .about-badge {
         bottom: -1rem;
-        right: -0.5rem;
+        right: -.5rem;
       }
 
       .about-tag-strip {
         display: none;
       }
 
-      /* Numbers */
       #numbers {
         grid-template-columns: 1fr 1fr;
       }
 
       .num-item {
         border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 255, 255, .05);
       }
 
       .num-item:nth-child(odd) {
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        border-right: 1px solid rgba(255, 255, 255, .05);
       }
 
       .num-val {
         font-size: 2.2rem;
       }
 
-      /* Process */
       .proc-steps {
         grid-template-columns: 1fr 1fr;
         gap: 1.5rem;
@@ -2347,7 +2280,6 @@
         display: none;
       }
 
-      /* Fleet */
       .gal-grid {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 220px 220px 220px;
@@ -2357,43 +2289,34 @@
         grid-row: span 1;
       }
 
-      /* Tracking */
       .track-grid {
         grid-template-columns: 1fr;
         gap: 2.5rem;
       }
 
-      /* Testimonials */
       .test-grid {
         grid-template-columns: 1fr 1fr;
       }
 
-      /* Footer */
       .f-top {
         grid-template-columns: 1fr 1fr;
         gap: 2.5rem;
       }
 
-      /* Services */
       .svc-grid {
         grid-template-columns: 1fr 1fr;
       }
 
-      /* Font panel full on tablet */
       .font-panel {
         width: 340px;
       }
     }
 
-    /* ═══════════════════════════════════════════
-   RESPONSIVE — MOBILE (≤640px)
-═══════════════════════════════════════════ */
     @media(max-width:640px) {
       section {
         padding: 3rem 4%;
       }
 
-      /* Nav */
       nav {
         padding: 0 4%;
         height: 60px;
@@ -2403,7 +2326,6 @@
         font-size: 1.1rem;
       }
 
-      /* Hero */
       #hero {
         padding: 60px 4% 2.5rem;
         gap: 0;
@@ -2419,43 +2341,41 @@
       }
 
       .hero-desc {
-        font-size: 0.92rem;
+        font-size: .92rem;
       }
 
       .hero-actions {
         flex-direction: column;
-        gap: 0.65rem;
+        gap: .65rem;
       }
 
       .hero-actions .btn-primary,
       .hero-actions .btn-outline {
         width: 100%;
         justify-content: center;
-        padding: 0.85rem 1rem;
+        padding: .85rem 1rem;
       }
 
       .hero-pill {
-        font-size: 0.7rem;
-        padding: 0.28rem 0.75rem;
+        font-size: .7rem;
+        padding: .28rem .75rem;
       }
 
       .hero-trust {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.65rem;
+        gap: .65rem;
       }
 
       .hero-chip {
-        font-size: 0.38em;
+        font-size: .38em;
       }
 
-      /* Ticker */
       .t-item {
         padding: 0 1.2rem;
-        font-size: 0.7rem;
+        font-size: .7rem;
       }
 
-      /* Clients */
       #clients {
         padding: 2rem 4%;
       }
@@ -2471,10 +2391,9 @@
       }
 
       .clogo {
-        font-size: 0.9rem;
+        font-size: .9rem;
       }
 
-      /* Services */
       .svc-top {
         flex-direction: column;
         gap: 1rem;
@@ -2490,7 +2409,6 @@
         height: 130px;
       }
 
-      /* Numbers */
       #numbers {
         grid-template-columns: 1fr 1fr;
       }
@@ -2504,10 +2422,9 @@
       }
 
       .num-lbl {
-        font-size: 0.74rem;
+        font-size: .74rem;
       }
 
-      /* About */
       #about {
         padding: 3rem 4%;
       }
@@ -2518,9 +2435,9 @@
       }
 
       .about-badge {
-        bottom: -0.75rem;
-        right: 0.5rem;
-        padding: 0.85rem 1.1rem;
+        bottom: -.75rem;
+        right: .5rem;
+        padding: .85rem 1.1rem;
       }
 
       .ab-num {
@@ -2529,10 +2446,9 @@
 
       .about-feats {
         grid-template-columns: 1fr;
-        gap: 0.5rem;
+        gap: .5rem;
       }
 
-      /* Process */
       .proc-steps {
         grid-template-columns: 1fr;
         gap: 1.25rem;
@@ -2556,11 +2472,10 @@
         flex: 1;
       }
 
-      /* Fleet gallery — single column stacked */
       .gal-grid {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
-        gap: 0.65rem;
+        gap: .65rem;
       }
 
       .gi {
@@ -2575,10 +2490,9 @@
       .gi-label {
         opacity: 1;
         transform: translateY(0);
-        background: linear-gradient(to top, rgba(13, 17, 23, 0.85), transparent);
+        background: linear-gradient(to top, rgba(13, 17, 23, .85), transparent);
       }
 
-      /* Tracking */
       .track-grid {
         gap: 2rem;
       }
@@ -2588,20 +2502,18 @@
       }
 
       .tc-route {
-        gap: 0.6rem;
+        gap: .6rem;
       }
 
       .tc-city-name {
-        font-size: 0.92rem;
+        font-size: .92rem;
       }
 
-      /* Testimonials */
       .test-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
       }
 
-      /* CTA */
       #cta {
         padding: 4.5rem 4%;
       }
@@ -2618,7 +2530,6 @@
         justify-content: center;
       }
 
-      /* Footer */
       .f-top {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -2629,14 +2540,13 @@
       .f-bottom {
         flex-direction: column;
         text-align: center;
-        gap: 0.5rem;
+        gap: .5rem;
       }
 
       footer {
         padding: 3rem 4% 1.5rem;
       }
 
-      /* Font panel */
       .font-panel {
         width: 100%;
         border-left: none;
@@ -2646,12 +2556,6 @@
       .fp-color {
         width: 28px;
         height: 28px;
-      }
-
-      /* Sections label centered on mobile */
-      .svc-top .sec-tag,
-      .fleet-head .sec-tag {
-        justify-content: flex-start;
       }
 
       .fleet-head {
@@ -2666,9 +2570,6 @@
       }
     }
 
-    /* ═══════════════════════════════════════════
-   RESPONSIVE — SMALL MOBILE (≤380px)
-═══════════════════════════════════════════ */
     @media(max-width:380px) {
       .hero-h1 {
         font-size: 1.9rem;
@@ -2688,7 +2589,7 @@
 
       .num-item {
         border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 255, 255, .05);
       }
     }
   </style>
@@ -2696,17 +2597,15 @@
 
 <body>
 
-  <!-- ═══ FONT PANEL ═══ -->
+  <!-- FONT PANEL -->
   <div class="font-panel" id="fontPanel">
     <div class="fp-header">
-      <div class="fp-title">🎨 Design Settings</div>
+      <div class="fp-title" id="fpTitle">🎨 Design Settings</div>
       <button class="fp-close" id="fpClose">✕</button>
     </div>
     <div class="fp-body">
-
-      <!-- Accent Color -->
       <div class="fp-section">
-        <div class="fp-section-label">Accent Color</div>
+        <div class="fp-section-label" id="fpColorLabel">Accent Color</div>
         <div class="fp-colors" id="colorPicker">
           <div class="fp-color active" data-color="#0ea5e9" data-shadow="rgba(14,165,233,0.25)"
             style="background:#0ea5e9" title="Sky Blue"></div>
@@ -2726,10 +2625,8 @@
             title="Teal"></div>
         </div>
       </div>
-
-      <!-- Display Font -->
       <div class="fp-section">
-        <div class="fp-section-label">Display / Heading Font</div>
+        <div class="fp-section-label" id="fpDisplayLabel">Display / Heading Font</div>
         <div id="displayFonts">
           <div class="fp-font-opt active" data-role="display" data-font="Syne">
             <div class="fopt-name">Syne</div>
@@ -2773,107 +2670,92 @@
           </div>
         </div>
       </div>
-
-      <!-- Body Font -->
       <div class="fp-section">
-        <div class="fp-section-label">Body / UI Font</div>
+        <div class="fp-section-label" id="fpBodyLabel">Body / UI Font</div>
         <div id="bodyFonts">
           <div class="fp-font-opt active" data-role="body" data-font="Instrument Sans">
             <div class="fopt-name">Instrument Sans</div>
-            <div class="fopt-preview" style="font-family:'Instrument Sans',sans-serif;font-size:0.95rem;">Fast,
-              reliable, global delivery solutions for every business.</div>
+            <div class="fopt-preview" style="font-family:'Instrument Sans',sans-serif;font-size:.95rem;">Fast, reliable,
+              global delivery solutions for every business.</div>
             <div class="fopt-hint">💡 Humanist, warm, readable — excellent for body copy. Feels friendly yet
               professional. Works at any size from 12px upward.</div>
           </div>
           <div class="fp-font-opt" data-role="body" data-font="Plus Jakarta Sans">
             <div class="fopt-name">Plus Jakarta Sans</div>
-            <div class="fopt-preview" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:0.95rem;">Fast,
+            <div class="fopt-preview" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;">Fast,
               reliable, global delivery solutions for every business.</div>
             <div class="fopt-hint">💡 Balanced, modern, slightly formal — a very safe UI font. Popular in dashboards and
               B2B SaaS. Excellent legibility on screens.</div>
           </div>
           <div class="fp-font-opt" data-role="body" data-font="Outfit">
             <div class="fopt-name">Outfit</div>
-            <div class="fopt-preview" style="font-family:'Outfit',sans-serif;font-size:0.95rem;">Fast, reliable, global
+            <div class="fopt-preview" style="font-family:'Outfit',sans-serif;font-size:.95rem;">Fast, reliable, global
               delivery solutions for every business.</div>
             <div class="fopt-hint">💡 Very smooth, even rhythm. Good for younger/consumer brands. Can serve as both
               display and body for a unified look.</div>
           </div>
           <div class="fp-font-opt" data-role="body" data-font="Nunito">
             <div class="fopt-name">Nunito</div>
-            <div class="fopt-preview" style="font-family:'Nunito',sans-serif;font-size:0.95rem;">Fast, reliable, global
+            <div class="fopt-preview" style="font-family:'Nunito',sans-serif;font-size:.95rem;">Fast, reliable, global
               delivery solutions for every business.</div>
             <div class="fopt-hint">💡 Rounded, friendly — best for consumer-facing products or brands emphasising care
               and trust. Slightly informal; avoid in very corporate contexts.</div>
           </div>
           <div class="fp-font-opt" data-role="body" data-font="Space Grotesk">
             <div class="fopt-name">Space Grotesk</div>
-            <div class="fopt-preview" style="font-family:'Space Grotesk',sans-serif;font-size:0.95rem;">Fast, reliable,
+            <div class="fopt-preview" style="font-family:'Space Grotesk',sans-serif;font-size:.95rem;">Fast, reliable,
               global delivery solutions for every business.</div>
             <div class="fopt-hint">💡 Pairs beautifully with itself as both display and body for a monofont site.
               Slightly techy character shows through even in small sizes.</div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ═══ MOBILE OVERLAY ═══ -->
+  <!-- MOBILE OVERLAY -->
   <div class="mobile-nav-overlay" id="mobileOverlay"></div>
 
-  <!-- ═══ MOBILE DRAWER ═══ -->
+  <!-- MOBILE DRAWER -->
   <div class="mobile-drawer" id="mobileDrawer">
     <div class="drawer-header">
-      <div class="drawer-logo">Mahaveer<span style="opacity:0.45">Trans Solutions</span></div>
+      <div class="drawer-logo" id="drawerLogoText"></div>
       <button class="drawer-close" id="drawerClose">✕</button>
     </div>
-    <div class="drawer-links">
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
-      <a href="#fleet">Fleet</a>
-      <a href="#tracking">Track Shipment</a>
-      <a href="#testimonials">Client Reviews</a>
-      <a href="#cta">Get a Quote</a>
-    </div>
+    <div class="drawer-links" id="drawerLinks"></div>
     <div class="drawer-actions">
       <div class="drawer-settings">
-        <span class="drawer-settings-lbl">☀️ / 🌙 Theme</span>
+        <span class="drawer-settings-lbl" id="drawerThemeLabel">☀️ / 🌙 Theme</span>
         <div class="drawer-theme-row">
           <button class="theme-toggle" id="themeToggleMobile"></button>
         </div>
       </div>
       <button class="drawer-font-btn" id="fontToggleBtnMobile">
-        <span>Aa</span> Fonts & Accent Color
+        <span>Aa</span> <span id="drawerFontBtnText">Fonts &amp; Accent Color</span>
       </button>
-      <button class="btn-cta" style="width:100%;padding:0.75rem;justify-content:center;display:flex;" id="drawerCta">
-        Get Free Quote →
-      </button>
+      <button class="btn-cta" style="width:100%;padding:.75rem;justify-content:center;display:flex;"
+        id="drawerCta"></button>
     </div>
   </div>
 
-  <!-- ═══ NAV ═══ -->
+  <!-- NAV -->
   <nav id="navbar">
-    <div class="nav-logo" id="navLogo"><span>Mahaveer</span>Trans Solutions<div class="dot"></div>
+    <div class="nav-logo" id="navLogo">
+      <span id="navBrand"></span>
+      <div class="dot"></div>
     </div>
-    <div class="nav-links" id="navLinks">
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
-      <a href="#fleet">Fleet</a>
-      <a href="#tracking">Track</a>
-      <a href="#testimonials">Reviews</a>
-    </div>
+    <div class="nav-links" id="navLinks"></div>
     <div class="nav-right">
       <button class="font-btn" id="fontToggleBtn">
-        <span class="font-btn-icon">Aa</span> Fonts & Style
+        <span class="font-btn-icon">Aa</span> <span id="fontBtnText">Fonts &amp; Style</span>
       </button>
-      <div style="display:flex;align-items:center;gap:0.55rem;">
+      <div style="display:flex;align-items:center;gap:.55rem;">
         <span class="theme-icon">☀️</span>
         <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode"></button>
         <span class="theme-icon">🌙</span>
       </div>
-      <button class="btn-ghost">Log in</button>
-      <button class="btn-cta">Get Quote →</button>
+      <button class="btn-ghost" id="navLogin"></button>
+      <button class="btn-cta" id="navCta"></button>
       <button class="hamburger" id="hamburger" aria-label="Open menu">
         <span class="ham-line"></span>
         <span class="ham-line"></span>
@@ -2882,157 +2764,147 @@
     </div>
   </nav>
 
-  <!-- ═══ HERO ═══ -->
+  <!-- HERO -->
   <section id="hero">
     <div class="hero-grid-bg"></div>
     <div class="hero-glow"></div>
     <div class="hero-left">
-      <div class="hero-pill"><span class="live-dot"></span> <span id="hero-pill-text">Live tracking across 180+
-          countries</span></div>
-      <h1 class="hero-h1" id="heroTitle">
-        Logistics<br><span class="hl">Redefined</span><br>
-        <span>For Modern<span class="hero-chip" id="heroChip">2025</span></span>
-      </h1>
-      <p class="hero-desc" id="heroDesc">Loading...</p>
+      <div class="hero-pill"><span class="live-dot"></span> <span id="hero-pill-text"></span></div>
+      <h1 class="hero-h1" id="heroTitle"></h1>
+      <p class="hero-desc" id="heroDesc"></p>
       <div class="hero-actions">
-        <button class="btn-primary" id="heroCta1">Start Shipping →</button>
-        <button class="btn-outline" id="heroCta2">▶ Watch Demo</button>
+        <button class="btn-primary" id="heroCta1"></button>
+        <button class="btn-outline" id="heroCta2"></button>
       </div>
       <div class="hero-trust">
         <div class="trust-avs" id="trustAvatars"></div>
-        <div class="trust-txt"><strong id="trustCount">4,800+</strong> <span id="trustLabel">businesses trust
-            MahaveerTrans</span></div>
+        <div class="trust-txt"><strong id="trustCount"></strong> <span id="trustLabel"></span></div>
       </div>
     </div>
     <div class="hero-right">
       <div class="hero-img-wrap">
-        <img class="hero-main-img" id="heroImg"
-          src="https://autobahntrucking.com/storage/app/vehicles/images/Bharatbenz-truck-5528TT.jpg"
-          alt="Operations">
+        <img class="hero-main-img" id="heroImg" src="" alt="Operations">
         <div class="hfloat hf1">
-          <div class="hf-tag">Monthly Deliveries</div>
+          <div class="hf-tag" id="hfStatLabel"></div>
           <div class="hf-val" id="hfCount">0</div>
-          <div class="hf-sub">shipments this month</div>
-          <div class="hf-badge">↑ 18% vs last month</div>
+          <div class="hf-sub" id="hfStatSub"></div>
+          <div class="hf-badge" id="hfBadge"></div>
           <div class="hf-bar-wrap">
-            <div class="hf-tag" style="margin-top:0.55rem">Capacity used</div>
+            <div class="hf-tag" id="hfCapLabel" style="margin-top:.55rem"></div>
             <div class="hf-bar">
               <div class="hf-fill"></div>
             </div>
           </div>
         </div>
         <div class="hfloat hf2">
-          <div class="hf-tag">On-time Rate</div>
+          <div class="hf-tag" id="hfOtLabel"></div>
           <div class="hf-val" id="hfPct">0%</div>
-          <div class="hf-sub">last 200 days</div>
+          <div class="hf-sub" id="hfOtSub"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ TICKER ═══ -->
+  <!-- TICKER -->
   <div class="ticker-wrap">
     <div class="ticker" id="ticker"></div>
   </div>
 
-  <!-- ═══ CLIENTS ═══ -->
+  <!-- CLIENTS -->
   <div id="clients">
     <div class="clients-inner">
-      <span class="clients-lbl">Trusted by</span>
+      <span class="clients-lbl" id="clientsLabel"></span>
       <div class="clients-logos" id="clientLogos"></div>
     </div>
   </div>
 
-  <!-- ═══ SERVICES ═══ -->
+  <!-- SERVICES -->
   <section id="services">
     <div class="svc-top reveal">
       <div>
-        <div class="sec-tag">What We Do</div>
-        <h2 class="sec-h">Complete <span class="hl">Logistics</span><br>Under One Roof</h2>
+        <div class="sec-tag" id="svcSectionTag"></div>
+        <h2 class="sec-h" id="svcHeading"></h2>
       </div>
-      <p class="svc-top-desc" id="svcDesc">Loading...</p>
+      <p class="svc-top-desc" id="svcDesc"></p>
     </div>
     <div class="svc-grid" id="svcGrid"></div>
   </section>
 
-  <!-- ═══ NUMBERS ═══ -->
-  <div id="numbers">
-    <!-- rendered by JS -->
-  </div>
+  <!-- NUMBERS -->
+  <div id="numbers"></div>
 
-  <!-- ═══ ABOUT ═══ -->
+  <!-- ABOUT -->
   <section id="about">
     <div class="about-img-col">
-      <div class="about-tag-strip">Since 1999</div>
-      <img class="about-main-img" id="aboutImg"
-        src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&q=80&auto=format&fit=crop" alt="About">
+      <div class="about-tag-strip" id="aboutTagStrip"></div>
+      <img class="about-main-img" id="aboutImg" src="" alt="About">
       <div class="about-badge">
-        <div class="ab-num" id="aboutRating">4.9★</div>
-        <div class="ab-txt" id="aboutRatingTxt">Average rating across 1,200+ reviews</div>
+        <div class="ab-num" id="aboutRating"></div>
+        <div class="ab-txt" id="aboutRatingTxt"></div>
       </div>
     </div>
     <div class="about-content">
-      <div class="sec-tag reveal">Our Story</div>
-      <h2 class="sec-h reveal" style="transition-delay:0.1s" id="aboutTitle">Loading...</h2>
-      <p class="desc reveal" style="transition-delay:0.2s" id="aboutP1">Loading...</p>
-      <p class="desc reveal" style="transition-delay:0.25s" id="aboutP2">Loading...</p>
-      <div class="about-feats reveal" style="transition-delay:0.3s" id="aboutFeats"></div>
-      <div class="reveal" style="transition-delay:0.35s">
-        <button class="btn-primary">Meet The Team →</button>
+      <div class="sec-tag reveal" id="aboutSectionTag"></div>
+      <h2 class="sec-h reveal" style="transition-delay:.1s" id="aboutTitle"></h2>
+      <p class="desc reveal" style="transition-delay:.2s" id="aboutP1"></p>
+      <p class="desc reveal" style="transition-delay:.25s" id="aboutP2"></p>
+      <div class="about-feats reveal" style="transition-delay:.3s" id="aboutFeats"></div>
+      <div class="reveal" style="transition-delay:.35s">
+        <button class="btn-primary" id="aboutCta"></button>
       </div>
     </div>
   </section>
 
-  <!-- ═══ PROCESS ═══ -->
+  <!-- PROCESS -->
   <section id="process">
     <div class="proc-head reveal">
-      <div class="sec-tag">Simple Process</div>
-      <h2 class="sec-h">Ship in <span class="hl">4 Steps</span></h2>
+      <div class="sec-tag" id="procSectionTag"></div>
+      <h2 class="sec-h" id="procHeading"></h2>
     </div>
     <div class="proc-steps" id="procSteps"></div>
   </section>
 
-  <!-- ═══ FLEET ═══ -->
+  <!-- FLEET -->
   <section id="fleet">
     <div class="fleet-head reveal">
       <div>
-        <div class="sec-tag">Our Fleet</div>
-        <h2 class="sec-h">Built to <span class="hl">Deliver</span></h2>
+        <div class="sec-tag" id="fleetSectionTag"></div>
+        <h2 class="sec-h" id="fleetHeading"></h2>
       </div>
-      <button class="btn-outline">View All Fleet →</button>
+      <button class="btn-outline" id="fleetCta"></button>
     </div>
     <div class="gal-grid" id="galGrid"></div>
   </section>
 
-  <!-- ═══ TRACKING ═══ -->
+  <!-- TRACKING -->
   <section id="tracking">
     <div class="track-grid">
       <div class="track-left reveal">
-        <div class="sec-tag">Real-Time</div>
-        <h2 class="sec-h">Track Your<br><span class="hl">Shipment</span></h2>
-        <p id="trackDesc">Loading...</p>
+        <div class="sec-tag" id="trackSectionTag"></div>
+        <h2 class="sec-h" id="trackHeading"></h2>
+        <p id="trackDesc"></p>
         <div class="track-form">
           <div class="t-input-row">
-            <input class="t-input" id="trackInput" type="text" placeholder="e.g. VF-2025-00812">
-            <button class="t-btn" id="trackBtn">Track Now</button>
+            <input class="t-input" id="trackInput" type="text">
+            <button class="t-btn" id="trackBtn"></button>
           </div>
           <div class="t-hints" id="trackHints"></div>
         </div>
       </div>
-      <div class="track-right reveal" style="transition-delay:0.2s">
+      <div class="track-right reveal" style="transition-delay:.2s">
         <div class="tc-hdr">
-          <div class="tc-id" id="tcId">#VF-2025-00812</div>
-          <div class="tc-status">● In Transit</div>
+          <div class="tc-id" id="tcId"></div>
+          <div class="tc-status" id="tcStatus"></div>
         </div>
         <div class="tc-route">
           <div class="tc-city">
-            <div class="tc-city-name" id="tcFrom">Mumbai</div>
-            <div class="tc-city-code">BOM · Origin</div>
+            <div class="tc-city-name" id="tcFrom"></div>
+            <div class="tc-city-code" id="tcFromCode"></div>
           </div>
           <div class="tc-arrow">→</div>
           <div class="tc-city" style="text-align:right">
-            <div class="tc-city-name" id="tcTo">Frankfurt</div>
-            <div class="tc-city-code">FRA · Destination</div>
+            <div class="tc-city-name" id="tcTo"></div>
+            <div class="tc-city-code" id="tcToCode"></div>
           </div>
         </div>
         <div class="tc-tl" id="tcTimeline"></div>
@@ -3040,56 +2912,84 @@
     </div>
   </section>
 
-  <!-- ═══ TESTIMONIALS ═══ -->
+  <!-- TESTIMONIALS -->
   <section id="testimonials">
     <div class="test-head reveal">
-      <div class="sec-tag">Client Stories</div>
-      <h2 class="sec-h">What They <span class="hl">Say</span></h2>
+      <div class="sec-tag" id="testSectionTag"></div>
+      <h2 class="sec-h" id="testHeading"></h2>
     </div>
     <div class="test-grid" id="testGrid"></div>
   </section>
 
-  <!-- ═══ CTA ═══ -->
+  <!-- CTA -->
   <section id="cta">
     <div class="cta-inner reveal">
-      <div class="sec-tag">Get Started</div>
-      <h2 class="sec-h" id="ctaTitle">Ready to Ship<br><span class="hl">Smarter?</span></h2>
-      <p id="ctaDesc">Loading...</p>
+      <div class="sec-tag" id="ctaSectionTag"></div>
+      <h2 class="sec-h" id="ctaTitle"></h2>
+      <p id="ctaDesc"></p>
       <div class="cta-btns">
-        <button class="btn-w">Get Free Quote →</button>
-        <button class="btn-wg" id="ctaPhone">📞 Call us</button>
+        <button class="btn-w" id="ctaCta1"></button>
+        <button class="btn-wg" id="ctaPhone"></button>
       </div>
     </div>
   </section>
 
-  <!-- ═══ FOOTER ═══ -->
+  <!-- FOOTER -->
   <footer>
     <div class="f-top" id="footerTop">
       <div class="f-brand">
-        <span class="f-brand-logo">MahaveerTrans</span>
-        <p id="footerTagline">Loading...</p>
+        <span class="f-brand-logo" id="footerLogo"></span>
+        <p id="footerTagline"></p>
         <div class="f-socs" id="footerSocials"></div>
       </div>
-      <!-- columns rendered by JS -->
     </div>
     <div class="f-bottom">
-      <p id="footerCopy">© 2025 MahaveerTrans Logistics Pvt. Ltd.</p>
-      <p>Privacy · Terms · Sitemap</p>
+      <p id="footerCopy"></p>
+      <p id="footerLegal"></p>
     </div>
   </footer>
 
-  <button class="fab">💬</button>
+  <button class="fab" id="fabBtn"></button>
 
-  <!-- ═══════════════════════════════════════════
-     JAVASCRIPT
-═══════════════════════════════════════════ -->
   <script>
-    /* ─── EMBEDDED JSON DATA ─── */
     const SITE_DATA = {
+      "meta": {
+        "pageTitle": "MahaveerTrans — Modern Logistics",
+        "fpTitle": "🎨 Design Settings",
+        "fpColorLabel": "Accent Color",
+        "fpDisplayLabel": "Display / Heading Font",
+        "fpBodyLabel": "Body / UI Font",
+        "themeLabel": "☀️ / 🌙 Theme",
+        "fontBtnText": "Fonts & Style",
+        "drawerFontBtnText": "Fonts & Accent Color",
+        "fabIcon": "💬"
+      },
+      "nav": {
+        "brand": "MahaveerTrans Solutions",
+        "brandShort": "MahaveerTrans",
+        "login": "Log in",
+        "cta": "Get Quote →",
+        "links": [
+          { "label": "Services", "href": "#services" },
+          { "label": "About", "href": "#about" },
+          { "label": "Fleet", "href": "#fleet" },
+          { "label": "Track", "href": "#tracking" },
+          { "label": "Reviews", "href": "#testimonials" }
+        ],
+        "drawerLinks": [
+          { "label": "Services", "href": "#services" },
+          { "label": "About", "href": "#about" },
+          { "label": "Fleet", "href": "#fleet" },
+          { "label": "Track Shipment", "href": "#tracking" },
+          { "label": "Client Reviews", "href": "#testimonials" },
+          { "label": "Get a Quote", "href": "#cta" }
+        ],
+        "drawerCta": "Get Free Quote →"
+      },
       "company": {
         "name": "MahaveerTrans",
         "tagline": "Delivering the world's goods with precision, speed, and care — your trusted partner in global logistics since 1999.",
-        "founded": "1999",
+        "founded": "2010",
         "phone": "+91 22 4001 8000",
         "email": "hello@MahaveerTrans.com",
         "website": "MahaveerTrans.com",
@@ -3099,12 +2999,24 @@
       },
       "hero": {
         "pill": "Live tracking across 180+ countries",
-        "title": "Logistics\nRedefined\nFor Modern",
+        "titleLine1": "Logistics",
+        "titleLine2Hl": "Redefined",
+        "titleLine3": "For Modern",
         "chip": "2025",
         "description": "End-to-end freight solutions powered by real-time AI routing, live shipment tracking, and a global carrier network built for speed and reliability.",
         "cta1": "Start Shipping →",
         "cta2": "▶ Watch Demo",
         "image": "https://autobahntrucking.com/storage/app/vehicles/images/Bharatbenz-truck-5528TT.jpg",
+        "statCard1": {
+          "label": "Monthly Deliveries",
+          "sub": "shipments this month",
+          "badge": "↑ 18% vs last month",
+          "capacityLabel": "Capacity used"
+        },
+        "statCard2": {
+          "label": "On-time Rate",
+          "sub": "last 200 days"
+        },
         "trust": {
           "count": "4,800+",
           "label": "businesses trust MahaveerTrans",
@@ -3117,9 +3029,16 @@
         "stats": { "shipments": 12400, "onTime": 99 }
       },
       "ticker": ["Air Freight", "Ocean Shipping", "Road Transport", "Cold Chain", "Customs Clearance", "Warehousing & 3PL", "Last Mile Delivery", "Project Cargo", "Express Courier", "Reverse Logistics"],
-      "clients": ["MAHINDRA", "RELIANCE", "INFOSYS", "WIPRO", "ADANI", "GODREJ", "TATA"],
+      "clients": {
+        "label": "Trusted by",
+        "logos": ["MAHINDRA", "RELIANCE", "INFOSYS", "WIPRO", "ADANI", "GODREJ", "TATA"]
+      },
       "services": {
+        "sectionTag": "What We Do",
+        "heading": "Complete Logistics Under One Roof",
+        "headingHl": "Logistics",
         "description": "From a single parcel to a full container — we handle every mode, every route, with zero compromise on visibility.",
+        "learnMoreText": "Learn more →",
         "items": [
           { "tag": "Express", "tagClass": "tp-sky", "icon": "✈️", "title": "Air Freight", "description": "Priority air cargo with door-to-door tracking. Partnered with 40+ airlines for daily worldwide departures.", "image": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80&auto=format&fit=crop" },
           { "tag": "FCL / LCL", "tagClass": "tp-blue", "icon": "🚢", "title": "Sea Freight", "description": "Cost-effective ocean freight across all major trade lanes. Full container or groupage — we handle it all.", "image": "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80&auto=format&fit=crop" },
@@ -3134,32 +3053,56 @@
         { "value": 25, "suffix": " yrs", "label": "Years of logistics experience" }
       ],
       "about": {
-        "title": "Built for Scale.\nTrusted by All.",
+        "sectionTag": "Our Story",
+        "tagStrip": "Since 1999",
+        "title": "Built for Scale.",
+        "titleHl": "Trusted by All.",
         "p1": "MahaveerTrans was founded in 1999 with a single idea: logistics should be transparent, fast, and accessible to every business. Today we operate in 40+ countries with 3,200 specialists and a proprietary TMS platform that gives clients full supply chain visibility.",
         "p2": "Our AI-powered routing engine selects the best combination of speed, cost, and carbon efficiency for every shipment — automatically optimised in real time.",
+        "cta": "Meet The Team →",
         "image": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&q=80&auto=format&fit=crop",
         "features": ["ISO 9001 Certified", "IATA Accredited", "24/7 Control Tower", "AI-Powered Routing", "Carbon Neutral 2030", "Real-time Visibility"]
       },
-      "process": [
-        { "num": "01", "title": "Get a Quote", "desc": "Fill our form in under 60 seconds. Our AI returns an instant, competitive quote for your route." },
-        { "num": "02", "title": "We Plan the Route", "desc": "Our team designs the optimal path using AI routing, carrier rates, and customs intelligence." },
-        { "num": "03", "title": "Pickup & Transit", "desc": "Your cargo is collected on schedule and moves through our vetted, insured carrier network." },
-        { "num": "04", "title": "Delivered ✓", "desc": "Track in real time. Receive photo proof of delivery and full digital documentation." }
-      ],
-      "fleet": [
-        { "title": "Heavy Haulage Fleet", "sub": "200+ trucks across India", "tag": "Road", "tall": true, "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&auto=format&fit=crop" },
-        { "title": "Container Vessels", "sub": "40,000+ TEU capacity", "tag": "Ocean", "tall": false, "image": "https://images.unsplash.com/photo-1562408590-e32931084e23?w=500&q=80&auto=format&fit=crop" },
-        { "title": "Air Cargo Network", "sub": "40+ airline partners", "tag": "Air", "tall": false, "image": "https://images.unsplash.com/photo-1627579809897-38afb36a8b4c?w=500&q=80&auto=format&fit=crop" },
-        { "title": "Smart Warehouses", "sub": "3M sq.ft managed", "tag": "Storage", "tall": false, "image": "https://images.unsplash.com/photo-1553413077-190dd305871c?w=500&q=80&auto=format&fit=crop" },
-        { "title": "Urban Delivery Tech", "sub": "EV fleet + drones", "tag": "Last Mile", "tall": false, "image": "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=500&q=80&auto=format&fit=crop" }
-      ],
+      "process": {
+        "sectionTag": "Simple Process",
+        "heading": "Ship in",
+        "headingHl": "4 Steps",
+        "steps": [
+          { "num": "01", "title": "Get a Quote", "desc": "Fill our form in under 60 seconds. Our AI returns an instant, competitive quote for your route." },
+          { "num": "02", "title": "We Plan the Route", "desc": "Our team designs the optimal path using AI routing, carrier rates, and customs intelligence." },
+          { "num": "03", "title": "Pickup & Transit", "desc": "Your cargo is collected on schedule and moves through our vetted, insured carrier network." },
+          { "num": "04", "title": "Delivered ✓", "desc": "Track in real time. Receive photo proof of delivery and full digital documentation." }
+        ]
+      },
+      "fleet": {
+        "sectionTag": "Our Fleet",
+        "heading": "Built to",
+        "headingHl": "Deliver",
+        "cta": "View All Fleet →",
+        "items": [
+          { "title": "Heavy Haulage Fleet", "sub": "200+ trucks across India", "tag": "Road", "tall": true, "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&auto=format&fit=crop" },
+          { "title": "Container Vessels", "sub": "40,000+ TEU capacity", "tag": "Ocean", "tall": false, "image": "https://images.unsplash.com/photo-1562408590-e32931084e23?w=500&q=80&auto=format&fit=crop" },
+          { "title": "Air Cargo Network", "sub": "40+ airline partners", "tag": "Air", "tall": false, "image": "https://images.unsplash.com/photo-1627579809897-38afb36a8b4c?w=500&q=80&auto=format&fit=crop" },
+          { "title": "Smart Warehouses", "sub": "3M sq.ft managed", "tag": "Storage", "tall": false, "image": "https://images.unsplash.com/photo-1553413077-190dd305871c?w=500&q=80&auto=format&fit=crop" },
+          { "title": "Urban Delivery Tech", "sub": "EV fleet + drones", "tag": "Last Mile", "tall": false, "image": "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=500&q=80&auto=format&fit=crop" }
+        ]
+      },
       "tracking": {
+        "sectionTag": "Real-Time",
+        "heading": "Track Your",
+        "headingHl": "Shipment",
         "description": "Enter your tracking ID for instant live updates — location, status, customs clearance, and ETA all in one view.",
+        "inputPlaceholder": "e.g. VF-2025-00812",
+        "btnText": "Track Now",
+        "btnFound": "✓ Found!",
         "hints": ["No login needed", "Live map view", "SMS alerts"],
         "demo": {
           "id": "#VF-2025-00812",
+          "status": "● In Transit",
           "from": "Mumbai",
+          "fromCode": "BOM · Origin",
           "to": "Frankfurt",
+          "toCode": "FRA · Destination",
           "timeline": [
             { "status": "done", "title": "Picked up from sender", "time": "May 28 · 09:14 AM" },
             { "status": "done", "title": "Departed Mumbai Airport", "time": "May 28 · 11:40 PM" },
@@ -3168,18 +3111,26 @@
           ]
         }
       },
-      "testimonials": [
-        { "stars": "★★★★★", "text": "MahaveerTrans cut our import lead time from 3 weeks to 9 days. The tracking platform is genuinely world-class — our ops team loves it.", "name": "Rajesh Mehta", "role": "Supply Chain Director, Tata Consumer", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face" },
-        { "stars": "★★★★★", "text": "We handle 500+ shipments monthly across 30 countries. Zero-exception customs handling and brilliant account support sets MahaveerTrans apart.", "name": "Priya Sharma", "role": "Head of Operations, GlobalMed", "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face" },
-        { "stars": "★★★★★", "text": "Cold chain precision is non-negotiable for us. MahaveerTrans's refrigerated fleet and monitoring gave us confidence to expand into five new markets.", "name": "Arjun Kapoor", "role": "CEO, FreshRoute Agri", "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face" }
-      ],
+      "testimonials": {
+        "sectionTag": "Client Stories",
+        "heading": "What They",
+        "headingHl": "Say",
+        "items": [
+          { "stars": "★★★★★", "text": "MahaveerTrans cut our import lead time from 3 weeks to 9 days. The tracking platform is genuinely world-class — our ops team loves it.", "name": "Rajesh Mehta", "role": "Supply Chain Director, Tata Consumer", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face" },
+          { "stars": "★★★★★", "text": "We handle 500+ shipments monthly across 30 countries. Zero-exception customs handling and brilliant account support sets MahaveerTrans apart.", "name": "Priya Sharma", "role": "Head of Operations, GlobalMed", "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face" },
+          { "stars": "★★★★★", "text": "Cold chain precision is non-negotiable for us. MahaveerTrans's refrigerated fleet and monitoring gave us confidence to expand into five new markets.", "name": "Arjun Kapoor", "role": "CEO, FreshRoute Agri", "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face" }
+        ]
+      },
       "cta": {
-        "title": "Ready to Ship Smarter?",
+        "sectionTag": "Get Started",
+        "title": "Ready to Ship",
+        "titleHl": "Smarter?",
         "description": "Get a free consultation with our experts. No commitment, no hidden fees — just the best logistics solution for your business.",
         "cta1": "Get Free Quote →",
         "cta2": "📞 Call us"
       },
       "footer": {
+        "logo": "MahaveerTrans",
         "tagline": "Delivering the world's goods with precision and care. Your trusted logistics partner since 1999.",
         "socials": [
           { "label": "in", "url": "#" },
@@ -3192,134 +3143,218 @@
           { "heading": "Company", "links": [["About Us", "#"], ["Careers", "#"], ["Sustainability", "#"], ["Press", "#"], ["Contact", "#"]] },
           { "heading": "Contact", "links": [["📍 Mumbai, India", "#"], ["📞 +91 22 4001 8000", "#"], ["✉️ hello@MahaveerTrans.com", "#"], ["🌐 MahaveerTrans.com", "#"]] }
         ],
-        "copyright": "© 2025 MahaveerTrans Logistics Pvt. Ltd. All rights reserved."
+        "copyright": "© 2025 MahaveerTrans Logistics Pvt. Ltd. All rights reserved.",
+        "legal": "Privacy · Terms · Sitemap"
       }
     };
 
-    /* ─── RENDER FUNCTIONS ─── */
+    /* ─── RENDER ─── */
     function renderAll(d) {
-      /* Hero */
-      document.getElementById('heroDesc').textContent = d.hero.description;
-      document.getElementById('heroCta1').textContent = d.hero.cta1;
-      document.getElementById('heroCta2').textContent = d.hero.cta2;
-      document.getElementById('hero-pill-text').textContent = d.hero.pill;
-      document.getElementById('trustCount').textContent = d.hero.trust.count;
-      document.getElementById('trustLabel').textContent = d.hero.trust.label;
-      document.getElementById('heroImg').src = d.hero.image;
-      const avEl = document.getElementById('trustAvatars');
-      avEl.innerHTML = d.hero.trust.avatars.map(src => `<img class="t-av" src="${src}" alt="">`).join('');
+      const m = d.meta;
+      const n = d.nav;
+      const c = d.company;
+      const h = d.hero;
 
-      /* Ticker (doubled for seamless loop) */
-      const items = d.ticker.map(t => `<span class="t-item"><span class="t-dot"></span>${t}</span>`).join('');
+      /* Page title */
+      document.title = m.pageTitle;
+
+      /* Font panel labels */
+      document.getElementById('fpTitle').textContent = m.fpTitle;
+      document.getElementById('fpColorLabel').textContent = m.fpColorLabel;
+      document.getElementById('fpDisplayLabel').textContent = m.fpDisplayLabel;
+      document.getElementById('fpBodyLabel').textContent = m.fpBodyLabel;
+
+      /* FAB */
+      document.getElementById('fabBtn').textContent = m.fabIcon;
+
+      /* NAV */
+      document.getElementById('navBrand').textContent = n.brand;
+      document.getElementById('navLogin').textContent = n.login;
+      document.getElementById('navCta').textContent = n.cta;
+      document.getElementById('fontBtnText').textContent = m.fontBtnText;
+      document.getElementById('drawerFontBtnText').textContent = m.drawerFontBtnText;
+      document.getElementById('drawerThemeLabel').textContent = m.themeLabel;
+      document.getElementById('drawerCta').textContent = n.drawerCta;
+
+      document.getElementById('navLinks').innerHTML = n.links.map(l =>
+        `<a href="${l.href}">${l.label}</a>`).join('');
+
+      /* Drawer */
+      document.getElementById('drawerLogoText').innerHTML =
+        `${n.brandShort}<span style="opacity:.45"> Solutions</span>`;
+      document.getElementById('drawerLinks').innerHTML = n.drawerLinks.map(l =>
+        `<a href="${l.href}">${l.label}</a>`).join('');
+
+      /* HERO */
+      document.getElementById('hero-pill-text').textContent = h.pill;
+      document.getElementById('heroTitle').innerHTML =
+        `${h.titleLine1}<br><span class="hl">${h.titleLine2Hl}</span><br>` +
+        `<span>${h.titleLine3}<span class="hero-chip" id="heroChip">${h.chip}</span></span>`;
+      document.getElementById('heroDesc').textContent = h.description;
+      document.getElementById('heroCta1').textContent = h.cta1;
+      document.getElementById('heroCta2').textContent = h.cta2;
+      document.getElementById('heroImg').src = h.image;
+      document.getElementById('trustCount').textContent = h.trust.count;
+      document.getElementById('trustLabel').textContent = h.trust.label;
+      document.getElementById('trustAvatars').innerHTML = h.trust.avatars.map(src =>
+        `<img class="t-av" src="${src}" alt="">`).join('');
+
+      /* Stat cards */
+      document.getElementById('hfStatLabel').textContent = h.statCard1.label;
+      document.getElementById('hfStatSub').textContent = h.statCard1.sub;
+      document.getElementById('hfBadge').textContent = h.statCard1.badge;
+      document.getElementById('hfCapLabel').textContent = h.statCard1.capacityLabel;
+      document.getElementById('hfOtLabel').textContent = h.statCard2.label;
+      document.getElementById('hfOtSub').textContent = h.statCard2.sub;
+
+      /* TICKER */
+      const items = d.ticker.map(t =>
+        `<span class="t-item"><span class="t-dot"></span>${t}</span>`).join('');
       document.getElementById('ticker').innerHTML = items + items;
 
-      /* Clients */
-      document.getElementById('clientLogos').innerHTML = d.clients.map(c => `<div class="clogo">${c}</div>`).join('');
+      /* CLIENTS */
+      document.getElementById('clientsLabel').textContent = d.clients.label;
+      document.getElementById('clientLogos').innerHTML = d.clients.logos.map(l =>
+        `<div class="clogo">${l}</div>`).join('');
 
-      /* Services */
-      document.getElementById('svcDesc').textContent = d.services.description;
-      document.getElementById('svcGrid').innerHTML = d.services.items.map((s, i) => `
-    <div class="svc-card" style="transition-delay:${i * 0.07}s">
-      <img class="svc-img" src="${s.image}" alt="${s.title}">
-      <span class="svc-tag-pill ${s.tagClass}">${s.tag}</span>
-      <div class="svc-icon">${s.icon}</div>
-      <h3 class="svc-title">${s.title}</h3>
-      <p class="svc-desc">${s.description}</p>
-      <a href="#" class="svc-link">Learn more →</a>
-    </div>`).join('');
+      /* SERVICES */
+      const sv = d.services;
+      document.getElementById('svcSectionTag').textContent = sv.sectionTag;
+      document.getElementById('svcHeading').innerHTML =
+        sv.heading.replace(sv.headingHl, `<span class="hl">${sv.headingHl}</span>`);
+      document.getElementById('svcDesc').textContent = sv.description;
+      document.getElementById('svcGrid').innerHTML = sv.items.map((s, i) => `
+        <div class="svc-card" style="transition-delay:${i * 0.07}s">
+          <img class="svc-img" src="${s.image}" alt="${s.title}">
+          <span class="svc-tag-pill ${s.tagClass}">${s.tag}</span>
+          <div class="svc-icon">${s.icon}</div>
+          <h3 class="svc-title">${s.title}</h3>
+          <p class="svc-desc">${s.description}</p>
+          <a href="#" class="svc-link">${sv.learnMoreText}</a>
+        </div>`).join('');
 
-      /* Numbers */
+      /* NUMBERS */
       document.getElementById('numbers').innerHTML = d.numbers.map(n => `
-    <div class="num-item">
-      <div class="num-val" data-target="${n.value}">0<span class="suf">${n.suffix}</span></div>
-      <div class="num-lbl">${n.label}</div>
-    </div>`).join('');
+        <div class="num-item">
+          <div class="num-val" data-target="${n.value}">0<span class="suf">${n.suffix}</span></div>
+          <div class="num-lbl">${n.label}</div>
+        </div>`).join('');
 
-      /* About */
-      const aboutLines = d.about.title.split('\n');
-      document.getElementById('aboutTitle').innerHTML = `${aboutLines[0]}<br><span class="hl">${aboutLines[1] || ''}</span>`;
-      document.getElementById('aboutP1').textContent = d.about.p1;
-      document.getElementById('aboutP2').textContent = d.about.p2;
-      document.getElementById('aboutImg').src = d.about.image;
-      document.getElementById('aboutRating').textContent = d.company.rating;
-      document.getElementById('aboutRatingTxt').textContent = d.company.ratingLabel;
-      document.getElementById('aboutFeats').innerHTML = d.about.features.map(f => `<div class="feat">${f}</div>`).join('');
+      /* ABOUT */
+      const ab = d.about;
+      document.getElementById('aboutTagStrip').textContent = ab.tagStrip;
+      document.getElementById('aboutSectionTag').textContent = ab.sectionTag;
+      document.getElementById('aboutTitle').innerHTML =
+        `${ab.title}<br><span class="hl">${ab.titleHl}</span>`;
+      document.getElementById('aboutP1').textContent = ab.p1;
+      document.getElementById('aboutP2').textContent = ab.p2;
+      document.getElementById('aboutImg').src = ab.image;
+      document.getElementById('aboutRating').textContent = c.rating;
+      document.getElementById('aboutRatingTxt').textContent = c.ratingLabel;
+      document.getElementById('aboutCta').textContent = ab.cta;
+      document.getElementById('aboutFeats').innerHTML = ab.features.map(f =>
+        `<div class="feat">${f}</div>`).join('');
 
-      /* Process */
-      document.getElementById('procSteps').innerHTML = d.process.map((p, i) => `
-    <div class="pstep" style="transition-delay:${i * 0.1}s">
-      <div class="pstep-n">${p.num}</div>
-      <div class="pstep-content">
-        <h3 class="pstep-title">${p.title}</h3>
-        <p class="pstep-desc">${p.desc}</p>
-      </div>
-    </div>`).join('');
+      /* PROCESS */
+      const pr = d.process;
+      document.getElementById('procSectionTag').textContent = pr.sectionTag;
+      document.getElementById('procHeading').innerHTML =
+        `${pr.heading} <span class="hl">${pr.headingHl}</span>`;
+      document.getElementById('procSteps').innerHTML = pr.steps.map((p, i) => `
+        <div class="pstep" style="transition-delay:${i * 0.1}s">
+          <div class="pstep-n">${p.num}</div>
+          <div class="pstep-content">
+            <h3 class="pstep-title">${p.title}</h3>
+            <p class="pstep-desc">${p.desc}</p>
+          </div>
+        </div>`).join('');
 
-      /* Fleet */
-      document.getElementById('galGrid').innerHTML = d.fleet.map(f => `
-    <div class="gi${f.tall ? ' tall' : ''}">
-      <img src="${f.image}" alt="${f.title}">
-      <div class="gi-tag">${f.tag}</div>
-      <div class="gi-label"><h4>${f.title}</h4><p>${f.sub}</p></div>
-    </div>`).join('');
+      /* FLEET */
+      const fl = d.fleet;
+      document.getElementById('fleetSectionTag').textContent = fl.sectionTag;
+      document.getElementById('fleetHeading').innerHTML =
+        `${fl.heading} <span class="hl">${fl.headingHl}</span>`;
+      document.getElementById('fleetCta').textContent = fl.cta;
+      document.getElementById('galGrid').innerHTML = fl.items.map(f => `
+        <div class="gi${f.tall ? ' tall' : ''}">
+          <img src="${f.image}" alt="${f.title}">
+          <div class="gi-tag">${f.tag}</div>
+          <div class="gi-label"><h4>${f.title}</h4><p>${f.sub}</p></div>
+        </div>`).join('');
 
-      /* Tracking */
-      document.getElementById('trackDesc').textContent = d.tracking.description;
-      document.getElementById('trackHints').innerHTML = d.tracking.hints.map(h => `<span class="t-hint">${h}</span>`).join('');
-      const demo = d.tracking.demo;
+      /* TRACKING */
+      const tr = d.tracking;
+      const demo = tr.demo;
+      document.getElementById('trackSectionTag').textContent = tr.sectionTag;
+      document.getElementById('trackHeading').innerHTML =
+        `${tr.heading}<br><span class="hl">${tr.headingHl}</span>`;
+      document.getElementById('trackDesc').textContent = tr.description;
+      document.getElementById('trackInput').placeholder = tr.inputPlaceholder;
+      document.getElementById('trackBtn').textContent = tr.btnText;
+      document.getElementById('trackHints').innerHTML = tr.hints.map(h =>
+        `<span class="t-hint">${h}</span>`).join('');
       document.getElementById('tcId').textContent = demo.id;
+      document.getElementById('tcStatus').textContent = demo.status;
       document.getElementById('tcFrom').textContent = demo.from;
+      document.getElementById('tcFromCode').textContent = demo.fromCode;
       document.getElementById('tcTo').textContent = demo.to;
+      document.getElementById('tcToCode').textContent = demo.toCode;
       document.getElementById('tcTimeline').innerHTML = demo.timeline.map(t => `
-    <div class="tl-row">
-      <div class="tl-d tl-${t.status}"></div>
-      <div><div class="tl-title">${t.title}</div><div class="tl-time">${t.time}</div></div>
-    </div>`).join('');
+        <div class="tl-row">
+          <div class="tl-d tl-${t.status}"></div>
+          <div><div class="tl-title">${t.title}</div><div class="tl-time">${t.time}</div></div>
+        </div>`).join('');
 
-      /* Testimonials */
-      document.getElementById('testGrid').innerHTML = d.testimonials.map((t, i) => `
-    <div class="tc" style="transition-delay:${i * 0.1}s">
-      <div class="tc-stars">${t.stars}</div>
-      <p class="tc-text">"${t.text}"</p>
-      <div class="tc-author">
-        <img class="tc-av" src="${t.avatar}" alt="${t.name}">
-        <div><div class="tc-name">${t.name}</div><div class="tc-role">${t.role}</div></div>
-      </div>
-    </div>`).join('');
+      /* TESTIMONIALS */
+      const te = d.testimonials;
+      document.getElementById('testSectionTag').textContent = te.sectionTag;
+      document.getElementById('testHeading').innerHTML =
+        `${te.heading} <span class="hl">${te.headingHl}</span>`;
+      document.getElementById('testGrid').innerHTML = te.items.map((t, i) => `
+        <div class="tc" style="transition-delay:${i * 0.1}s">
+          <div class="tc-stars">${t.stars}</div>
+          <p class="tc-text">"${t.text}"</p>
+          <div class="tc-author">
+            <img class="tc-av" src="${t.avatar}" alt="${t.name}">
+            <div><div class="tc-name">${t.name}</div><div class="tc-role">${t.role}</div></div>
+          </div>
+        </div>`).join('');
 
       /* CTA */
-      const ctaLines = d.cta.title.split(' ');
-      const mid = Math.floor(ctaLines.length / 2);
-      document.getElementById('ctaTitle').innerHTML = `${ctaLines.slice(0, mid).join(' ')}<br><span class="hl">${ctaLines.slice(mid).join(' ')}</span>`;
-      document.getElementById('ctaDesc').textContent = d.cta.description;
-      document.getElementById('ctaPhone').textContent = d.cta.cta2 + ' ' + d.company.phone;
+      const ct = d.cta;
+      document.getElementById('ctaSectionTag').textContent = ct.sectionTag;
+      document.getElementById('ctaTitle').innerHTML =
+        `${ct.title}<br><span class="hl">${ct.titleHl}</span>`;
+      document.getElementById('ctaDesc').textContent = ct.description;
+      document.getElementById('ctaCta1').textContent = ct.cta1;
+      document.getElementById('ctaPhone').textContent = ct.cta2 + ' ' + c.phone;
 
-      /* Footer */
-      document.getElementById('footerTagline').textContent = d.footer.tagline;
-      document.getElementById('footerCopy').textContent = d.footer.copyright;
-      document.getElementById('footerSocials').innerHTML = d.footer.socials.map(s => `<a href="${s.url}" class="f-soc">${s.label}</a>`).join('');
-      const colsHTML = d.footer.columns.map(col => `
-    <div class="f-col">
-      <h4>${col.heading}</h4>
-      <ul class="f-links">${col.links.map(([label, url]) => `<li><a href="${url}">${label}</a></li>`).join('')}</ul>
-    </div>`).join('');
-      // Append cols to footer-top (brand div already there)
-      document.getElementById('footerTop').innerHTML =
-        document.getElementById('footerTop').innerHTML + colsHTML;
+      /* FOOTER */
+      const fo = d.footer;
+      document.getElementById('footerLogo').textContent = fo.logo;
+      document.getElementById('footerTagline').textContent = fo.tagline;
+      document.getElementById('footerCopy').textContent = fo.copyright;
+      document.getElementById('footerLegal').textContent = fo.legal;
+      document.getElementById('footerSocials').innerHTML = fo.socials.map(s =>
+        `<a href="${s.url}" class="f-soc">${s.label}</a>`).join('');
+      const colsHTML = fo.columns.map(col => `
+        <div class="f-col">
+          <h4>${col.heading}</h4>
+          <ul class="f-links">${col.links.map(([label, url]) =>
+        `<li><a href="${url}">${label}</a></li>`).join('')}</ul>
+        </div>`).join('');
+      document.getElementById('footerTop').innerHTML += colsHTML;
 
-      /* Re-observe new elements */
+      /* Re-observe after render */
       initObservers();
       initCounters();
     }
 
-    /* ─── SIMULATE ASYNC FETCH (uses embedded data; swap URL below for real API) ─── */
     function fetchData() {
       return new Promise(resolve => setTimeout(() => resolve(SITE_DATA), 250));
-      // For a real endpoint:
-      // return fetch('https://your-api.com/site-data.json').then(r=>r.json());
     }
 
-    /* ─── INTERSECTION OBSERVERS ─── */
+    /* ─── OBSERVERS ─── */
     function initObservers() {
       const io = new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
@@ -3332,7 +3367,7 @@
       document.querySelectorAll('.reveal').forEach(el => ioR.observe(el));
     }
 
-    /* ─── COUNTER ANIMATION ─── */
+    /* ─── COUNTERS ─── */
     function initCounters() {
       const cio = new IntersectionObserver(entries => {
         entries.forEach(e => {
@@ -3354,19 +3389,30 @@
 
     /* ─── HERO STAT COUNT-UP ─── */
     function heroCountUp(stats) {
+      const d = SITE_DATA;
       let started = false;
       const hio = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting && !started) {
           started = true;
-          let v = 0; const t = setInterval(() => { v = Math.min(v + 210, stats.shipments); document.getElementById('hfCount').textContent = v.toLocaleString(); if (v >= stats.shipments) clearInterval(t); }, 18);
-          let p = 0; const t2 = setInterval(() => { p = Math.min(p + 2, stats.onTime); document.getElementById('hfPct').textContent = p + '%'; if (p >= stats.onTime) clearInterval(t2); }, 28);
+          let v = 0;
+          const t = setInterval(() => {
+            v = Math.min(v + 210, stats.shipments);
+            document.getElementById('hfCount').textContent = v.toLocaleString();
+            if (v >= stats.shipments) clearInterval(t);
+          }, 18);
+          let p = 0;
+          const t2 = setInterval(() => {
+            p = Math.min(p + 2, stats.onTime);
+            document.getElementById('hfPct').textContent = p + '%';
+            if (p >= stats.onTime) clearInterval(t2);
+          }, 28);
         }
       }, { threshold: 0.3 });
       const hero = document.getElementById('hero');
       if (hero) hio.observe(hero);
     }
 
-    /* ─── THEME TOGGLE (desktop + mobile) ─── */
+    /* ─── THEME ─── */
     function applyTheme(theme) {
       document.documentElement.dataset.theme = theme;
       localStorage.setItem('vf-theme', theme);
@@ -3379,11 +3425,10 @@
     const saved = localStorage.getItem('vf-theme');
     if (saved) applyTheme(saved);
 
-    /* ─── HAMBURGER / DRAWER ─── */
+    /* ─── HAMBURGER ─── */
     const hamburger = document.getElementById('hamburger');
     const mobileDrawer = document.getElementById('mobileDrawer');
     const mobileOverlay = document.getElementById('mobileOverlay');
-
     function openDrawer() {
       hamburger.classList.add('open');
       mobileDrawer.classList.add('open');
@@ -3399,22 +3444,14 @@
     hamburger.addEventListener('click', openDrawer);
     document.getElementById('drawerClose').addEventListener('click', closeDrawer);
     mobileOverlay.addEventListener('click', closeDrawer);
-    // Close drawer on nav link click
-    document.querySelectorAll('.drawer-links a').forEach(a => {
-      a.addEventListener('click', closeDrawer);
-    });
 
-    /* ─── FONT PANEL (desktop + mobile trigger) ─── */
+    /* ─── FONT PANEL ─── */
     const fontPanel = document.getElementById('fontPanel');
-    function toggleFontPanel() {
-      fontPanel.classList.toggle('open');
-      closeDrawer();
-    }
+    function toggleFontPanel() { fontPanel.classList.toggle('open'); closeDrawer(); }
     document.getElementById('fontToggleBtn').addEventListener('click', toggleFontPanel);
     document.getElementById('fontToggleBtnMobile').addEventListener('click', toggleFontPanel);
     document.getElementById('fpClose').addEventListener('click', () => fontPanel.classList.remove('open'));
 
-    // Display font
     document.querySelectorAll('.fp-font-opt[data-role="display"]').forEach(opt => {
       opt.addEventListener('click', () => {
         document.querySelectorAll('.fp-font-opt[data-role="display"]').forEach(o => o.classList.remove('active'));
@@ -3422,7 +3459,6 @@
         document.documentElement.style.setProperty('--font-display', `'${opt.dataset.font}',sans-serif`);
       });
     });
-    // Body font
     document.querySelectorAll('.fp-font-opt[data-role="body"]').forEach(opt => {
       opt.addEventListener('click', () => {
         document.querySelectorAll('.fp-font-opt[data-role="body"]').forEach(o => o.classList.remove('active'));
@@ -3431,7 +3467,6 @@
       });
     });
 
-    // Color picker
     document.querySelectorAll('.fp-color').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.fp-color').forEach(b => b.classList.remove('active'));
@@ -3442,7 +3477,6 @@
         r.style.setProperty('--accent-dk', shadeColor(c, -15));
         r.style.setProperty('--accent-lt', shadeColor(c, 90) + '22');
         r.style.setProperty('--shadow-bl', `0 8px 32px ${s}`);
-        // Update blue-lt for service tags
         r.style.setProperty('--blue', c);
       });
     });
@@ -3461,14 +3495,22 @@
 
     /* ─── TRACK BUTTON ─── */
     document.getElementById('trackBtn').addEventListener('click', function () {
+      const btnFound = SITE_DATA.tracking.btnFound;
+      const btnText = SITE_DATA.tracking.btnText;
       const v = document.getElementById('trackInput').value.trim();
       if (v) {
-        this.textContent = '✓ Found!'; this.style.background = '#16a34a';
-        setTimeout(() => { this.textContent = 'Track Now'; this.style.background = ''; }, 2500);
+        this.textContent = btnFound;
+        this.style.background = '#16a34a';
+        setTimeout(() => { this.textContent = btnText; this.style.background = ''; }, 2500);
       } else {
         document.getElementById('trackInput').style.outline = '2px solid #ef4444';
         setTimeout(() => { document.getElementById('trackInput').style.outline = ''; }, 2000);
       }
+    });
+
+    /* ─── DRAWER LINK CLOSE ─── */
+    document.getElementById('drawerLinks').addEventListener('click', e => {
+      if (e.target.tagName === 'A') closeDrawer();
     });
 
     /* ─── BOOT ─── */

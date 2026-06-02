@@ -1,13 +1,13 @@
 {
   "pageInfo": {
-    "title": "Mahaveer — Modern Logistics",
+    "title": "VeloFreight — Modern Logistics",
     "description": "Modern logistics and freight services",
     "language": "en",
     "charset": "UTF-8",
     "viewport": "width=device-width, initial-scale=1.0"
   },
   "company": {
-    "name": "Mahaveer",
+    "name": "VeloFreight",
     "tagline": "Modern Logistics",
     "industry": "Logistics & Freight Services"
   },
@@ -48,7 +48,7 @@
     }
   ],
   "metadata": {
-    "author": "Mahaveer Team",
+    "author": "VeloFreight Team",
     "createdDate": "2024",
     "version": "1.0",
     "theme": "light"
