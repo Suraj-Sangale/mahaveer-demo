@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get a Quote — MahaveerTrans</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ TOKENS (identical to services.html) ═══════════ */
+:root{
+  --bg:#ffffff;--bg2:#f9fafb;--bg3:#f3f4f6;
+  --ink:#0d1117;--ink2:#1e2530;--ink3:#374151;
+  --muted:#6b7280;--muted2:#9ca3af;
+  --border:#e5e7eb;--border2:#d1d5db;--card:#ffffff;
+  --dark-bg:#0d1117;--dark-bar:#080c14;
+  --accent:#0ea5e9;--accent-dk:#0284c7;--accent-lt:#f0f9ff;
+  --blue:#1d4ed8;--blue-lt:#eff6ff;
+  --amber:#f59e0b;--amber-lt:#fffbeb;
+  --green:#16a34a;--green-lt:#f0fdf4;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --purple:#7c3aed;--purple-lt:#f5f3ff;
+  --shadow:0 4px 16px rgba(0,0,0,0.07);
+  --shadow-lg:0 20px 60px rgba(0,0,0,0.10);
+  --shadow-bl:0 8px 32px rgba(14,165,233,0.25);
+  --radius:12px;--radius-lg:20px;--radius-xl:28px;
+  --font-d:'Syne',sans-serif;
+  --font-b:'Instrument Sans',sans-serif;
+  --tr:0.3s ease;
+}
+[data-theme="dark"]{
+  --bg:#0d1117;--bg2:#111827;--bg3:#1e2533;
+  --ink:#f1f5f9;--ink2:#e2e8f0;--ink3:#cbd5e1;
+  --muted:#94a3b8;--muted2:#64748b;
+  --border:#1e293b;--border2:#334155;--card:#141c2b;
+  --shadow:0 4px 24px rgba(0,0,0,0.35);
+  --shadow-lg:0 20px 60px rgba(0,0,0,0.5);
+  --accent-lt:#0c1929;--blue-lt:#0c1a30;--amber-lt:#1a1200;--green-lt:#061410;
+  --red-lt:#1a0505;--purple-lt:#0f0a1e;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-b);overflow-x:hidden;transition:background var(--tr),color var(--tr);}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+
+/* ═══════════ NAV ═══════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:66px;background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s,background .3s;}
+[data-theme="dark"] nav{background:rgba(13,17,23,0.88);}
+nav.scrolled{box-shadow:var(--shadow);}
+.nav-logo{font-family:var(--font-d);font-size:1.3rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;display:flex;align-items:center;gap:.45rem;}
+.nav-logo .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+.nav-links{display:flex;gap:.15rem;align-items:center;}
+.nav-links a{color:var(--muted);font-size:.855rem;font-weight:500;padding:.4rem .85rem;border-radius:8px;transition:all .2s;}
+.nav-links a:hover{color:var(--ink);background:var(--bg3);}
+.nav-right{display:flex;align-items:center;gap:.65rem;}
+.btn-ghost{background:none;border:1.5px solid var(--border2);color:var(--ink3);padding:.46rem 1.1rem;border-radius:8px;font-family:var(--font-b);font-size:.855rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.theme-toggle{width:44px;height:24px;border-radius:100px;background:var(--border2);border:none;cursor:pointer;position:relative;transition:background .3s;flex-shrink:0;}
+.theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--bg);transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+[data-theme="dark"] .theme-toggle{background:var(--accent);}
+[data-theme="dark"] .theme-toggle::after{transform:translateX(20px);}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;border:1.5px solid var(--border2);border-radius:8px;background:none;cursor:pointer;padding:8px;}
+.ham-line{width:100%;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .3s ease,opacity .3s ease;transform-origin:center;}
+.hamburger.open .ham-line:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open .ham-line:nth-child(2){opacity:0;}
+.hamburger.open .ham-line:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+/* ═══════════ HERO SPLIT ═══════════ */
+.page-wrap{display:grid;grid-template-columns:1fr 520px;min-height:100vh;padding-top:66px;}
+.left-panel{background:var(--dark-bg);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:4rem 5% 3rem;}
+.lp-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:48px 48px;}
+.lp-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 30% 40%,rgba(14,165,233,.14),transparent 70%);}
+.lp-glow2{position:absolute;bottom:-10%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(124,58,237,.08),transparent 70%);}
+.lp-content{position:relative;z-index:2;}
+.sec-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+.sec-tag::before{content:'';width:18px;height:2px;background:var(--accent);}
+.lp-h{font-family:var(--font-d);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:800;line-height:1.06;letter-spacing:-.03em;color:#f1f5f9;margin-bottom:1.1rem;}
+.lp-h .hl{color:var(--accent);}
+.lp-desc{color:rgba(255,255,255,.42);font-size:.93rem;line-height:1.75;max-width:400px;margin-bottom:2.5rem;}
+.trust-pills{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.5rem;}
+.tp{display:inline-flex;align-items:center;gap:.45rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:.35rem .9rem;font-size:.75rem;color:rgba(255,255,255,.55);font-weight:500;}
+.tp .tp-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+/* ═══════════ LIVE ESTIMATE CARD ═══════════ */
+.est-card{position:relative;z-index:2;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-xl);padding:1.75rem;}
+.est-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.5rem;}
+.est-price{font-family:var(--font-d);font-size:2.6rem;font-weight:800;color:#fff;line-height:1;display:flex;align-items:flex-end;gap:.35rem;}
+.est-price span{font-size:1rem;color:rgba(255,255,255,.4);font-weight:400;padding-bottom:.35rem;}
+.est-note{font-size:.75rem;color:rgba(255,255,255,.3);margin-top:.35rem;line-height:1.5;}
+.est-row{display:flex;gap:.75rem;margin-top:1.1rem;}
+.est-pill{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:.65rem .8rem;text-align:center;}
+.est-pill-v{font-family:var(--font-d);font-size:.95rem;font-weight:700;color:#f1f5f9;}
+.est-pill-l{font-size:.68rem;color:rgba(255,255,255,.3);margin-top:.15rem;}
+.est-bar{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin:1.1rem 0 .65rem;overflow:hidden;}
+.est-fill{height:100%;background:linear-gradient(to right,var(--accent),#60a5fa);border-radius:2px;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.est-footer{font-size:.72rem;color:rgba(255,255,255,.25);display:flex;justify-content:space-between;}
+
+/* ═══════════ FORM PANEL ═══════════ */
+.right-panel{background:var(--bg);padding:3rem 3rem 3rem;overflow-y:auto;display:flex;flex-direction:column;}
+
+/* ═══════════ STEPPER ═══════════ */
+.stepper{display:flex;align-items:center;gap:0;margin-bottom:2.5rem;}
+.step-item{display:flex;align-items:center;gap:.55rem;flex:1;}
+.step-item:last-child{flex:none;}
+.step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:.78rem;font-weight:800;flex-shrink:0;transition:all .3s;position:relative;z-index:1;}
+.step-num.done{background:var(--green);color:#fff;box-shadow:0 0 0 3px var(--green-lt);}
+.step-num.active{background:var(--accent);color:#fff;box-shadow:0 0 0 3px var(--accent-lt);}
+.step-num.idle{background:var(--bg3);color:var(--muted);border:1.5px solid var(--border2);}
+.step-label{font-size:.72rem;font-weight:600;color:var(--muted);white-space:nowrap;}
+.step-label.active{color:var(--accent);}
+.step-label.done{color:var(--green);}
+.step-line{flex:1;height:2px;background:var(--border);margin:0 .5rem;transition:background .4s;}
+.step-line.done{background:var(--green);}
+.step-line.active{background:linear-gradient(to right,var(--green),var(--accent));}
+
+/* ═══════════ FORM STEPS ═══════════ */
+.form-step{display:none;animation:fadeUp .35s ease forwards;}
+.form-step.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.step-h{font-family:var(--font-d);font-size:1.5rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;margin-bottom:.35rem;}
+.step-sub{color:var(--muted);font-size:.88rem;line-height:1.6;margin-bottom:1.75rem;}
+
+/* ═══════════ SERVICE SELECTOR CARDS ═══════════ */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem;}
+.svc-opt{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1rem;cursor:pointer;transition:all .25s;display:flex;align-items:flex-start;gap:.75rem;position:relative;}
+.svc-opt:hover{border-color:var(--accent);background:var(--accent-lt);}
+.svc-opt.selected{border-color:var(--accent);background:var(--accent-lt);box-shadow:0 0 0 3px rgba(14,165,233,.12);}
+.svc-opt input{position:absolute;opacity:0;width:0;height:0;}
+.svc-opt-icon{font-size:1.4rem;flex-shrink:0;margin-top:.05rem;}
+.svc-opt-body{}
+.svc-opt-name{font-family:var(--font-d);font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:.2rem;}
+.svc-opt-desc{font-size:.72rem;color:var(--muted);line-height:1.4;}
+.svc-opt-check{position:absolute;top:.7rem;right:.7rem;width:18px;height:18px;border-radius:50%;background:var(--accent);display:none;align-items:center;justify-content:center;color:#fff;font-size:.6rem;font-weight:900;}
+.svc-opt.selected .svc-opt-check{display:flex;}
+
+/* ═══════════ FORM FIELDS ═══════════ */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:.85rem;}
+.field-row.single{grid-template-columns:1fr;}
+.field-row.triple{grid-template-columns:1fr 1fr 1fr;}
+.field-group{display:flex;flex-direction:column;gap:.4rem;}
+.field-label{font-size:.75rem;font-weight:600;color:var(--ink3);letter-spacing:.03em;}
+.field-label .req{color:var(--red);margin-left:.15rem;}
+.field-input,.field-select,.field-textarea{background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:.72rem 1rem;font-family:var(--font-b);font-size:.88rem;color:var(--ink);outline:none;transition:all .22s;width:100%;}
+.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:var(--accent);background:var(--accent-lt);box-shadow:0 0 0 3px rgba(14,165,233,.1);}
+.field-input::placeholder,.field-textarea::placeholder{color:var(--muted2);}
+.field-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:calc(100% - .9rem) center;padding-right:2.5rem;cursor:pointer;}
+.field-textarea{resize:vertical;min-height:90px;line-height:1.6;}
+.field-hint{font-size:.7rem;color:var(--muted2);margin-top:.15rem;}
+.field-input.error,.field-select.error{border-color:var(--red);background:var(--red-lt);}
+
+/* ═══════════ INCOTERM RADIO ═══════════ */
+.inco-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:.85rem;}
+.inco-opt{background:var(--bg2);border:1.5px solid var(--border);border-radius:8px;padding:.55rem .4rem;text-align:center;cursor:pointer;transition:all .2s;font-size:.75rem;font-weight:600;color:var(--muted);}
+.inco-opt:hover{border-color:var(--accent);color:var(--accent);}
+.inco-opt.selected{background:var(--accent);border-color:var(--accent);color:#fff;}
+.inco-opt input{display:none;}
+
+/* ═══════════ DATE PICK STRIP ═══════════ */
+.date-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin-bottom:.85rem;}
+.date-chip{background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:.6rem .35rem;text-align:center;cursor:pointer;transition:all .2s;}
+.date-chip:hover{border-color:var(--accent);}
+.date-chip.selected{background:var(--accent);border-color:var(--accent);}
+.date-chip-d{font-family:var(--font-d);font-size:1rem;font-weight:800;color:var(--ink);transition:color .2s;}
+.date-chip-m{font-size:.65rem;color:var(--muted);transition:color .2s;}
+.date-chip.selected .date-chip-d,.date-chip.selected .date-chip-m{color:#fff;}
+
+/* ═══════════ ADDON CHECKBOXES ═══════════ */
+.addon-list{display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.25rem;}
+.addon-item{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1.5px solid var(--border);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .22s;}
+.addon-item:hover{border-color:var(--accent);}
+.addon-item.selected{border-color:var(--accent);background:var(--accent-lt);}
+.addon-left{display:flex;align-items:center;gap:.8rem;}
+.addon-icon{font-size:1.1rem;}
+.addon-name{font-size:.88rem;font-weight:600;color:var(--ink);}
+.addon-desc{font-size:.72rem;color:var(--muted);margin-top:.1rem;}
+.addon-price{font-family:var(--font-d);font-size:.85rem;font-weight:700;color:var(--accent);}
+.addon-check{width:20px;height:20px;border-radius:50%;background:var(--bg3);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:.65rem;font-weight:900;color:#fff;}
+.addon-item.selected .addon-check{background:var(--accent);border-color:var(--accent);}
+
+/* ═══════════ SUMMARY CARD ═══════════ */
+.summary-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem;}
+.sum-h{font-family:var(--font-d);font-size:.85rem;font-weight:700;color:var(--ink);margin-bottom:1.1rem;display:flex;align-items:center;gap:.5rem;}
+.sum-h::after{content:'';flex:1;height:1px;background:var(--border);}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid var(--border);font-size:.83rem;}
+.sum-row:last-child{border-bottom:none;}
+.sum-key{color:var(--muted);}
+.sum-val{font-weight:600;color:var(--ink);}
+.sum-val.accent{color:var(--accent);}
+.sum-total{display:flex;justify-content:space-between;align-items:center;padding:1rem;background:var(--dark-bg);border-radius:10px;margin-top:.85rem;}
+.sum-total-l{font-size:.78rem;color:rgba(255,255,255,.45);font-weight:600;letter-spacing:.05em;text-transform:uppercase;}
+.sum-total-v{font-family:var(--font-d);font-size:1.75rem;font-weight:800;color:#fff;}
+.sum-total-v .cur{font-size:.9rem;color:rgba(255,255,255,.5);}
+
+/* ═══════════ CONTACT STEP ═══════════ */
+.contact-card{display:flex;align-items:flex-start;gap:1rem;background:var(--accent-lt);border:1px solid rgba(14,165,233,.2);border-radius:var(--radius);padding:1rem 1.1rem;margin-bottom:1.25rem;}
+.contact-card-icon{font-size:1.4rem;flex-shrink:0;}
+.contact-card-text{font-size:.82rem;color:var(--ink3);line-height:1.6;}
+.contact-card-text strong{color:var(--ink);font-weight:600;}
+
+/* ═══════════ BUTTONS ═══════════ */
+.btn-row{display:flex;gap:.75rem;margin-top:1.75rem;}
+.btn-back{background:none;border:1.5px solid var(--border2);color:var(--ink3);padding:.72rem 1.4rem;border-radius:10px;font-family:var(--font-b);font-size:.88rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.btn-back:hover{border-color:var(--accent);color:var(--accent);}
+.btn-next{background:var(--accent);color:#fff;padding:.72rem 1.75rem;border-radius:10px;font-family:var(--font-b);font-size:.88rem;font-weight:600;border:none;cursor:pointer;transition:all .25s;box-shadow:var(--shadow-bl);display:flex;align-items:center;gap:.5rem;flex:1;justify-content:center;}
+.btn-next:hover{background:var(--accent-dk);transform:translateY(-1px);box-shadow:0 12px 32px rgba(14,165,233,.35);}
+.btn-next:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-submit{background:linear-gradient(135deg,var(--accent) 0%,var(--blue) 100%);color:#fff;padding:.82rem 1.75rem;border-radius:10px;font-family:var(--font-b);font-size:.95rem;font-weight:700;border:none;cursor:pointer;transition:all .25s;box-shadow:0 8px 32px rgba(14,165,233,.3);display:flex;align-items:center;gap:.6rem;flex:1;justify-content:center;}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(14,165,233,.4);}
+
+/* ═══════════ SUCCESS STATE ═══════════ */
+.success-wrap{text-align:center;padding:2rem 1rem;animation:fadeUp .5s ease forwards;}
+.success-icon{width:72px;height:72px;background:var(--green-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:2rem;border:2px solid rgba(22,163,74,.2);}
+.success-h{font-family:var(--font-d);font-size:1.6rem;font-weight:800;color:var(--ink);margin-bottom:.6rem;letter-spacing:-.02em;}
+.success-sub{color:var(--muted);font-size:.9rem;line-height:1.7;margin-bottom:2rem;max-width:320px;margin-left:auto;margin-right:auto;}
+.success-ref{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.5rem;margin-bottom:1.75rem;font-family:var(--font-d);font-size:1.1rem;font-weight:800;color:var(--accent);letter-spacing:.05em;}
+.success-next{display:flex;flex-direction:column;gap:.55rem;}
+.sn-item{display:flex;align-items:center;gap:.65rem;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;font-size:.83rem;color:var(--ink3);transition:all .2s;cursor:pointer;}
+.sn-item:hover{border-color:var(--accent);color:var(--accent);}
+.sn-icon{font-size:1rem;flex-shrink:0;}
+
+/* ═══════════ PHONE CTA STRIP ═══════════ */
+.phone-strip{background:var(--bg3);border-radius:var(--radius);padding:.85rem 1rem;display:flex;align-items:center;gap:.75rem;margin-top:auto;border:1px solid var(--border);}
+.ph-text{flex:1;font-size:.78rem;color:var(--muted);line-height:1.5;}
+.ph-text strong{color:var(--ink);font-size:.88rem;}
+.ph-btn{background:var(--dark-bg);color:#fff;border:none;padding:.55rem 1.1rem;border-radius:8px;font-family:var(--font-b);font-size:.78rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:opacity .2s;}
+.ph-btn:hover{opacity:.8;}
+
+/* ═══════════ PROGRESS BAR ═══════════ */
+.progress-bar{height:3px;background:var(--border);border-radius:2px;margin-bottom:2rem;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(to right,var(--accent),var(--blue));border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+
+/* ═══════════ TICKER ═══════════ */
+.ticker-wrap{background:var(--dark-bg);overflow:hidden;padding:.7rem 0;position:relative;z-index:3;}
+.ticker{display:flex;width:max-content;animation:tick 40s linear infinite;}
+.t-item{display:flex;align-items:center;gap:.5rem;padding:0 1.8rem;font-family:var(--font-d);font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);white-space:nowrap;}
+.t-dot{width:4px;height:4px;background:var(--accent);border-radius:50%;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ═══════════ URGENCY BADGE ═══════════ */
+.urgency{display:inline-flex;align-items:center;gap:.5rem;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);border-radius:100px;padding:.3rem .85rem;font-size:.72rem;font-weight:600;color:#b45309;margin-bottom:1.25rem;}
+.urgency-dot{width:6px;height:6px;background:var(--amber);border-radius:50%;animation:blink 1.5s infinite;}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media(max-width:1024px){
+  .page-wrap{grid-template-columns:1fr;}
+  .left-panel{display:none;}
+  .right-panel{padding:2rem 5%;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+}
+@media(max-width:640px){
+  .right-panel{padding:1.5rem 4%;}
+  .svc-grid{grid-template-columns:1fr;}
+  .field-row{grid-template-columns:1fr;}
+  .field-row.triple{grid-template-columns:1fr 1fr;}
+  .inco-row{grid-template-columns:repeat(2,1fr);}
+  .date-strip{grid-template-columns:repeat(3,1fr);}
+  .btn-row{flex-direction:column-reverse;}
+  .btn-back,.btn-next,.btn-submit{width:100%;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo"><span>Mahaveer</span>Trans<div class="dot"></div></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="fleet.html">Fleet</a>
+    <a href="tracking.html">Track</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <div style="display:flex;align-items:center;gap:.45rem;">
+      <span style="font-size:.82rem;">☀️</span>
+      <button class="theme-toggle" id="themeToggle"></button>
+      <span style="font-size:.82rem;">🌙</span>
+    </div>
+    <button class="btn-ghost" onclick="location.href='tracking.html'">Track Shipment</button>
+    <button class="hamburger" id="hamburger">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-wrap" style="margin-top:66px;">
+  <div class="ticker" id="ticker"></div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="page-wrap">
+
+  <!-- ═══ LEFT PANEL ═══ -->
+  <div class="left-panel">
+    <div class="lp-grid"></div>
+    <div class="lp-glow"></div>
+    <div class="lp-glow2"></div>
+
+    <div class="lp-content">
+      <div class="sec-tag">Get Your Quote</div>
+      <h1 class="lp-h">Instant Pricing.<br><span class="hl">Zero Surprises.</span></h1>
+      <p class="lp-desc">Fill the 4-step form for a detailed quote in under 2 minutes. A dedicated account manager reviews every submission within 1 business hour.</p>
+
+      <div class="urgency">
+        <span class="urgency-dot"></span>
+        <span id="urgencyText">47 quotes requested in the last 24 hours</span>
+      </div>
+
+      <div class="trust-pills">
+        <span class="tp"><span class="tp-dot" style="background:#16a34a"></span>99% on-time delivery</span>
+        <span class="tp"><span class="tp-dot" style="background:#0ea5e9"></span>180+ countries</span>
+        <span class="tp"><span class="tp-dot" style="background:#f59e0b"></span>No hidden fees</span>
+        <span class="tp"><span class="tp-dot" style="background:#7c3aed"></span>GDP & IMDG certified</span>
+        <span class="tp"><span class="tp-dot" style="background:#dc2626"></span>24/7 live support</span>
+        <span class="tp"><span class="tp-dot" style="background:#0ea5e9"></span>1-hour quote review</span>
+      </div>
+    </div>
+
+    <!-- LIVE ESTIMATE CARD -->
+    <div class="est-card" id="estCard">
+      <div class="est-label">Live Estimate</div>
+      <div class="est-price"><span>₹</span><span id="estVal">—</span><span id="estUnit">&nbsp;· select a service</span></div>
+      <div class="est-note" id="estNote">Estimated range based on typical shipments. Final price after review.</div>
+      <div class="est-row">
+        <div class="est-pill">
+          <div class="est-pill-v" id="estTransit">—</div>
+          <div class="est-pill-l">Transit days</div>
+        </div>
+        <div class="est-pill">
+          <div class="est-pill-v" id="estCarbon">—</div>
+          <div class="est-pill-l">CO₂ estimate</div>
+        </div>
+        <div class="est-pill">
+          <div class="est-pill-v" id="estSLA">—</div>
+          <div class="est-pill-l">SLA level</div>
+        </div>
+      </div>
+      <div class="est-bar"><div class="est-fill" id="estFill" style="width:0%"></div></div>
+      <div class="est-footer"><span id="estMode">No service selected</span><span id="estCompletion">0% complete</span></div>
+    </div>
+  </div>
+
+  <!-- ═══ RIGHT PANEL (FORM) ═══ -->
+  <div class="right-panel">
+
+    <!-- STEPPER -->
+    <div class="stepper" id="stepper">
+      <div class="step-item">
+        <div class="step-num active" id="sn1">1</div>
+        <div class="step-label active" id="sl1">Service</div>
+      </div>
+      <div class="step-line" id="line1"></div>
+      <div class="step-item">
+        <div class="step-num idle" id="sn2">2</div>
+        <div class="step-label" id="sl2">Cargo</div>
+      </div>
+      <div class="step-line" id="line2"></div>
+      <div class="step-item">
+        <div class="step-num idle" id="sn3">3</div>
+        <div class="step-label" id="sl3">Route</div>
+      </div>
+      <div class="step-line" id="line3"></div>
+      <div class="step-item">
+        <div class="step-num idle" id="sn4">4</div>
+        <div class="step-label" id="sl4">Details</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:5%"></div></div>
+
+    <!-- ── STEP 1: SERVICE TYPE ── -->
+    <div class="form-step active" id="step1">
+      <h2 class="step-h">What are you shipping?</h2>
+      <p class="step-sub">Choose the service that best matches your shipment. You can refine later.</p>
+
+      <div class="svc-grid" id="svcGrid">
+        <label class="svc-opt" data-svc="air" data-base="4500" data-transit="1–3" data-carbon="High" data-sla="Express">
+          <input type="radio" name="svc" value="air">
+          <div class="svc-opt-icon">✈️</div>
+          <div class="svc-opt-body">
+            <div class="svc-opt-name">Air Freight</div>
+            <div class="svc-opt-desc">Time-critical, global. Next-flight-out available.</div>
+          </div>
+          <div class="svc-opt-check">✓</div>
+        </label>
+        <label class="svc-opt" data-svc="ocean" data-base="35000" data-transit="14–28" data-carbon="Low" data-sla="Standard">
+          <input type="radio" name="svc" value="ocean">
+          <div class="svc-opt-icon">🚢</div>
+          <div class="svc-opt-body">
+            <div class="svc-opt-name">Sea Freight</div>
+            <div class="svc-opt-desc">FCL & LCL, cost-effective for bulk cargo.</div>
+          </div>
+          <div class="svc-opt-check">✓</div>
+        </label>
+        <label class="svc-opt" data-svc="road" data-base="12000" data-transit="1–5" data-carbon="Medium" data-sla="Standard">
+          <input type="radio" name="svc" value="road">
+          <div class="svc-opt-icon">🚛</div>
+          <div class="svc-opt-body">
+            <div class="svc-opt-name">Road Transport</div>
+            <div class="svc-opt-desc">FTL & LTL, GPS-tracked nationwide network.</div>
+          </div>
+          <div class="svc-opt-check">✓</div>
+        </label>
+        <label class="svc-opt" data-svc="cold" data-base="8500" data-transit="2–7" data-carbon="Medium" data-sla="GDP Certified">
+          <input type="radio" name="svc" value="cold">
+          <div class="svc-opt-icon">❄️</div>
+          <div class="svc-opt-body">
+            <div class="svc-opt-name">Cold Chain</div>
+            <div class="svc-opt-desc">Pharma & food, real-time temp monitoring.</div>
+          </div>
+          <div class="svc-opt-check">✓</div>
+        </label>
+        <label class="svc-opt" data-svc="warehouse" data-base="18" data-transit="Same-day" data-carbon="Minimal" data-sla="3PL">
+          <input type="radio" name="svc" value="warehouse">
+          <div class="svc-opt-icon">🏭</div>
+          <div class="svc-opt-body">
+            <div class="svc-opt-name">Warehousing & 3PL</div>
+            <div class="svc-opt-desc">Smart storage with WMS integration & fulfilment.</div>
+          </div>
+          <div class="svc-opt-check">✓</div>
+        </label>
+        <label class="svc-opt" data-svc="lastmile" data-base="49" data-transit="Same/Next day" data-carbon="Low" data-sla="B2C">
+          <input type="radio" name="svc" value="lastmile">
+          <div class="svc-opt-icon">🛵</div>
+          <div class="svc-opt-body">
+            <div class="svc-opt-name">Last Mile Delivery</div>
+            <div class="svc-opt-desc">Urban e-commerce delivery, live tracking link.</div>
+          </div>
+          <div class="svc-opt-check">✓</div>
+        </label>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-next" id="next1" onclick="goStep(2)" disabled>
+          Continue to Cargo Details <span>→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: CARGO DETAILS ── -->
+    <div class="form-step" id="step2">
+      <h2 class="step-h">Tell us about your cargo</h2>
+      <p class="step-sub">Accurate dimensions help us give you the best price — estimates are fine.</p>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Commodity type<span class="req">*</span></label>
+          <select class="field-select" id="commodity">
+            <option value="">Select category</option>
+            <option>General cargo</option>
+            <option>Pharmaceuticals / Biotech</option>
+            <option>Perishable food</option>
+            <option>Electronics & technology</option>
+            <option>Automotive parts</option>
+            <option>Apparel & textiles</option>
+            <option>Chemicals (non-hazmat)</option>
+            <option>Hazardous materials (IMDG/IATA)</option>
+            <option>Industrial machinery</option>
+            <option>Construction materials</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">HS Code <span style="color:var(--muted2);font-weight:400">(optional)</span></label>
+          <input class="field-input" type="text" placeholder="e.g. 8471.30" id="hscode">
+          <span class="field-hint">Leave blank if unknown — we'll classify for you.</span>
+        </div>
+      </div>
+
+      <div class="field-row triple">
+        <div class="field-group">
+          <label class="field-label">Weight (kg)<span class="req">*</span></label>
+          <input class="field-input" type="number" min="0.1" placeholder="e.g. 250" id="weight" oninput="updateEstimate()">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Volume (CBM)<span class="req">*</span></label>
+          <input class="field-input" type="number" min="0.01" step="0.01" placeholder="e.g. 1.5" id="volume" oninput="updateEstimate()">
+        </div>
+        <div class="field-group">
+          <label class="field-label">No. of pieces</label>
+          <input class="field-input" type="number" min="1" placeholder="e.g. 10" id="pieces">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Packaging type<span class="req">*</span></label>
+          <select class="field-select" id="packaging">
+            <option value="">Select type</option>
+            <option>Pallets (EUR 120×80cm)</option>
+            <option>Pallets (custom size)</option>
+            <option>Cartons / boxes</option>
+            <option>Drums / barrels</option>
+            <option>Crates / wooden boxes</option>
+            <option>Loose / bulk</option>
+            <option>Full container (FCL)</option>
+            <option>Bags / sacks</option>
+            <option>Reels / rolls</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Cargo value (₹)<span class="req">*</span></label>
+          <input class="field-input" type="number" placeholder="e.g. 500000" id="cargoValue">
+          <span class="field-hint">Required for insurance calculation.</span>
+        </div>
+      </div>
+
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">Special handling requirements</label>
+          <div style="display:flex;gap:.55rem;flex-wrap:wrap;margin-top:.25rem;">
+            <label style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--ink3);cursor:pointer;"><input type="checkbox" class="special"> Fragile / handle with care</label>
+            <label style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--ink3);cursor:pointer;"><input type="checkbox" class="special"> Hazardous (DG)</label>
+            <label style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--ink3);cursor:pointer;"><input type="checkbox" class="special"> Stack restrict</label>
+            <label style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--ink3);cursor:pointer;"><input type="checkbox" class="special"> Oversize / OOG</label>
+            <label style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--ink3);cursor:pointer;"><input type="checkbox" class="special"> Temperature-controlled</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(1)">← Back</button>
+        <button class="btn-next" id="next2" onclick="goStep(3)">Continue to Route → </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: ROUTE & DATE ── -->
+    <div class="form-step" id="step3">
+      <h2 class="step-h">Origin, destination & timing</h2>
+      <p class="step-sub">Tell us where it needs to go and when. We'll plan the fastest, most cost-effective route.</p>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Origin city / port<span class="req">*</span></label>
+          <input class="field-input" type="text" placeholder="e.g. Mumbai, India" id="origin">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Destination city / port<span class="req">*</span></label>
+          <input class="field-input" type="text" placeholder="e.g. Frankfurt, Germany" id="destination">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Pickup type<span class="req">*</span></label>
+          <select class="field-select" id="pickupType">
+            <option value="">Select</option>
+            <option>Door pickup (from my address)</option>
+            <option>Port / terminal drop-off</option>
+            <option>From MahaveerTrans warehouse</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Delivery type<span class="req">*</span></label>
+          <select class="field-select" id="deliveryType">
+            <option value="">Select</option>
+            <option>Door delivery (to recipient address)</option>
+            <option>Port / terminal pickup</option>
+            <option>To MahaveerTrans warehouse</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group" style="margin-bottom:.85rem;">
+        <label class="field-label">Incoterm<span class="req">*</span></label>
+        <div class="inco-row" id="incoRow">
+          <label class="inco-opt selected" data-v="EXW">EXW<input type="radio" name="inco" value="EXW" checked></label>
+          <label class="inco-opt" data-v="FOB">FOB<input type="radio" name="inco" value="FOB"></label>
+          <label class="inco-opt" data-v="CIF">CIF<input type="radio" name="inco" value="CIF"></label>
+          <label class="inco-opt" data-v="DDP">DDP<input type="radio" name="inco" value="DDP"></label>
+          <label class="inco-opt" data-v="DAP">DAP<input type="radio" name="inco" value="DAP"></label>
+          <label class="inco-opt" data-v="FCA">FCA<input type="radio" name="inco" value="FCA"></label>
+          <label class="inco-opt" data-v="CPT">CPT<input type="radio" name="inco" value="CPT"></label>
+          <label class="inco-opt" data-v="CIP">CIP<input type="radio" name="inco" value="CIP"></label>
+        </div>
+      </div>
+
+      <div class="field-group" style="margin-bottom:.85rem;">
+        <label class="field-label">Preferred ready date<span class="req">*</span></label>
+        <div class="date-strip" id="dateStrip"></div>
+      </div>
+
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">Shipment frequency</label>
+          <select class="field-select" id="frequency">
+            <option value="">One-time shipment</option>
+            <option>Weekly</option>
+            <option>Bi-weekly</option>
+            <option>Monthly</option>
+            <option>Quarterly</option>
+            <option>Ad-hoc / as needed</option>
+          </select>
+          <span class="field-hint">Regular shippers get preferential rates and a dedicated lane manager.</span>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(2)">← Back</button>
+        <button class="btn-next" id="next3" onclick="goStep(4)">Continue to Contact →</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 4: ADD-ONS + CONTACT ── -->
+    <div class="form-step" id="step4">
+      <h2 class="step-h">Add-ons & your details</h2>
+      <p class="step-sub">Enhance your shipment, then tell us who to send the quote to.</p>
+
+      <div class="addon-list" id="addonList">
+        <label class="addon-item" data-price="3500" onclick="toggleAddon(this)">
+          <div class="addon-left">
+            <div class="addon-icon">🔒</div>
+            <div>
+              <div class="addon-name">Cargo Insurance</div>
+              <div class="addon-desc">Full replacement value via Lloyd's underwriters · 0.15% of cargo value</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem;">
+            <div class="addon-price">+₹3,500</div>
+            <div class="addon-check">✓</div>
+          </div>
+        </label>
+        <label class="addon-item" data-price="1200" onclick="toggleAddon(this)">
+          <div class="addon-left">
+            <div class="addon-icon">📋</div>
+            <div>
+              <div class="addon-name">Customs Clearance</div>
+              <div class="addon-desc">Full import/export documentation & duty filing at both ends</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem;">
+            <div class="addon-price">+₹1,200</div>
+            <div class="addon-check">✓</div>
+          </div>
+        </label>
+        <label class="addon-item" data-price="800" onclick="toggleAddon(this)">
+          <div class="addon-left">
+            <div class="addon-icon">📍</div>
+            <div>
+              <div class="addon-name">Premium Live Tracking</div>
+              <div class="addon-desc">5-minute GPS pings, WhatsApp & email alerts, shareable link</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem;">
+            <div class="addon-price">+₹800</div>
+            <div class="addon-check">✓</div>
+          </div>
+        </label>
+        <label class="addon-item" data-price="2200" onclick="toggleAddon(this)">
+          <div class="addon-left">
+            <div class="addon-icon">🏷️</div>
+            <div>
+              <div class="addon-name">Pick, Pack & Label</div>
+              <div class="addon-desc">Warehouse fulfilment — we pick, pack, label & dispatch for you</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem;">
+            <div class="addon-price">+₹2,200</div>
+            <div class="addon-check">✓</div>
+          </div>
+        </label>
+      </div>
+
+      <!-- QUOTE SUMMARY -->
+      <div class="summary-card" id="summaryCard">
+        <div class="sum-h">Quote Summary</div>
+        <div class="sum-row"><span class="sum-key">Service</span><span class="sum-val accent" id="sumSvc">—</span></div>
+        <div class="sum-row"><span class="sum-key">Route</span><span class="sum-val" id="sumRoute">—</span></div>
+        <div class="sum-row"><span class="sum-key">Cargo weight</span><span class="sum-val" id="sumWeight">—</span></div>
+        <div class="sum-row"><span class="sum-key">Transit time</span><span class="sum-val" id="sumTransit">—</span></div>
+        <div class="sum-row"><span class="sum-key">Add-ons</span><span class="sum-val" id="sumAddons">None</span></div>
+        <div class="sum-total">
+          <div class="sum-total-l">Estimated Total</div>
+          <div class="sum-total-v"><span class="cur">₹ </span><span id="sumTotal">—</span></div>
+        </div>
+      </div>
+
+      <!-- CONTACT INFO -->
+      <div class="contact-card">
+        <div class="contact-card-icon">⚡</div>
+        <div class="contact-card-text"><strong>Response within 1 business hour.</strong> A dedicated logistics manager will call or email you to confirm the quote, discuss any special requirements, and activate your shipment.</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Full name<span class="req">*</span></label>
+          <input class="field-input" type="text" placeholder="Rajesh Sharma" id="cName">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Company<span class="req">*</span></label>
+          <input class="field-input" type="text" placeholder="Acme Exports Ltd." id="cCompany">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Email<span class="req">*</span></label>
+          <input class="field-input" type="email" placeholder="rajesh@acme.com" id="cEmail">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Phone / WhatsApp<span class="req">*</span></label>
+          <input class="field-input" type="tel" placeholder="+91 98765 43210" id="cPhone">
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field-group">
+          <label class="field-label">Additional notes</label>
+          <textarea class="field-textarea" placeholder="Any special requirements, references, or questions for our team…" id="cNotes"></textarea>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(3)">← Back</button>
+        <button class="btn-submit" id="submitBtn" onclick="submitForm()">
+          <span>🚀</span> Request My Quote — Free
+        </button>
+      </div>
+    </div>
+
+    <!-- ── SUCCESS ── -->
+    <div class="form-step" id="step5">
+      <div class="success-wrap">
+        <div class="success-icon">✅</div>
+        <h2 class="success-h">Quote Request Received!</h2>
+        <p class="success-sub">Your request has been assigned to a dedicated account manager. Expect a response within 1 business hour.</p>
+        <div class="success-ref" id="successRef">#MT-2025-XXXXX</div>
+        <div class="success-next">
+          <div class="sn-item" onclick="location.href='tracking.html'"><span class="sn-icon">📍</span>Track a shipment in real time</div>
+          <div class="sn-item" onclick="location.href='services.html'"><span class="sn-icon">🛳️</span>Explore all service options</div>
+          <div class="sn-item"><span class="sn-icon">📥</span>Download quote summary PDF</div>
+          <div class="sn-item" onclick="location.href='contact.html'"><span class="sn-icon">💬</span>Chat with our team on WhatsApp</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHONE STRIP -->
+    <div class="phone-strip" id="phoneStrip" style="margin-top:2rem;">
+      <div class="ph-text"><strong>Prefer to talk?</strong><br>Our ops team is available 24/7 to build a custom quote over the phone.</div>
+      <button class="ph-btn">📞 +91 22 4001 8000</button>
+    </div>
+  </div><!-- /right-panel -->
+</div><!-- /page-wrap -->
+
+<script>
+/* ════ DATA ════ */
+const SERVICES = {
+  air:       { name:'Air Freight',       base:4500,  unit:'per kg',       transit:'1–3 days',     carbon:'High',    sla:'Express' },
+  ocean:     { name:'Sea Freight',       base:35000, unit:'per container', transit:'14–28 days',   carbon:'Low',     sla:'Standard' },
+  road:      { name:'Road Transport',    base:12000, unit:'per trip',      transit:'1–5 days',     carbon:'Medium',  sla:'Standard' },
+  cold:      { name:'Cold Chain',        base:8500,  unit:'per pallet/day',transit:'2–7 days',     carbon:'Medium',  sla:'GDP Cert.' },
+  warehouse: { name:'Warehousing & 3PL', base:18,    unit:'per sq.ft/mo', transit:'Same-day disp.', carbon:'Minimal', sla:'3PL' },
+  lastmile:  { name:'Last Mile',         base:49,    unit:'per delivery',  transit:'Same/Next day', carbon:'Low',     sla:'B2C' },
+};
+
+let currentStep = 1;
+let selectedSvc = null;
+let addonTotal = 0;
+
+/* ════ TICKER ════ */
+const tItems = ['Air Freight','Ocean Shipping','Road Transport','Cold Chain','Customs Clearance','Warehousing & 3PL','Last Mile Delivery','Express Courier','Reverse Logistics','Hazmat Handling','FTL & LTL','FCL & LCL'];
+const ti = tItems.map(t=>`<span class="t-item"><span class="t-dot"></span>${t}</span>`).join('');
+document.getElementById('ticker').innerHTML = ti + ti;
+
+/* ════ DATE CHIPS ════ */
+function buildDateStrip(){
+  const strip = document.getElementById('dateStrip');
+  const now = new Date();
+  let html = '';
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  for(let i=1;i<=5;i++){
+    const d = new Date(now);
+    d.setDate(now.getDate()+i);
+    html += `<div class="date-chip${i===1?' selected':''}" onclick="selectDate(this)" data-date="${d.toLocaleDateString()}">
+      <div class="date-chip-d">${d.getDate()}</div>
+      <div class="date-chip-m">${days[d.getDay()]} ${months[d.getMonth()]}</div>
+    </div>`;
+  }
+  html += `<div class="date-chip" onclick="selectDate(this)" data-date="custom" style="font-size:.72rem;display:flex;align-items:center;justify-content:center;color:var(--muted);">Pick date</div>`;
+  strip.innerHTML = html;
+}
+buildDateStrip();
+
+function selectDate(el){
+  document.querySelectorAll('.date-chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+/* ════ INCOTERMS ════ */
+document.getElementById('incoRow').addEventListener('click',e=>{
+  const opt = e.target.closest('.inco-opt');
+  if(!opt) return;
+  document.querySelectorAll('.inco-opt').forEach(o=>o.classList.remove('selected'));
+  opt.classList.add('selected');
+});
+
+/* ════ SERVICE SELECTION ════ */
+document.getElementById('svcGrid').addEventListener('click',e=>{
+  const opt = e.target.closest('.svc-opt');
+  if(!opt) return;
+  document.querySelectorAll('.svc-opt').forEach(o=>o.classList.remove('selected'));
+  opt.classList.add('selected');
+  opt.querySelector('input').checked = true;
+  selectedSvc = opt.dataset.svc;
+  document.getElementById('next1').disabled = false;
+  updateEstimate();
+});
+
+/* ════ ESTIMATE UPDATE ════ */
+function updateEstimate(){
+  if(!selectedSvc) return;
+  const svc = SERVICES[selectedSvc];
+  const w = parseFloat(document.getElementById('weight')?.value) || 1;
+  let est;
+  if(selectedSvc==='air') est = svc.base * Math.max(w,1);
+  else if(selectedSvc==='ocean') est = svc.base;
+  else if(selectedSvc==='road') est = svc.base + (w>500 ? (w-500)*15 : 0);
+  else if(selectedSvc==='cold') est = svc.base * Math.ceil(w/600);
+  else if(selectedSvc==='warehouse') est = svc.base * 100;
+  else est = svc.base * Math.max(w,1);
+
+  est += addonTotal;
+
+  document.getElementById('estVal').textContent = est.toLocaleString('en-IN');
+  document.getElementById('estUnit').textContent = ' · ' + svc.unit;
+  document.getElementById('estTransit').textContent = svc.transit;
+  document.getElementById('estCarbon').textContent = svc.carbon;
+  document.getElementById('estSLA').textContent = svc.sla;
+  document.getElementById('estMode').textContent = svc.name;
+
+  const pct = Math.min(20 + (currentStep-1)*25, 100);
+  document.getElementById('estFill').style.width = pct + '%';
+  document.getElementById('estCompletion').textContent = pct + '% complete';
+  document.getElementById('estNote').textContent = 'Estimated range. Includes base rate' + (addonTotal>0 ? ' + selected add-ons.' : '.');
+
+  // Update summary card
+  document.getElementById('sumSvc').textContent = svc.name;
+  document.getElementById('sumTransit').textContent = svc.transit;
+  document.getElementById('sumWeight').textContent = w > 1 ? w + ' kg' : '—';
+  const o = document.getElementById('origin')?.value;
+  const d = document.getElementById('destination')?.value;
+  document.getElementById('sumRoute').textContent = (o && d) ? `${o} → ${d}` : '—';
+  document.getElementById('sumTotal').textContent = est.toLocaleString('en-IN');
+}
+
+/* ════ ADD-ONS ════ */
+function toggleAddon(el){
+  el.classList.toggle('selected');
+  addonTotal = 0;
+  document.querySelectorAll('.addon-item.selected').forEach(a=>{
+    addonTotal += parseInt(a.dataset.price);
+  });
+  const selected = Array.from(document.querySelectorAll('.addon-item.selected')).map(a=>a.querySelector('.addon-name').textContent);
+  document.getElementById('sumAddons').textContent = selected.length ? selected.join(', ') : 'None';
+  updateEstimate();
+}
+
+/* ════ STEP NAVIGATION ════ */
+function goStep(n){
+  document.getElementById('step'+currentStep).classList.remove('active');
+  currentStep = n;
+
+  // Update stepper visuals
+  for(let i=1;i<=4;i++){
+    const num = document.getElementById('sn'+i);
+    const lbl = document.getElementById('sl'+i);
+    const line = document.getElementById('line'+i);
+    if(i < n){ num.className='step-num done'; num.textContent='✓'; lbl.className='step-label done'; if(line) line.className='step-line done'; }
+    else if(i===n){ num.className='step-num active'; num.textContent=i; lbl.className='step-label active'; if(line) line.className='step-line active'; }
+    else { num.className='step-num idle'; num.textContent=i; lbl.className='step-label'; if(line) line.className='step-line'; }
+  }
+
+  const pct = [5,30,55,80,100][n-1];
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('estFill').style.width = pct + '%';
+  document.getElementById('estCompletion').textContent = pct + '% complete';
+
+  if(n === 5) document.getElementById('phoneStrip').style.display='none';
+
+  document.getElementById('step'+n).classList.add('active');
+  updateEstimate();
+  window.scrollTo({top:66, behavior:'smooth'});
+}
+
+/* ════ SUBMIT ════ */
+function submitForm(){
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const phone = document.getElementById('cPhone').value.trim();
+  if(!name || !email || !phone){
+    ['cName','cEmail','cPhone'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(!el.value.trim()){ el.classList.add('error'); setTimeout(()=>el.classList.remove('error'),2500); }
+    });
+    return;
+  }
+  const ref = '#MT-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*90000+10000));
+  document.getElementById('successRef').textContent = ref;
+  goStep(5);
+}
+
+/* ════ THEME ════ */
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = t;
+  localStorage.setItem('mt-theme', t);
+});
+const saved = localStorage.getItem('mt-theme');
+if(saved) document.documentElement.dataset.theme = saved;
+
+/* ════ NAV SCROLL ════ */
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>40));
+
+/* ════ URGENCY TEXT ════ */
+const quotes = [41,47,53,38,62,44];
+document.getElementById('urgencyText').textContent = quotes[Math.floor(Math.random()*quotes.length)] + ' quotes requested in the last 24 hours';
+</script>
+</body>
+</html>
