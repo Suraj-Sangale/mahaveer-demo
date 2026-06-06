@@ -694,13 +694,13 @@
       align-items: center;
       justify-content: center;
       padding: 5rem 0;
-      animation: fadeIn .9s .4s ease-out both;
     }
 
     .hero-img-wrap {
       position: relative;
       width: 100%;
       max-width: 490px;
+      animation: fadeIn .9s .4s ease-out both;
     }
 
     .hero-main-img {
@@ -2266,22 +2266,42 @@
       }
 
       #hero {
-        grid-template-columns: 1fr;
-        padding-top: 66px;
+        display: flex;
+        flex-direction: column;
+        padding-top: 96px;
         min-height: auto;
         padding-bottom: 3rem;
       }
 
-      .hero-right {
-        display: none;
+      .hero-right, .hero-left {
+        display: contents;
       }
 
-      .hero-left {
-        padding: 3rem 0 0;
+      .hero-pill { order: 1; }
+      .hero-h1 { order: 2; font-size: clamp(2.4rem, 6vw, 4rem); }
+      .hero-desc { order: 3; }
+      .hero-img-wrap { order: 4; margin: 1.5rem 0 2.5rem; }
+      .hero-actions { order: 5; }
+      .hero-trust { order: 6; }
+
+      .hero-main-img {
+        height: 340px;
       }
 
-      .hero-h1 {
-        font-size: clamp(2.4rem, 6vw, 4rem);
+      .hfloat {
+        padding: 0.8rem 1rem;
+      }
+
+      .hf1 {
+        bottom: 0.5rem;
+        left: -0.5rem;
+        min-width: auto;
+      }
+
+      .hf2 {
+        top: 0.5rem;
+        right: -0.5rem;
+        min-width: auto;
       }
 
       #about {
@@ -2832,37 +2852,37 @@
       <div class="hero-pill"><span class="live-dot"></span> <span id="hero-pill-text"></span></div>
       <h1 class="hero-h1" id="heroTitle"></h1>
       <p class="hero-desc" id="heroDesc"></p>
-      <div class="hero-actions">
-        <button class="btn-primary" id="heroCta1"></button>
-        <button class="btn-outline" id="heroCta2"></button>
+        <div class="hero-actions">
+          <button class="btn-primary" id="heroCta1"></button>
+          <button class="btn-outline" id="heroCta2"></button>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-avs" id="trustAvatars"></div>
+          <div class="trust-txt"><strong id="trustCount"></strong> <span id="trustLabel"></span></div>
+        </div>
       </div>
-      <div class="hero-trust">
-        <div class="trust-avs" id="trustAvatars"></div>
-        <div class="trust-txt"><strong id="trustCount"></strong> <span id="trustLabel"></span></div>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="hero-img-wrap">
-        <img class="hero-main-img" id="heroImg" src="" alt="Operations">
-        <div class="hfloat hf1">
-          <div class="hf-tag" id="hfStatLabel"></div>
-          <div class="hf-val" id="hfCount">0</div>
-          <div class="hf-sub" id="hfStatSub"></div>
-          <div class="hf-badge" id="hfBadge"></div>
-          <div class="hf-bar-wrap">
-            <div class="hf-tag" id="hfCapLabel" style="margin-top:.55rem"></div>
-            <div class="hf-bar">
-              <div class="hf-fill"></div>
+      <div class="hero-right">
+        <div class="hero-img-wrap">
+          <img class="hero-main-img" id="heroImg" src="" alt="Operations">
+          <div class="hfloat hf1">
+            <div class="hf-tag" id="hfStatLabel"></div>
+            <div class="hf-val" id="hfCount">0</div>
+            <div class="hf-sub" id="hfStatSub"></div>
+            <div class="hf-badge" id="hfBadge"></div>
+            <div class="hf-bar-wrap">
+              <div class="hf-tag" id="hfCapLabel" style="margin-top:.55rem"></div>
+              <div class="hf-bar">
+                <div class="hf-fill"></div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="hfloat hf2">
-          <div class="hf-tag" id="hfOtLabel"></div>
-          <div class="hf-val" id="hfPct">0%</div>
-          <div class="hf-sub" id="hfOtSub"></div>
+          <div class="hfloat hf2">
+            <div class="hf-tag" id="hfOtLabel"></div>
+            <div class="hf-val" id="hfPct">0%</div>
+            <div class="hf-sub" id="hfOtSub"></div>
+          </div>
         </div>
       </div>
-    </div>
   </section>
 
   <!-- TICKER -->
@@ -2884,8 +2904,9 @@
       <div>
         <div class="sec-tag" id="svcSectionTag"></div>
         <h2 class="sec-h" id="svcHeading"></h2>
+        <p class="svc-top-desc" id="svcDesc" style="margin-top: 0.8rem; max-width: 500px;"></p>
       </div>
-      <p class="svc-top-desc" id="svcDesc"></p>
+      <a href="services.html" class="btn-outline">All Services →</a>
     </div>
     <div class="svc-grid" id="svcGrid"></div>
   </section>
