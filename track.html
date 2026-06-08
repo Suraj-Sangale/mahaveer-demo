@@ -1,0 +1,1277 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Shipment — MahaveerTrans</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══ TOKENS ═══ */
+:root{
+  --bg:#ffffff;--bg2:#f9fafb;--bg3:#f3f4f6;
+  --ink:#0d1117;--ink2:#1e2530;--ink3:#374151;
+  --muted:#6b7280;--muted2:#9ca3af;
+  --border:#e5e7eb;--border2:#d1d5db;--card:#ffffff;
+  --dark-bg:#0d1117;--dark-bar:#080c14;
+  --accent:#0ea5e9;--accent-dk:#0284c7;--accent-lt:#f0f9ff;
+  --green:#16a34a;--green-lt:#f0fdf4;
+  --amber:#f59e0b;--amber-lt:#fffbeb;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --blue:#1d4ed8;--blue-lt:#eff6ff;
+  --shadow:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.10);
+  --shadow-bl:0 8px 32px rgba(14,165,233,.25);
+  --radius:12px;--radius-lg:20px;--radius-xl:28px;
+  --font-d:'Syne',sans-serif;--font-b:'Instrument Sans',sans-serif;
+  --tr:.3s ease;
+}
+[data-theme="dark"]{
+  --bg:#0d1117;--bg2:#111827;--bg3:#1e2533;
+  --ink:#f1f5f9;--ink2:#e2e8f0;--ink3:#cbd5e1;
+  --muted:#94a3b8;--muted2:#64748b;
+  --border:#1e293b;--border2:#334155;--card:#141c2b;
+  --dark-bg:#060a10;--dark-bar:#040710;
+  --shadow:0 4px 24px rgba(0,0,0,.35);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.5);
+  --accent-lt:#0c1929;--blue-lt:#0c1a30;--amber-lt:#1a1200;--green-lt:#061410;--red-lt:#1a0505;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-b);overflow-x:hidden;transition:background var(--tr),color var(--tr);line-height:1.6;}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:66px;background:rgba(255,255,255,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s,background .3s;}
+[data-theme="dark"] nav{background:rgba(13,17,23,.88);}
+nav.scrolled{box-shadow:var(--shadow);}
+.nav-logo{font-family:var(--font-d);font-size:1.3rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;display:flex;align-items:center;gap:.45rem;white-space:nowrap;}
+.nav-logo .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+.nav-links{display:flex;gap:.15rem;align-items:center;}
+.nav-links a{color:var(--muted);font-size:.855rem;font-weight:500;padding:.4rem .85rem;border-radius:8px;transition:all .2s;}
+.nav-links a:hover{color:var(--ink);background:var(--bg3);}
+.nav-links a.active{color:var(--accent);background:var(--accent-lt);}
+.nav-right{display:flex;align-items:center;gap:.65rem;}
+.btn-ghost{background:none;border:1.5px solid var(--border2);color:var(--ink3);padding:.46rem 1.1rem;border-radius:8px;font-family:var(--font-b);font-size:.855rem;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-cta-nav{background:var(--ink);color:var(--bg);padding:.5rem 1.3rem;border-radius:8px;font-family:var(--font-b);font-size:.855rem;font-weight:600;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-cta-nav:hover{opacity:.85;transform:translateY(-1px);box-shadow:var(--shadow);}
+.theme-toggle{width:44px;height:24px;border-radius:100px;background:var(--border2);border:none;cursor:pointer;position:relative;transition:background .3s;flex-shrink:0;}
+.theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--bg);transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+[data-theme="dark"] .theme-toggle{background:var(--accent);}
+[data-theme="dark"] .theme-toggle::after{transform:translateX(20px);}
+.theme-icon{font-size:.85rem;pointer-events:none;}
+
+/* ═══ HAMBURGER ═══ */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;border:1.5px solid var(--border2);border-radius:8px;background:none;cursor:pointer;padding:8px;transition:border-color .2s;flex-shrink:0;}
+.hamburger:hover{border-color:var(--accent);}
+.ham-line{width:100%;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .3s ease,opacity .3s ease;transform-origin:center;}
+.hamburger.open .ham-line:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open .ham-line:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open .ham-line:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:250;backdrop-filter:blur(4px);opacity:0;transition:opacity .3s;}
+.mob-overlay.open{opacity:1;}
+.mob-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,85vw);background:var(--card);z-index:260;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;border-left:1px solid var(--border);}
+.mob-drawer.open{transform:translateX(0);}
+.dr-header{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.25rem;border-bottom:1px solid var(--border);}
+.dr-logo{font-family:var(--font-d);font-size:1.2rem;font-weight:800;color:var(--ink);}
+.dr-close{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--border2);background:none;cursor:pointer;color:var(--muted);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.dr-close:hover{background:var(--bg3);color:var(--ink);}
+.dr-links{display:flex;flex-direction:column;padding:1rem 0;flex:1;}
+.dr-links a{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.25rem;color:var(--ink3);font-size:.95rem;font-weight:500;border-bottom:1px solid var(--border);transition:all .2s;}
+.dr-links a:hover,.dr-links a.active{color:var(--accent);background:var(--accent-lt);padding-left:1.5rem;}
+.dr-links a::after{content:'→';color:var(--muted2);font-size:.8rem;}
+.dr-links a:hover::after,.dr-links a.active::after{color:var(--accent);}
+.dr-foot{padding:1.25rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:.65rem;}
+.dr-theme-row{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem;background:var(--bg2);border-radius:10px;}
+.dr-theme-lbl{font-size:.82rem;font-weight:600;color:var(--ink3);}
+.dr-cta-btn{background:var(--ink);color:var(--bg);padding:.75rem;border-radius:8px;font-family:var(--font-b);font-size:.88rem;font-weight:600;border:none;cursor:pointer;width:100%;transition:all .2s;}
+
+/* ═══ BREADCRUMB ═══ */
+.breadcrumb{display:flex;align-items:center;gap:.5rem;padding:5.5rem 5% 0;}
+.bc-item{font-size:.78rem;color:var(--muted);transition:color .2s;cursor:pointer;}
+.bc-item:hover,.bc-item.cur{color:var(--accent);}
+.bc-item.cur{font-weight:600;}
+.bc-sep{color:var(--muted2);font-size:.75rem;}
+
+/* ═══ HERO ═══ */
+.hero{padding:1.5rem 5% 0;position:relative;overflow:hidden;background:var(--bg);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:52px 52px;opacity:.4;pointer-events:none;}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 60% 55%,rgba(14,165,233,.07),transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;z-index:2;padding:2.5rem 0 4rem;display:flex;align-items:center;justify-content:space-between;gap:3rem;flex-wrap:wrap;}
+.hero-left{max-width:560px;}
+.sec-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+.sec-tag::before{content:'';width:18px;height:2px;background:var(--accent);}
+.sec-tag.center{justify-content:center;}
+.sec-tag.center::before{display:none;}
+.sec-h{font-family:var(--font-d);font-size:clamp(1.9rem,4vw,3.4rem);font-weight:800;line-height:1.06;letter-spacing:-.03em;color:var(--ink);}
+.sec-h .hl{color:var(--accent);}
+.hero-desc{color:var(--muted);font-size:1rem;line-height:1.75;margin:1.1rem 0 2rem;}
+.hero-right{display:flex;gap:1.25rem;flex-wrap:wrap;}
+.hero-stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.5rem;min-width:130px;transition:all .3s;}
+.hero-stat:hover{box-shadow:var(--shadow-lg);border-color:var(--accent);}
+.hs-val{font-family:var(--font-d);font-size:1.8rem;font-weight:800;color:var(--ink);line-height:1;}
+.hs-val .s{color:var(--accent);}
+.hs-lbl{font-size:.72rem;color:var(--muted);margin-top:.25rem;}
+
+/* ═══ MAIN TRACK PANEL ═══ */
+.track-section{background:var(--dark-bg);position:relative;overflow:hidden;padding:4.5rem 5%;}
+.track-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 80% at 70% 40%,rgba(14,165,233,.14),transparent);pointer-events:none;}
+.track-section::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 40% 50% at 20% 80%,rgba(14,165,233,.06),transparent);pointer-events:none;}
+.track-panel{position:relative;z-index:1;max-width:860px;margin:0 auto;}
+.tp-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+.tp-tag::before{content:'';width:18px;height:2px;background:var(--accent);}
+.tp-h{font-family:var(--font-d);font-size:clamp(1.8rem,4vw,3rem);font-weight:800;color:#f1f5f9;margin-bottom:.75rem;line-height:1.1;}
+.tp-h .hl{color:var(--accent);}
+.tp-sub{color:rgba(255,255,255,.42);font-size:.93rem;line-height:1.7;max-width:520px;margin-bottom:2.25rem;}
+/* Search bar */
+.search-bar{display:flex;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .25s;margin-bottom:1rem;}
+.search-bar:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(14,165,233,.12);}
+.search-bar input{flex:1;background:transparent;border:none;outline:none;padding:1rem 1.4rem;color:#fff;font-family:var(--font-b);font-size:1rem;}
+.search-bar input::placeholder{color:rgba(255,255,255,.3);}
+.search-bar button{background:var(--accent);color:#fff;border:none;padding:1rem 2rem;cursor:pointer;font-family:var(--font-b);font-size:.92rem;font-weight:700;transition:background .2s;white-space:nowrap;display:flex;align-items:center;gap:.5rem;}
+.search-bar button:hover{background:var(--accent-dk);}
+.search-hints{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.s-hint{color:rgba(255,255,255,.35);font-size:.75rem;display:flex;align-items:center;gap:.35rem;}
+.s-hint::before{content:'✓';color:var(--accent);}
+/* Quick examples */
+.quick-chips{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1.25rem;}
+.qchip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.75rem;padding:.3rem .8rem;border-radius:100px;cursor:pointer;transition:all .2s;font-family:var(--font-b);}
+.qchip:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ═══ RESULT CARD ═══ */
+.result-wrap{margin-top:3rem;display:none;}
+.result-wrap.show{display:block;}
+.result-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius-xl);overflow:hidden;}
+
+/* Status header */
+.rc-head{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2rem;border-bottom:1px solid rgba(255,255,255,.06);flex-wrap:wrap;gap:1rem;}
+.rc-id-block{}
+.rc-id-lbl{font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.2rem;}
+.rc-id{font-family:var(--font-d);font-size:1.25rem;font-weight:800;color:#f1f5f9;}
+.rc-status-pill{display:flex;align-items:center;gap:.5rem;padding:.45rem 1.1rem;border-radius:100px;font-size:.8rem;font-weight:700;letter-spacing:.05em;}
+.status-transit{background:rgba(14,165,233,.15);color:#38bdf8;border:1px solid rgba(14,165,233,.25);}
+.status-delivered{background:rgba(22,163,74,.15);color:#4ade80;border:1px solid rgba(22,163,74,.25);}
+.status-pending{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.25);}
+.status-dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:blink 1.5s infinite;}
+
+/* Route strip */
+.rc-route{display:flex;align-items:center;padding:1.5rem 2rem;border-bottom:1px solid rgba(255,255,255,.06);gap:1rem;flex-wrap:wrap;}
+.rc-city{flex:1;min-width:120px;}
+.rcc-label{font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.35rem;}
+.rcc-name{font-family:var(--font-d);font-size:1.3rem;font-weight:800;color:#f1f5f9;line-height:1;}
+.rcc-code{font-size:.75rem;color:rgba(255,255,255,.35);margin-top:.2rem;}
+.rc-progress{flex:2;min-width:200px;}
+.rcp-bar{height:3px;background:rgba(255,255,255,.1);border-radius:2px;position:relative;margin:.5rem 0;}
+.rcp-fill{height:100%;background:linear-gradient(to right,var(--accent),#60a5fa);border-radius:2px;transition:width 1s ease;}
+.rcp-dot{width:10px;height:10px;border-radius:50%;background:var(--accent);position:absolute;top:50%;transform:translateY(-50%);box-shadow:0 0 0 3px rgba(14,165,233,.25);animation:glow-dot 2s ease-in-out infinite;}
+@keyframes glow-dot{0%,100%{box-shadow:0 0 0 3px rgba(14,165,233,.25);}50%{box-shadow:0 0 0 6px rgba(14,165,233,.4);}}
+.rcp-meta{display:flex;justify-content:space-between;font-size:.7rem;color:rgba(255,255,255,.3);}
+
+/* Body: timeline + details side-by-side */
+.rc-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.rc-timeline{padding:1.75rem 2rem;border-right:1px solid rgba(255,255,255,.06);}
+.tl-section-label{font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1.25rem;}
+.tl-item{display:flex;gap:1rem;position:relative;padding-bottom:1.5rem;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-left{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;}
+.tl-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;z-index:1;}
+.tl-c-done{background:var(--accent);color:#fff;}
+.tl-c-now{background:#f59e0b;color:#fff;animation:blink 1.4s infinite;}
+.tl-c-pending{background:rgba(255,255,255,.08);color:rgba(255,255,255,.3);border:1.5px solid rgba(255,255,255,.1);}
+.tl-line{width:2px;flex:1;background:rgba(255,255,255,.07);margin:.3rem 0;}
+.tl-line.done{background:var(--accent);opacity:.5;}
+.tl-item:last-child .tl-line{display:none;}
+.tl-content{}
+.tl-title{font-size:.88rem;font-weight:600;color:#e2e8f0;margin-bottom:.2rem;}
+.tl-time{font-size:.73rem;color:rgba(255,255,255,.32);}
+.tl-location{font-size:.73rem;color:rgba(255,255,255,.25);margin-top:.1rem;display:flex;align-items:center;gap:.3rem;}
+.tl-location::before{content:'📍';font-size:.65rem;}
+
+/* Shipment details panel */
+.rc-details{padding:1.75rem 2rem;}
+.rd-label{font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1.25rem;}
+.detail-grid{display:flex;flex-direction:column;gap:.85rem;}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:.85rem;border-bottom:1px solid rgba(255,255,255,.05);}
+.detail-row:last-child{border-bottom:none;padding-bottom:0;}
+.dr-key{font-size:.78rem;color:rgba(255,255,255,.35);}
+.dr-val{font-size:.83rem;font-weight:600;color:#e2e8f0;text-align:right;}
+.dr-val.accent{color:var(--accent);}
+
+/* ETA banner inside card */
+.rc-eta{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2rem;background:rgba(14,165,233,.08);border-top:1px solid rgba(14,165,233,.12);flex-wrap:wrap;gap:.75rem;}
+.eta-left{display:flex;align-items:center;gap:.75rem;}
+.eta-icon{font-size:1.25rem;}
+.eta-text .eta-label{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);}
+.eta-text .eta-val{font-family:var(--font-d);font-size:1.1rem;font-weight:800;color:#f1f5f9;}
+.rc-actions{display:flex;gap:.6rem;flex-wrap:wrap;}
+.action-btn{padding:.5rem 1rem;border-radius:8px;font-family:var(--font-b);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.4rem;border:none;}
+.ab-primary{background:var(--accent);color:#fff;}
+.ab-primary:hover{background:var(--accent-dk);}
+.ab-ghost{background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.12)!important;}
+.ab-ghost:hover{border-color:var(--accent)!important;color:var(--accent);}
+
+/* ═══ TICKER ═══ */
+.ticker-wrap{background:var(--dark-bar);overflow:hidden;padding:.82rem 0;}
+.ticker{display:flex;width:max-content;animation:tick 40s linear infinite;}
+.t-item{display:flex;align-items:center;gap:.5rem;padding:0 1.8rem;font-family:var(--font-d);font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap;}
+.t-dot{width:4px;height:4px;background:var(--accent);border-radius:50%;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ═══ SHARED SECTION ═══ */
+section{padding:5.5rem 5%;}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+/* ═══ HOW TRACKING WORKS ═══ */
+#how-tracking{background:var(--bg);}
+.ht-head{text-align:center;margin-bottom:4rem;}
+.ht-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;position:relative;}
+.ht-steps::before{content:'';position:absolute;top:2.5rem;left:calc(12.5% + 1rem);right:calc(12.5% + 1rem);height:1px;background:linear-gradient(to right,transparent,var(--accent),transparent);}
+.ht-step{text-align:center;opacity:0;transform:translateY(18px);}
+.ht-step.vis{opacity:1;transform:translateY(0);}
+.ht-num{width:52px;height:52px;border-radius:50%;background:var(--card);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:1rem;font-weight:800;color:var(--muted);margin:0 auto 1.25rem;transition:all .3s;position:relative;z-index:1;}
+.ht-step:hover .ht-num{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:var(--shadow-bl);}
+.ht-icon{font-size:1.3rem;margin-bottom:.6rem;}
+.ht-title{font-family:var(--font-d);font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.45rem;}
+.ht-desc{color:var(--muted);font-size:.83rem;line-height:1.6;}
+
+/* ═══ LIVE STATUS DASHBOARD ═══ */
+#live-dashboard{background:var(--bg2);}
+.db-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;}
+.db-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2rem;}
+.db-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;transition:all .3s;opacity:0;transform:translateY(18px);position:relative;overflow:hidden;}
+.db-card.vis{opacity:1;transform:translateY(0);}
+.db-card:hover{box-shadow:var(--shadow-lg);border-color:transparent;transform:translateY(-4px);}
+.db-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--accent),#60a5fa);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.db-card:hover::before{transform:scaleX(1);}
+.dbc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;}
+.dbc-icon{font-size:1.6rem;}
+.dbc-badge{font-size:.67rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.22rem .65rem;border-radius:100px;}
+.badge-green{background:var(--green-lt);color:var(--green);}
+.badge-amber{background:var(--amber-lt);color:#b45309;}
+.badge-blue{background:var(--blue-lt);color:var(--blue);}
+.badge-accent{background:var(--accent-lt);color:var(--accent);}
+.dbc-val{font-family:var(--font-d);font-size:2rem;font-weight:800;color:var(--ink);line-height:1;margin-bottom:.35rem;}
+.dbc-val .s{color:var(--accent);}
+.dbc-label{font-size:.8rem;color:var(--muted);margin-bottom:.85rem;}
+.dbc-bar{height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.dbc-fill{height:100%;border-radius:3px;background:linear-gradient(to right,var(--accent),#60a5fa);transition:width 1.2s ease;}
+.dbc-meta{font-size:.73rem;color:var(--muted2);margin-top:.4rem;}
+
+/* live shipments table */
+.live-table-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden;}
+.lt-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.75rem;border-bottom:1px solid var(--border);}
+.lt-title{font-family:var(--font-d);font-size:1rem;font-weight:700;color:var(--ink);}
+.lt-live{display:flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:600;color:var(--green);}
+.lt-live::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1.4s infinite;}
+table.live-tbl{width:100%;border-collapse:collapse;}
+table.live-tbl th{padding:.85rem 1.75rem;text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--bg2);border-bottom:1px solid var(--border);}
+table.live-tbl td{padding:.9rem 1.75rem;font-size:.84rem;color:var(--ink3);border-bottom:1px solid var(--border);}
+table.live-tbl tr:last-child td{border-bottom:none;}
+table.live-tbl tr:hover td{background:var(--bg3);}
+.td-id{font-family:var(--font-d);font-weight:700;color:var(--accent);cursor:pointer;}
+.td-id:hover{text-decoration:underline;}
+.td-pill{display:inline-flex;align-items:center;gap:.3rem;font-size:.7rem;font-weight:700;padding:.2rem .65rem;border-radius:100px;}
+.pill-transit{background:rgba(14,165,233,.1);color:var(--accent);}
+.pill-delivered{background:var(--green-lt);color:var(--green);}
+.pill-pending{background:var(--amber-lt);color:#b45309;}
+
+/* ═══ NUMBERS ═══ */
+#numbers{background:var(--dark-bg);display:grid;grid-template-columns:repeat(4,1fr);padding:0;}
+.num-item{padding:3.25rem 2.25rem;border-right:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden;transition:background .3s;}
+.num-item:last-child{border-right:none;}
+.num-item:hover{background:rgba(255,255,255,.02);}
+.num-item::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent),#60a5fa);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.num-item:hover::after{transform:scaleX(1);}
+.num-val{font-family:var(--font-d);font-size:2.85rem;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1;margin-bottom:.45rem;}
+.num-val .suf{color:var(--accent);}
+.num-lbl{font-size:.8rem;color:rgba(255,255,255,.38);font-weight:500;line-height:1.5;}
+
+/* ═══ ALERTS & NOTIFICATIONS ═══ */
+#alerts{background:var(--bg);}
+.alert-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;}
+.alert-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.alert-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:all .3s;opacity:0;transform:translateY(18px);}
+.alert-card.vis{opacity:1;transform:translateY(0);}
+.alert-card:hover{box-shadow:var(--shadow-lg);border-color:transparent;transform:translateY(-3px);}
+.alert-icon{font-size:1.5rem;flex-shrink:0;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.ai-green{background:var(--green-lt);}
+.ai-blue{background:var(--blue-lt);}
+.ai-amber{background:var(--amber-lt);}
+.ai-accent{background:var(--accent-lt);}
+.alert-content{}
+.alert-title{font-family:var(--font-d);font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.35rem;}
+.alert-desc{font-size:.83rem;color:var(--muted);line-height:1.6;}
+.alert-cta{display:inline-flex;align-items:center;gap:.3rem;color:var(--accent);font-size:.78rem;font-weight:600;margin-top:.6rem;transition:gap .2s;cursor:pointer;}
+.alert-cta:hover{gap:.6rem;}
+
+/* ═══ FAQ ═══ */
+#faq{background:var(--bg2);}
+.faq-head{text-align:center;margin-bottom:3.5rem;}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:900px;margin:0 auto;}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .2s;}
+.faq-item:hover{border-color:var(--accent);}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.25rem;cursor:pointer;font-size:.9rem;font-weight:600;color:var(--ink);gap:.75rem;}
+.faq-icon{width:22px;height:22px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.8rem;color:var(--muted);transition:all .3s;}
+.faq-item.open .faq-icon{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg);}
+.faq-a{font-size:.85rem;color:var(--muted);line-height:1.7;padding:0 1.25rem;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;}
+.faq-item.open .faq-a{max-height:200px;padding-bottom:1.1rem;}
+
+/* ═══ SUPPORT ═══ */
+#support{background:var(--bg);}
+.sup-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.sup-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:2rem;text-align:center;transition:all .3s;opacity:0;transform:translateY(18px);}
+.sup-card.vis{opacity:1;transform:translateY(0);}
+.sup-card:hover{box-shadow:var(--shadow-lg);border-color:transparent;transform:translateY(-5px);}
+.sup-icon{font-size:2.25rem;margin-bottom:1rem;}
+.sup-title{font-family:var(--font-d);font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;}
+.sup-desc{font-size:.84rem;color:var(--muted);line-height:1.65;margin-bottom:1.25rem;}
+.sup-detail{font-size:.8rem;font-weight:600;color:var(--accent);}
+.btn-primary{background:var(--accent);color:#fff;padding:.75rem 1.75rem;border-radius:10px;font-family:var(--font-b);font-size:.9rem;font-weight:600;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;box-shadow:var(--shadow-bl);margin-top:1rem;width:100%;justify-content:center;}
+.btn-primary:hover{background:var(--accent-dk);transform:translateY(-2px);}
+
+/* ═══ CTA BANNER ═══ */
+#cta-banner{background:var(--dark-bg);position:relative;overflow:hidden;text-align:center;padding:7.5rem 5%;}
+#cta-banner::before{content:'';position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80&auto=format&fit=crop');background-size:cover;background-position:center;opacity:.07;}
+#cta-banner::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 75% at 50% 50%,rgba(14,165,233,.18),transparent);pointer-events:none;}
+.cta-inner{position:relative;z-index:2;max-width:660px;margin:0 auto;}
+.cta-inner .sec-tag{justify-content:center;color:var(--accent);}
+.cta-inner .sec-tag::before{display:none;}
+.cta-inner .sec-h{color:#f1f5f9;font-size:clamp(2.2rem,4.5vw,3.4rem);margin-bottom:1.1rem;}
+.cta-inner > p{color:rgba(255,255,255,.42);line-height:1.75;font-size:.97rem;margin-bottom:2.25rem;}
+.cta-btns{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;}
+.btn-w{background:#fff;color:var(--dark-bg);padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:700;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;}
+.btn-w:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,255,255,.12);}
+.btn-wg{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:600;border:1.5px solid rgba(255,255,255,.1);cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;}
+.btn-wg:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--dark-bar);padding:4.5rem 5% 2rem;}
+.f-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3.5rem;margin-bottom:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid rgba(255,255,255,.05);}
+.f-brand-logo{font-family:var(--font-d);font-size:1.35rem;font-weight:800;color:#fff;display:block;margin-bottom:.9rem;}
+.f-brand p{color:rgba(255,255,255,.3);font-size:.855rem;line-height:1.7;max-width:240px;}
+.f-socs{display:flex;gap:.55rem;margin-top:1.35rem;}
+.f-soc{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;transition:all .2s;}
+.f-soc:hover{border-color:var(--accent);color:var(--accent);}
+.f-col h4{font-family:var(--font-d);font-size:.76rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:1.35rem;}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.f-links a{color:rgba(255,255,255,.3);font-size:.855rem;transition:color .2s;}
+.f-links a:hover{color:#fff;}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.9rem;}
+.f-bottom p{color:rgba(255,255,255,.18);font-size:.78rem;}
+.fab{position:fixed;bottom:1.75rem;right:1.75rem;z-index:400;background:var(--accent);color:#fff;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;box-shadow:0 8px 28px rgba(14,165,233,.42);animation:fab-p 3s ease-in-out infinite;cursor:pointer;border:none;transition:all .25s;}
+.fab:hover{background:var(--accent-dk);transform:scale(1.08);}
+@keyframes fab-p{0%,100%{box-shadow:0 8px 28px rgba(14,165,233,.42);}50%{box-shadow:0 8px 44px rgba(14,165,233,.68);}}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){
+  .nav-links,.nav-right .btn-ghost,.nav-right .btn-cta-nav{display:none;}
+  .hamburger{display:flex;}
+  .mob-overlay{display:block;}
+  .hero-inner{flex-direction:column;gap:2rem;}
+  .rc-body{grid-template-columns:1fr;}.rc-timeline{border-right:none;border-bottom:1px solid rgba(255,255,255,.06);}
+  .ht-steps{grid-template-columns:1fr 1fr;gap:1.5rem;}.ht-steps::before{display:none;}
+  #numbers{grid-template-columns:1fr 1fr;}
+  .num-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.05);}
+  .num-item:nth-child(odd){border-right:1px solid rgba(255,255,255,.05);}
+  .db-grid{grid-template-columns:1fr 1fr;}
+  .sup-grid{grid-template-columns:1fr 1fr;}
+  .faq-grid{grid-template-columns:1fr;}
+  .f-top{grid-template-columns:1fr 1fr;gap:2.5rem;}
+}
+@media(max-width:640px){
+  section{padding:3rem 4%;}
+  nav{padding:0 4%;height:60px;}
+  .breadcrumb{padding:4.5rem 4% 0;}
+  .hero{padding:1rem 4% 0;}
+  .hero-inner{padding:2rem 0 3rem;}
+  .hero-right{gap:.75rem;}
+  .hero-stat{min-width:100px;padding:.85rem 1.1rem;}
+  .hs-val{font-size:1.45rem;}
+  .track-section{padding:3rem 4%;}
+  .search-bar{flex-direction:column;border-radius:var(--radius);}
+  .search-bar input{padding:.9rem 1.1rem;}
+  .search-bar button{border-radius:0;justify-content:center;}
+  .rc-head{flex-direction:column;align-items:flex-start;}
+  .rc-route{flex-direction:column;gap:.75rem;}.rc-progress{width:100%;}
+  .ht-steps{grid-template-columns:1fr;gap:1rem;}
+  .ht-step{text-align:left;display:flex;gap:1rem;align-items:flex-start;}
+  .ht-num{margin:0;flex-shrink:0;width:44px;height:44px;}
+  .ht-content{flex:1;}
+  #numbers{grid-template-columns:1fr 1fr;}
+  .num-item{padding:2rem 1.25rem;}.num-val{font-size:1.9rem;}
+  .db-grid{grid-template-columns:1fr;}
+  .alert-grid{grid-template-columns:1fr;}
+  .sup-grid{grid-template-columns:1fr;}
+  .cta-btns{flex-direction:column;align-items:center;}
+  .btn-w,.btn-wg{width:100%;max-width:340px;justify-content:center;}
+  .f-top{grid-template-columns:1fr;gap:2rem;padding-bottom:2rem;margin-bottom:2rem;}
+  .f-bottom{flex-direction:column;text-align:center;}
+  footer{padding:3rem 4% 1.5rem;}
+  table.live-tbl th,table.live-tbl td{padding:.75rem 1rem;font-size:.78rem;}
+}
+@media(max-width:380px){
+  #numbers{grid-template-columns:1fr;}
+  .num-item:nth-child(odd){border-right:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- OVERLAY -->
+<div class="mob-overlay" id="mobOverlay"></div>
+
+<!-- MOBILE DRAWER -->
+<div class="mob-drawer" id="mobDrawer">
+  <div class="dr-header">
+    <div class="dr-logo" id="drLogo"></div>
+    <button class="dr-close" id="drClose">✕</button>
+  </div>
+  <div class="dr-links" id="drLinks"></div>
+  <div class="dr-foot">
+    <div class="dr-theme-row">
+      <span class="dr-theme-lbl" id="drThemeLbl"></span>
+      <button class="theme-toggle" id="themeToggleMob"></button>
+    </div>
+    <button class="dr-cta-btn" id="drCta"></button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo" id="navLogo"><div class="dot"></div></div>
+  <div class="nav-links" id="navLinks"></div>
+  <div class="nav-right">
+    <div style="display:flex;align-items:center;gap:.55rem;">
+      <span class="theme-icon">☀️</span>
+      <button class="theme-toggle" id="themeToggle"></button>
+      <span class="theme-icon">🌙</span>
+    </div>
+    <button class="btn-ghost" id="loginBtn"></button>
+    <button class="btn-cta-nav" id="quoteBtn"></button>
+    <button class="hamburger" id="hamburger">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb" id="breadcrumb"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="sec-tag" id="heroTag"></div>
+      <h1 class="sec-h" id="heroH"></h1>
+      <p class="hero-desc" id="heroDesc"></p>
+    </div>
+    <div class="hero-right" id="heroStats"></div>
+  </div>
+</div>
+
+<!-- MAIN TRACKING PANEL (dark) -->
+<div class="track-section">
+  <div class="track-panel">
+    <div class="tp-tag" id="tpTag"></div>
+    <h2 class="tp-h" id="tpH"></h2>
+    <p class="tp-sub" id="tpSub"></p>
+    <div class="search-bar">
+      <input type="text" id="trackInput">
+      <button id="trackBtn"><span id="trackBtnIcon"></span><span id="trackBtnLabel"></span></button>
+    </div>
+    <div class="search-hints" id="searchHints"></div>
+    <div class="quick-chips" id="quickChips"></div>
+    <!-- RESULT -->
+    <div class="result-wrap" id="resultWrap">
+      <div class="result-card">
+        <div class="rc-head">
+          <div class="rc-id-block">
+            <div class="rc-id-lbl" id="rcIdLbl"></div>
+            <div class="rc-id" id="rcId"></div>
+          </div>
+          <div class="rc-status-pill status-transit" id="rcStatus"></div>
+        </div>
+        <div class="rc-route">
+          <div class="rc-city">
+            <div class="rcc-label" id="rcFromLbl"></div>
+            <div class="rcc-name" id="rcFrom"></div>
+            <div class="rcc-code" id="rcFromCode"></div>
+          </div>
+          <div class="rc-progress">
+            <div class="rcp-meta" id="rcProgressMeta" style="margin-bottom:.4rem;"></div>
+            <div class="rcp-bar">
+              <div class="rcp-fill" id="rcProgressFill" style="width:0%"></div>
+              <div class="rcp-dot" id="rcProgressDot" style="left:0%"></div>
+            </div>
+            <div class="rcp-meta" id="rcProgressSub" style="margin-top:.4rem;"></div>
+          </div>
+          <div class="rc-city" style="text-align:right">
+            <div class="rcc-label" id="rcToLbl"></div>
+            <div class="rcc-name" id="rcTo"></div>
+            <div class="rcc-code" id="rcToCode"></div>
+          </div>
+        </div>
+        <div class="rc-body">
+          <div class="rc-timeline">
+            <div class="tl-section-label" id="tlLabel"></div>
+            <div id="tlItems"></div>
+          </div>
+          <div class="rc-details">
+            <div class="rd-label" id="rdLabel"></div>
+            <div class="detail-grid" id="detailGrid"></div>
+          </div>
+        </div>
+        <div class="rc-eta">
+          <div class="eta-left">
+            <div class="eta-icon" id="etaIcon"></div>
+            <div class="eta-text">
+              <div class="eta-label" id="etaLabel"></div>
+              <div class="eta-val" id="etaVal"></div>
+            </div>
+          </div>
+          <div class="rc-actions" id="rcActions"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap"><div class="ticker" id="ticker"></div></div>
+
+<!-- HOW TRACKING WORKS -->
+<section id="how-tracking">
+  <div class="ht-head reveal">
+    <div class="sec-tag center" id="htTag"></div>
+    <h2 class="sec-h" id="htH"></h2>
+    <p style="color:var(--muted);font-size:.93rem;max-width:460px;margin:.75rem auto 0;line-height:1.7;" id="htDesc"></p>
+  </div>
+  <div class="ht-steps" id="htSteps"></div>
+</section>
+
+<!-- LIVE DASHBOARD -->
+<section id="live-dashboard">
+  <div class="db-head reveal">
+    <div>
+      <div class="sec-tag" id="dbTag"></div>
+      <h2 class="sec-h" id="dbH"></h2>
+    </div>
+    <p style="max-width:300px;color:var(--muted);font-size:.88rem;line-height:1.65;" id="dbDesc"></p>
+  </div>
+  <div class="db-grid" id="dbGrid"></div>
+  <div class="live-table-wrap reveal">
+    <div class="lt-header">
+      <div class="lt-title" id="ltTitle"></div>
+      <div class="lt-live" id="ltLive"></div>
+    </div>
+    <table class="live-tbl" id="liveTable"></table>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<div id="numbers"></div>
+
+<!-- ALERTS -->
+<section id="alerts">
+  <div class="alert-head reveal">
+    <div>
+      <div class="sec-tag" id="alTag"></div>
+      <h2 class="sec-h" id="alH"></h2>
+    </div>
+    <p style="max-width:300px;color:var(--muted);font-size:.88rem;line-height:1.65;" id="alDesc"></p>
+  </div>
+  <div class="alert-grid" id="alertGrid"></div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="faq-head reveal">
+    <div class="sec-tag center" id="faqTag"></div>
+    <h2 class="sec-h" id="faqH"></h2>
+    <p style="color:var(--muted);font-size:.93rem;max-width:420px;margin:.75rem auto 0;line-height:1.7;" id="faqDesc"></p>
+  </div>
+  <div class="faq-grid" id="faqGrid"></div>
+</section>
+
+<!-- SUPPORT -->
+<section id="support">
+  <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+    <div class="sec-tag center" id="supTag"></div>
+    <h2 class="sec-h" id="supH"></h2>
+    <p style="color:var(--muted);font-size:.93rem;max-width:440px;margin:.75rem auto 0;line-height:1.7;" id="supDesc"></p>
+  </div>
+  <div class="sup-grid" id="supGrid"></div>
+</section>
+
+<!-- CTA -->
+<section id="cta-banner">
+  <div class="cta-inner reveal">
+    <div class="sec-tag" id="ctaTag"></div>
+    <h2 class="sec-h" id="ctaH"></h2>
+    <p id="ctaDesc"></p>
+    <div class="cta-btns">
+      <button class="btn-w" id="ctaBtn1"></button>
+      <button class="btn-wg" id="ctaBtn2"></button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-top" id="footerTop">
+    <div class="f-brand">
+      <span class="f-brand-logo" id="fLogo"></span>
+      <p id="fTagline"></p>
+      <div class="f-socs" id="fSocials"></div>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <p id="fCopy"></p>
+    <p id="fLinks"></p>
+  </div>
+</footer>
+
+<button class="fab" id="fabBtn"></button>
+
+<!-- ════════════════════════════════════════
+     MASTER DATA OBJECT
+════════════════════════════════════════ -->
+<script>
+const DATA = {
+  meta: { title: "Track Shipment — MahaveerTrans" },
+
+  nav: {
+    logoPrefix: "Mahaveer", logoSuffix: "Trans",
+    links: [
+      { label:"Home",     href:"index.html" },
+      { label:"Services", href:"services.html" },
+      { label:"Fleet",    href:"fleet.html" },
+      { label:"Track",    href:"tracking.html", active:true },
+      { label:"About",    href:"about.html" },
+      { label:"Contact",  href:"contact.html" }
+    ],
+    loginBtn: "Log in",
+    quoteBtn: "Get Quote →",
+    themeLabel: "☀️ / 🌙 Theme",
+    drawerCta: "Get Free Quote →"
+  },
+
+  breadcrumb: [
+    { label:"Home",            href:"index.html" },
+    { label:"Track Shipment",  href:"tracking.html", current:true }
+  ],
+
+  hero: {
+    tag: "Live Tracking",
+    headingPart1: "Know Where Your",
+    headingHl: "Cargo Is",
+    headingPart2: "Right Now",
+    description: "Real-time GPS tracking, customs milestones, and estimated delivery windows for every shipment — across every mode, every country.",
+    stats: [
+      { val:"99",    suf:"%",    lbl:"On-time Accuracy" },
+      { val:"180",   suf:"+",    lbl:"Countries Tracked" },
+      { val:"12K",   suf:"+",    lbl:"Live Shipments" },
+      { val:"5-min", suf:"",     lbl:"Update Interval" }
+    ]
+  },
+
+  ticker: ["Air Freight","Ocean Shipping","Road Transport","Cold Chain","Customs Clearance","Warehousing & 3PL","Last Mile Delivery","Project Cargo","Express Courier","Reverse Logistics"],
+
+  trackPanel: {
+    tag: "Shipment Tracker",
+    headingPart1: "Enter Your",
+    headingHl: "Tracking Number",
+    subtitle: "Supports MahaveerTrans IDs (MT-XXXX), house bill of lading (HBL), master bill of lading (MBL), and courier AWB numbers.",
+    inputPlaceholder: "e.g. MT-2025-08812 or AWB 176-12345678",
+    btnIcon: "🔍",
+    btnLabel: "Track Shipment",
+    btnSuccess: "✓ Found",
+    btnError: "Not Found — Try Again",
+    hints: ["No login required", "Live GPS updates", "WhatsApp & SMS alerts", "Download PDF report"],
+    quickLabel: "Try a sample:",
+    quickExamples: ["MT-2025-00812","MT-2025-04531","MT-2025-07720"],
+    resultLabels: {
+      trackingId: "Tracking Number",
+      fromLabel: "Origin",
+      toLabel: "Destination",
+      timelineLabel: "Shipment Journey",
+      detailsLabel: "Shipment Details",
+      etaLabel: "Estimated Arrival",
+      progressMeta: ["Departed", "In Transit", "Arrived"],
+      statusMap: {
+        transit: "● In Transit",
+        delivered: "✓ Delivered",
+        pending: "◐ Awaiting Pickup"
+      }
+    },
+    actions: [
+      { label:"📄 Download PDF",      cls:"ab-ghost" },
+      { label:"🔔 Set Alert",         cls:"ab-primary" },
+      { label:"📤 Share",             cls:"ab-ghost" }
+    ],
+    /* Simulated shipment data keyed by tracking number */
+    shipments: {
+      "MT-2025-00812": {
+        id: "MT-2025-00812",
+        status: "transit",
+        progress: 62,
+        from: "Mumbai",     fromCode: "BOM, India",
+        to: "Frankfurt",    toCode: "FRA, Germany",
+        eta: "30 May 2025 · Est. 08:00 AM",
+        etaIcon: "✈️",
+        details: [
+          { key:"Service",      val:"Air Freight — Express" },
+          { key:"Weight",       val:"142 kg / 0.85 CBM" },
+          { key:"Pieces",       val:"4 cartons" },
+          { key:"Shipper",      val:"Reliance Industries" },
+          { key:"Consignee",    val:"Bosch GmbH, Frankfurt" },
+          { key:"Customs",      val:"Cleared (BOM)", accent:true },
+          { key:"Insurance",    val:"₹4,80,000 Marine Cover" },
+          { key:"Updated",      val:"29 May · 04:22 AM IST" }
+        ],
+        timeline: [
+          { status:"done",    label:"Picked up from shipper",       time:"28 May · 09:14 AM", location:"Andheri E, Mumbai" },
+          { status:"done",    label:"Arrived at BOM cargo terminal", time:"28 May · 02:40 PM", location:"CSIA Cargo, Mumbai" },
+          { status:"done",    label:"Customs cleared — Export",      time:"28 May · 09:55 PM", location:"BOM Customs, Mumbai" },
+          { status:"done",    label:"Departed Mumbai Airport",       time:"28 May · 11:40 PM", location:"Flight AI-182" },
+          { status:"now",     label:"In transit via Dubai",          time:"29 May · 04:22 AM · Now", location:"DXB Hub, Dubai" },
+          { status:"pending", label:"Arrives Frankfurt Airport",     time:"30 May · Est. 06:00 AM", location:"FRA Cargo Terminal" },
+          { status:"pending", label:"Customs clearance — Import",    time:"30 May · Est. 09:00 AM", location:"FRA Customs, Germany" },
+          { status:"pending", label:"Out for delivery",              time:"30 May · Est. 02:00 PM", location:"Bosch GmbH, Frankfurt" }
+        ]
+      },
+      "MT-2025-04531": {
+        id: "MT-2025-04531",
+        status: "delivered",
+        progress: 100,
+        from: "Chennai",    fromCode: "MAA, India",
+        to: "Singapore",    toCode: "SIN, Singapore",
+        eta: "26 May 2025 · Delivered 11:32 AM",
+        etaIcon: "✅",
+        details: [
+          { key:"Service",   val:"Sea Freight — FCL" },
+          { key:"Container", val:"40HC · MSCU4812673" },
+          { key:"Weight",    val:"18,400 kg / 32 CBM" },
+          { key:"Shipper",   val:"TVS Auto Parts" },
+          { key:"Consignee", val:"Tan Chong Motor, SIN" },
+          { key:"Customs",   val:"Cleared (SIN)", accent:true },
+          { key:"POD",       val:"Signed · 26 May 11:32 AM" },
+          { key:"Updated",   val:"26 May · 11:35 AM IST" }
+        ],
+        timeline: [
+          { status:"done", label:"Cargo loaded at factory",        time:"20 May · 07:00 AM", location:"TVS Plant, Hosur" },
+          { status:"done", label:"Container sealed & gated in",    time:"20 May · 03:30 PM", location:"Chennai Port, CTMS" },
+          { status:"done", label:"Vessel departed Chennai",        time:"21 May · 02:00 AM", location:"MV Maersk Sentosa" },
+          { status:"done", label:"Arrived Port of Singapore",      time:"25 May · 06:45 AM", location:"PSA Tanjong Pagar" },
+          { status:"done", label:"Customs cleared — Import",       time:"25 May · 04:30 PM", location:"SIN Customs" },
+          { status:"done", label:"Delivered to consignee",         time:"26 May · 11:32 AM", location:"Tan Chong, Singapore" }
+        ]
+      },
+      "MT-2025-07720": {
+        id: "MT-2025-07720",
+        status: "pending",
+        progress: 8,
+        from: "Delhi",      fromCode: "DEL, India",
+        to: "New York",     toCode: "JFK, USA",
+        eta: "3 Jun 2025 · Est. 10:00 AM",
+        etaIcon: "📦",
+        details: [
+          { key:"Service",   val:"Air Freight — Economy" },
+          { key:"Weight",    val:"56 kg / 0.3 CBM" },
+          { key:"Pieces",    val:"2 packages" },
+          { key:"Shipper",   val:"Zydus Pharma" },
+          { key:"Consignee", val:"Walgreens Dist, NJ" },
+          { key:"Customs",   val:"Pre-filing submitted", accent:true },
+          { key:"Insurance", val:"₹1,20,000 Marine Cover" },
+          { key:"Updated",   val:"29 May · 08:00 AM IST" }
+        ],
+        timeline: [
+          { status:"done",    label:"Booking confirmed",             time:"29 May · 08:00 AM", location:"Online Portal" },
+          { status:"now",     label:"Awaiting pickup",               time:"30 May · Est. 10:00 AM", location:"Zydus Plant, Delhi" },
+          { status:"pending", label:"Drop-off at DEL cargo terminal",time:"30 May · Est. 04:00 PM", location:"DIAL Cargo, Delhi" },
+          { status:"pending", label:"Export customs clearance",      time:"30 May · Est. 09:00 PM", location:"DEL Customs" },
+          { status:"pending", label:"Depart Delhi Airport",          time:"31 May · Est. 11:55 PM", location:"Flight — via Chicago" },
+          { status:"pending", label:"Arrives JFK Airport",           time:"2 Jun · Est. 08:00 AM",  location:"JFK Cargo, New York" },
+          { status:"pending", label:"Import customs & delivery",     time:"3 Jun · Est. 10:00 AM",  location:"Walgreens, New Jersey" }
+        ]
+      }
+    }
+  },
+
+  howTracking: {
+    tag: "How It Works",
+    headingPart1: "Tracking Made",
+    headingHl: "Effortless",
+    desc: "Four steps from shipment booking to real-time delivery confirmation — always visible, always accurate.",
+    steps: [
+      { num:"01", icon:"📋", title:"Booking Created",    desc:"A unique MahaveerTrans tracking ID is generated the moment your shipment is booked — online, via API, or through your account manager." },
+      { num:"02", icon:"📡", title:"GPS & Scan Events",  desc:"Every carrier scan, customs stamp, and GPS checkpoint is captured and pushed to our platform within 5 minutes, 24/7." },
+      { num:"03", icon:"📲", title:"Instant Alerts",     desc:"You and your consignee receive automatic SMS, WhatsApp, and email notifications at every key milestone — no manual chasing." },
+      { num:"04", icon:"✅", title:"POD & Close-out",    desc:"On delivery, photo proof-of-delivery and e-signature are uploaded instantly. Your invoice and digital documents are auto-archived." }
+    ]
+  },
+
+  dashboard: {
+    tag: "Live Overview",
+    headingPart1: "Your Shipments",
+    headingHl: "at a Glance",
+    desc: "A live dashboard view of all active MahaveerTrans shipments and their current status.",
+    cards: [
+      { icon:"🚀", badge:"Active",    badgeCls:"badge-accent", val:"247",   suf:"", lbl:"Shipments In Transit",    barPct:72, meta:"Across 38 countries right now" },
+      { icon:"✅", badge:"Today",     badgeCls:"badge-green",  val:"84",    suf:"", lbl:"Delivered Today",          barPct:84, meta:"99.1% on-time for the month" },
+      { icon:"⏳", badge:"Customs",   badgeCls:"badge-amber",  val:"12",    suf:"", lbl:"Awaiting Customs",         barPct:15, meta:"Avg. clearance time: 4.2 hrs" },
+      { icon:"📦", badge:"This Month",badgeCls:"badge-blue",   val:"3,841", suf:"", lbl:"Total Shipments (May)",    barPct:61, meta:"↑ 18% vs April 2025" },
+      { icon:"🌐", badge:"Network",   badgeCls:"badge-accent", val:"180",   suf:"+",lbl:"Countries Active Today",  barPct:100,meta:"All major trade lanes live" },
+      { icon:"⚡", badge:"SLA",       badgeCls:"badge-green",  val:"99",    suf:"%", lbl:"On-time SLA This Month",  barPct:99, meta:"Target: 97% — Exceeded" }
+    ],
+    tableTitle: "Recent Shipments",
+    tableLive: "Live",
+    tableHeaders: ["Tracking ID","Route","Service","Status","ETA","Weight"],
+    tableRows: [
+      { id:"MT-2025-00812", route:"Mumbai → Frankfurt",   service:"Air Express",  status:"transit",   eta:"30 May",   weight:"142 kg" },
+      { id:"MT-2025-04531", route:"Chennai → Singapore",  service:"Sea FCL",      status:"delivered", eta:"Delivered",weight:"18.4 T" },
+      { id:"MT-2025-07720", route:"Delhi → New York",     service:"Air Economy",  status:"pending",   eta:"3 Jun",    weight:"56 kg" },
+      { id:"MT-2025-09014", route:"Pune → Dubai",         service:"Road + Air",   status:"transit",   eta:"31 May",   weight:"890 kg" },
+      { id:"MT-2025-11203", route:"Kolkata → London",     service:"Sea LCL",      status:"transit",   eta:"14 Jun",   weight:"2.1 T" }
+    ]
+  },
+
+  numbers: [
+    { value:12400, suffix:"+",    label:"Live shipments tracked" },
+    { value:99,    suffix:"%",    label:"GPS update accuracy" },
+    { value:180,   suffix:"+",    label:"Countries with live data" },
+    { value:5,     suffix:" min", label:"Maximum data refresh lag" }
+  ],
+
+  alerts: {
+    tag: "Notification Channels",
+    headingPart1: "Stay Informed",
+    headingHl: "Every Step",
+    desc: "Choose how and when you get notified — for every shipment milestone that matters to your operations.",
+    items: [
+      { icon:"💬", iconCls:"ai-green",  title:"WhatsApp Alerts",      desc:"Real-time milestone messages directly to your WhatsApp number — pickup, departure, customs, and delivery confirmation.", cta:"Set up WhatsApp →" },
+      { icon:"📧", iconCls:"ai-blue",   title:"Email Notifications",  desc:"Automated emails at every key event, with full shipment summary, document attachments, and a one-click tracking link.", cta:"Configure Email →" },
+      { icon:"📱", iconCls:"ai-amber",  title:"SMS Updates",          desc:"Short, clear SMS messages sent to your registered mobile at departure, transit, customs clearance, and delivery.", cta:"Activate SMS →" },
+      { icon:"🔗", iconCls:"ai-accent", title:"Webhook / API Push",   desc:"Receive real-time tracking events as JSON payloads directly to your platform's endpoint. Swagger docs included.", cta:"View API Docs →" }
+    ]
+  },
+
+  faq: {
+    tag: "FAQs",
+    headingPart1: "Tracking",
+    headingHl: "Questions Answered",
+    desc: "Common questions about shipment tracking, notifications, and data access.",
+    items: [
+      { q:"How often is tracking data updated?",        a:"GPS and carrier scan data is pushed to our platform every 5 minutes for air and road shipments. Ocean vessel AIS data updates every 15 minutes. Customs milestones update within 2 minutes of an official stamp." },
+      { q:"Can I track shipments without logging in?",  a:"Yes. Any valid MahaveerTrans tracking number (MT-XXXX), house bill, master bill, or courier AWB can be tracked without an account using this page." },
+      { q:"What if my tracking number shows no result?",a:"It may take up to 30 minutes from booking confirmation for a new shipment to appear in our system. If it's been longer, contact your account manager or our 24/7 support on +91 22 4001 8000." },
+      { q:"Can I track multiple shipments at once?",    a:"Yes. Logged-in customers can track up to 50 shipments simultaneously on the dashboard. Enterprise accounts via API can query unlimited shipments with bulk tracking endpoints." },
+      { q:"How do I receive proof of delivery?",        a:"POD (photo + e-signature) is automatically emailed to the shipper and consignee within 10 minutes of delivery. It is also available to download in your account portal and via API." },
+      { q:"Is tracking available for cold chain shipments?",a:"Yes. Temperature logs are embedded in the tracking timeline for all cold-chain shipments — visible alongside location milestones. Alerts fire if temperature deviates from the agreed range." }
+    ]
+  },
+
+  support: {
+    tag: "Need Help?",
+    headingPart1: "We're Available",
+    headingHl: "24 / 7",
+    desc: "Can't find your shipment or need to escalate? Our operations team is always on standby.",
+    cards: [
+      { icon:"📞", title:"Call Us",        desc:"Speak directly to our tracking operations team, day or night, for any urgent shipment query.",  detail:"+91 22 4001 8000", cta:"Call Now" },
+      { icon:"💬", title:"Live Chat",      desc:"Start an instant chat with our support team on the website or WhatsApp Business account.",        detail:"Avg. response: 2 min", cta:"Start Chat" },
+      { icon:"✉️", title:"Email Support",  desc:"For detailed queries, documentation requests, or formal escalations — our team responds within 2 hours.", detail:"ops@mahaveertrans.com", cta:"Send Email" }
+    ]
+  },
+
+  cta: {
+    tag: "Ship With Confidence",
+    headingPart1: "Full Visibility",
+    headingHl: "From Day One",
+    desc: "Every MahaveerTrans shipment comes with live tracking, milestone alerts, and a dedicated account manager — at no extra cost.",
+    btn1: "Get Free Quote →",
+    btn2: "📞 +91 22 4001 8000"
+  },
+
+  footer: {
+    logo: "MahaveerTrans",
+    tagline: "Delivering the world's goods with precision and care. Your trusted logistics partner since 1999.",
+    socials: [{ label:"in",url:"#" },{ label:"tw",url:"#" },{ label:"yt",url:"#" },{ label:"ig",url:"#" }],
+    columns: [
+      { heading:"Services", links:[["Air Freight","#"],["Sea Freight","#"],["Road Transport","#"],["Cold Chain","#"],["Warehousing","#"],["Last Mile","#"]] },
+      { heading:"Company",  links:[["About Us","#"],["Careers","#"],["Sustainability","#"],["Press","#"],["Contact","#"]] },
+      { heading:"Contact",  links:[["📍 Mumbai, India","#"],["📞 +91 22 4001 8000","#"],["✉️ hello@mahaveertrans.com","#"],["🌐 mahaveertrans.com","#"]] }
+    ],
+    copyright: "© 2025 MahaveerTrans Logistics Pvt. Ltd. All rights reserved.",
+    footerLinks: "Privacy · Terms · Sitemap"
+  },
+
+  fab: "💬"
+};
+
+/* ════════════════════════════════════════
+   RENDER ENGINE
+════════════════════════════════════════ */
+function render(D) {
+  document.title = D.meta.title;
+
+  /* NAV */
+  const logoEl = document.getElementById('navLogo');
+  logoEl.innerHTML = `<span>${D.nav.logoPrefix}</span>${D.nav.logoSuffix}<div class="dot"></div>`;
+  document.getElementById('navLinks').innerHTML = D.nav.links.map(l=>`<a href="${l.href}"${l.active?' class="active"':''}>${l.label}</a>`).join('');
+  document.getElementById('loginBtn').textContent = D.nav.loginBtn;
+  document.getElementById('quoteBtn').textContent = D.nav.quoteBtn;
+  document.getElementById('drLogo').textContent = D.nav.logoPrefix + D.nav.logoSuffix;
+  document.getElementById('drLinks').innerHTML = D.nav.links.map(l=>`<a href="${l.href}"${l.active?' class="active"':''}>${l.label}</a>`).join('');
+  document.getElementById('drThemeLbl').textContent = D.nav.themeLabel;
+  document.getElementById('drCta').textContent = D.nav.drawerCta;
+
+  /* BREADCRUMB */
+  document.getElementById('breadcrumb').innerHTML = D.breadcrumb.map((b,i)=>
+    `${i>0?'<span class="bc-sep">/</span>':''}<a href="${b.href}" class="bc-item${b.current?' cur':''}">${b.label}</a>`
+  ).join('');
+
+  /* HERO */
+  document.getElementById('heroTag').textContent = D.hero.tag;
+  document.getElementById('heroH').innerHTML =
+    `${D.hero.headingPart1} <span class="hl">${D.hero.headingHl}</span> ${D.hero.headingPart2}`;
+  document.getElementById('heroDesc').textContent = D.hero.description;
+  document.getElementById('heroStats').innerHTML = D.hero.stats.map(s=>`
+    <div class="hero-stat">
+      <div class="hs-val">${s.val}<span class="s">${s.suf}</span></div>
+      <div class="hs-lbl">${s.lbl}</div>
+    </div>`).join('');
+
+  /* TICKER */
+  const ti = D.ticker.map(t=>`<span class="t-item"><span class="t-dot"></span>${t}</span>`).join('');
+  document.getElementById('ticker').innerHTML = ti + ti;
+
+  /* TRACK PANEL */
+  const TP = D.trackPanel;
+  document.getElementById('tpTag').textContent = TP.tag;
+  document.getElementById('tpH').innerHTML = `${TP.headingPart1} <span class="hl">${TP.headingHl}</span>`;
+  document.getElementById('tpSub').textContent = TP.subtitle;
+  document.getElementById('trackInput').placeholder = TP.inputPlaceholder;
+  document.getElementById('trackBtnIcon').textContent = TP.btnIcon;
+  document.getElementById('trackBtnLabel').textContent = TP.btnLabel;
+  document.getElementById('searchHints').innerHTML = TP.hints.map(h=>`<span class="s-hint">${h}</span>`).join('');
+  document.getElementById('quickChips').innerHTML =
+    `<span style="color:rgba(255,255,255,.3);font-size:.75rem;align-self:center;">${TP.quickLabel}</span>` +
+    TP.quickExamples.map(e=>`<button class="qchip" onclick="document.getElementById('trackInput').value='${e}';doTrack()">${e}</button>`).join('');
+
+  /* HOW TRACKING */
+  const HT = D.howTracking;
+  document.getElementById('htTag').textContent = HT.tag;
+  document.getElementById('htH').innerHTML = `${HT.headingPart1} <span class="hl">${HT.headingHl}</span>`;
+  document.getElementById('htDesc').textContent = HT.desc;
+  document.getElementById('htSteps').innerHTML = HT.steps.map((s,i)=>`
+    <div class="ht-step" style="transition-delay:${i*.1}s">
+      <div class="ht-num">${s.num}</div>
+      <div class="ht-content">
+        <div class="ht-icon">${s.icon}</div>
+        <h3 class="ht-title">${s.title}</h3>
+        <p class="ht-desc">${s.desc}</p>
+      </div>
+    </div>`).join('');
+
+  /* DASHBOARD */
+  const DB = D.dashboard;
+  document.getElementById('dbTag').textContent = DB.tag;
+  document.getElementById('dbH').innerHTML = `${DB.headingPart1} <span class="hl">${DB.headingHl}</span>`;
+  document.getElementById('dbDesc').textContent = DB.desc;
+  document.getElementById('dbGrid').innerHTML = DB.cards.map((c,i)=>`
+    <div class="db-card" style="transition-delay:${(i%3)*.08}s">
+      <div class="dbc-top">
+        <div class="dbc-icon">${c.icon}</div>
+        <span class="dbc-badge ${c.badgeCls}">${c.badge}</span>
+      </div>
+      <div class="dbc-val">${c.val}<span class="s">${c.suf}</span></div>
+      <div class="dbc-label">${c.lbl}</div>
+      <div class="dbc-bar"><div class="dbc-fill" data-pct="${c.barPct}" style="width:0%"></div></div>
+      <div class="dbc-meta">${c.meta}</div>
+    </div>`).join('');
+
+  document.getElementById('ltTitle').textContent = DB.tableTitle;
+  document.getElementById('ltLive').textContent  = DB.tableLive;
+  const pillMap = { transit:'pill-transit', delivered:'pill-delivered', pending:'pill-pending' };
+  const statusLabelMap = { transit:'In Transit', delivered:'Delivered', pending:'Pending' };
+  document.getElementById('liveTable').innerHTML =
+    `<thead><tr>${DB.tableHeaders.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>` +
+    DB.tableRows.map(r=>`<tr>
+      <td><span class="td-id" onclick="document.getElementById('trackInput').value='${r.id}';doTrack()">${r.id}</span></td>
+      <td>${r.route}</td><td>${r.service}</td>
+      <td><span class="td-pill ${pillMap[r.status]}">${statusLabelMap[r.status]}</span></td>
+      <td>${r.eta}</td><td>${r.weight}</td>
+    </tr>`).join('') + `</tbody>`;
+
+  /* NUMBERS */
+  document.getElementById('numbers').innerHTML = D.numbers.map(n=>`
+    <div class="num-item">
+      <div class="num-val" data-target="${n.value}">0<span class="suf">${n.suffix}</span></div>
+      <div class="num-lbl">${n.label}</div>
+    </div>`).join('');
+
+  /* ALERTS */
+  const AL = D.alerts;
+  document.getElementById('alTag').textContent = AL.tag;
+  document.getElementById('alH').innerHTML = `${AL.headingPart1} <span class="hl">${AL.headingHl}</span>`;
+  document.getElementById('alDesc').textContent = AL.desc;
+  document.getElementById('alertGrid').innerHTML = AL.items.map((a,i)=>`
+    <div class="alert-card" style="transition-delay:${(i%2)*.08}s">
+      <div class="alert-icon ${a.iconCls}">${a.icon}</div>
+      <div class="alert-content">
+        <div class="alert-title">${a.title}</div>
+        <div class="alert-desc">${a.desc}</div>
+        <div class="alert-cta">${a.cta}</div>
+      </div>
+    </div>`).join('');
+
+  /* FAQ */
+  const FAQ = D.faq;
+  document.getElementById('faqTag').textContent = FAQ.tag;
+  document.getElementById('faqH').innerHTML = `${FAQ.headingPart1} <span class="hl">${FAQ.headingHl}</span>`;
+  document.getElementById('faqDesc').textContent = FAQ.desc;
+  document.getElementById('faqGrid').innerHTML = FAQ.items.map(item=>`
+    <div class="faq-item">
+      <div class="faq-q">${item.q}<span class="faq-icon">+</span></div>
+      <div class="faq-a">${item.a}</div>
+    </div>`).join('');
+
+  /* SUPPORT */
+  const SUP = D.support;
+  document.getElementById('supTag').textContent = SUP.tag;
+  document.getElementById('supH').innerHTML = `${SUP.headingPart1} <span class="hl">${SUP.headingHl}</span>`;
+  document.getElementById('supDesc').textContent = SUP.desc;
+  document.getElementById('supGrid').innerHTML = SUP.cards.map((c,i)=>`
+    <div class="sup-card" style="transition-delay:${i*.08}s">
+      <div class="sup-icon">${c.icon}</div>
+      <div class="sup-title">${c.title}</div>
+      <div class="sup-desc">${c.desc}</div>
+      <div class="sup-detail">${c.detail}</div>
+      <button class="btn-primary">${c.cta}</button>
+    </div>`).join('');
+
+  /* CTA */
+  document.getElementById('ctaTag').textContent = D.cta.tag;
+  document.getElementById('ctaH').innerHTML = `${D.cta.headingPart1}<br><span class="hl">${D.cta.headingHl}</span>`;
+  document.getElementById('ctaDesc').textContent = D.cta.desc;
+  document.getElementById('ctaBtn1').textContent = D.cta.btn1;
+  document.getElementById('ctaBtn2').textContent = D.cta.btn2;
+
+  /* FOOTER */
+  document.getElementById('fLogo').textContent = D.footer.logo;
+  document.getElementById('fTagline').textContent = D.footer.tagline;
+  document.getElementById('fCopy').textContent = D.footer.copyright;
+  document.getElementById('fLinks').textContent = D.footer.footerLinks;
+  document.getElementById('fSocials').innerHTML = D.footer.socials.map(s=>`<a href="${s.url}" class="f-soc">${s.label}</a>`).join('');
+  document.getElementById('footerTop').innerHTML +=
+    D.footer.columns.map(col=>`
+      <div class="f-col">
+        <h4>${col.heading}</h4>
+        <ul class="f-links">${col.links.map(([l,u])=>`<li><a href="${u}">${l}</a></li>`).join('')}</ul>
+      </div>`).join('');
+
+  /* FAB */
+  document.getElementById('fabBtn').textContent = D.fab;
+}
+
+/* ════════ TRACKING LOGIC ════════ */
+function doTrack() {
+  const raw = document.getElementById('trackInput').value.trim().toUpperCase().replace(/\s/g,'');
+  const btn = document.getElementById('trackBtn');
+  const TP = DATA.trackPanel;
+  const labels = TP.resultLabels;
+
+  if (!raw) {
+    document.getElementById('trackInput').style.outline = '2px solid #ef4444';
+    setTimeout(()=>document.getElementById('trackInput').style.outline='',2000);
+    return;
+  }
+
+  btn.innerHTML = `<span>⏳</span><span>Searching...</span>`;
+  btn.disabled = true;
+
+  setTimeout(()=>{
+    btn.disabled = false;
+    const ship = TP.shipments[raw] || TP.shipments[raw.replace('MT','MT-2025-').slice(0,15)] || null;
+
+    if (!ship) {
+      btn.innerHTML = `<span>❌</span><span>${TP.btnError}</span>`;
+      btn.style.background = '#dc2626';
+      document.getElementById('resultWrap').classList.remove('show');
+      setTimeout(()=>{
+        btn.innerHTML = `<span>${TP.btnIcon}</span><span>${TP.btnLabel}</span>`;
+        btn.style.background = '';
+      },3000);
+      return;
+    }
+
+    btn.innerHTML = `<span>✓</span><span>${TP.btnSuccess}</span>`;
+    btn.style.background = '#16a34a';
+    setTimeout(()=>{ btn.innerHTML = `<span>${TP.btnIcon}</span><span>${TP.btnLabel}</span>`; btn.style.background=''; },3000);
+
+    /* Populate result card */
+    document.getElementById('rcIdLbl').textContent  = labels.trackingId;
+    document.getElementById('rcId').textContent     = ship.id;
+
+    const statusPill = document.getElementById('rcStatus');
+    statusPill.textContent = labels.statusMap[ship.status];
+    statusPill.className   = `rc-status-pill status-${ship.status}`;
+
+    document.getElementById('rcFromLbl').textContent  = labels.fromLabel;
+    document.getElementById('rcFrom').textContent     = ship.from;
+    document.getElementById('rcFromCode').textContent = ship.fromCode;
+    document.getElementById('rcToLbl').textContent    = labels.toLabel;
+    document.getElementById('rcTo').textContent       = ship.to;
+    document.getElementById('rcToCode').textContent   = ship.toCode;
+
+    /* Progress bar */
+    const fill = document.getElementById('rcProgressFill');
+    const dot  = document.getElementById('rcProgressDot');
+    fill.style.width = ship.progress + '%';
+    dot.style.left   = Math.min(ship.progress, 96) + '%';
+    document.getElementById('rcProgressMeta').innerHTML =
+      `<span>${ship.from}</span><span>${labels.progressMeta[1]}</span><span>${ship.to}</span>`;
+    document.getElementById('rcProgressSub').innerHTML =
+      `<span>${labels.progressMeta[0]}</span><span>${ship.progress}% complete</span><span>${labels.progressMeta[2]}</span>`;
+
+    /* Timeline */
+    document.getElementById('tlLabel').textContent = labels.timelineLabel;
+    document.getElementById('tlItems').innerHTML = ship.timeline.map((t,i,arr)=>{
+      const circleCls = t.status==='done'?'tl-c-done':t.status==='now'?'tl-c-now':'tl-c-pending';
+      const lineCls   = t.status==='done'?'tl-line done':'tl-line';
+      const icon      = t.status==='done'?'✓':t.status==='now'?'●':'○';
+      return `<div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-circle ${circleCls}">${icon}</div>
+          ${i<arr.length-1?`<div class="${lineCls}"></div>`:''}
+        </div>
+        <div class="tl-content">
+          <div class="tl-title">${t.label}</div>
+          <div class="tl-time">${t.time}</div>
+          <div class="tl-location">${t.location}</div>
+        </div>
+      </div>`;
+    }).join('');
+
+    /* Details */
+    document.getElementById('rdLabel').textContent = labels.detailsLabel;
+    document.getElementById('detailGrid').innerHTML = ship.details.map(d=>`
+      <div class="detail-row">
+        <span class="dr-key">${d.key}</span>
+        <span class="dr-val${d.accent?' accent':''}">${d.val}</span>
+      </div>`).join('');
+
+    /* ETA */
+    document.getElementById('etaIcon').textContent  = ship.etaIcon;
+    document.getElementById('etaLabel').textContent = labels.etaLabel;
+    document.getElementById('etaVal').textContent   = ship.eta;
+
+    /* Actions */
+    document.getElementById('rcActions').innerHTML = TP.actions.map(a=>`
+      <button class="action-btn ${a.cls}">${a.label}</button>`).join('');
+
+    /* Show & scroll */
+    document.getElementById('resultWrap').classList.add('show');
+    setTimeout(()=>document.getElementById('resultWrap').scrollIntoView({behavior:'smooth',block:'start'}),100);
+  }, 900);
+}
+
+/* ════════ OBSERVERS ════════ */
+function initObservers(){
+  const io = new IntersectionObserver(e=>{
+    e.forEach(x=>{ if(x.isIntersecting) x.target.classList.add('vis'); });
+  },{threshold:.1});
+  document.querySelectorAll('.ht-step,.db-card,.alert-card,.sup-card,.reveal').forEach(el=>io.observe(el));
+
+  /* animate bar fills when visible */
+  const barObs = new IntersectionObserver(e=>{
+    e.forEach(x=>{
+      if(x.isIntersecting){
+        const fill = x.target;
+        fill.style.width = fill.dataset.pct + '%';
+        barObs.unobserve(fill);
+      }
+    });
+  },{threshold:.3});
+  document.querySelectorAll('.dbc-fill[data-pct]').forEach(el=>barObs.observe(el));
+}
+
+/* ════════ COUNTERS ════════ */
+function initCounters(){
+  const cio = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const el=e.target, target=parseInt(el.dataset.target), suf=el.querySelector('.suf').textContent;
+      let v=0; const step=target/65;
+      const t=setInterval(()=>{
+        v=Math.min(v+step,target);
+        el.innerHTML=Math.floor(v).toLocaleString()+'<span class="suf">'+suf+'</span>';
+        if(v>=target) clearInterval(t);
+      },22);
+      cio.unobserve(el);
+    });
+  },{threshold:.5});
+  document.querySelectorAll('.num-val[data-target]').forEach(el=>cio.observe(el));
+}
+
+/* ════════ THEME ════════ */
+function applyTheme(t){document.documentElement.dataset.theme=t;localStorage.setItem('mt-theme',t);}
+function toggleTheme(){applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');}
+document.getElementById('themeToggle').addEventListener('click',toggleTheme);
+document.getElementById('themeToggleMob').addEventListener('click',toggleTheme);
+const saved=localStorage.getItem('mt-theme'); if(saved) applyTheme(saved);
+
+/* ════════ DRAWER ════════ */
+const ham=document.getElementById('hamburger'),drw=document.getElementById('mobDrawer'),ov=document.getElementById('mobOverlay');
+function openD(){ham.classList.add('open');drw.classList.add('open');ov.classList.add('open');document.body.style.overflow='hidden';}
+function closeD(){ham.classList.remove('open');drw.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}
+ham.addEventListener('click',openD);
+document.getElementById('drClose').addEventListener('click',closeD);
+ov.addEventListener('click',closeD);
+document.getElementById('drLinks').addEventListener('click',e=>{ if(e.target.tagName==='A') closeD(); });
+
+/* ════════ TRACK BUTTON ════════ */
+document.getElementById('trackBtn').addEventListener('click', doTrack);
+document.getElementById('trackInput').addEventListener('keydown', e=>{ if(e.key==='Enter') doTrack(); });
+
+/* ════════ NAV SCROLL ════════ */
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>40));
+
+/* ════════ FAQ ACCORDION ════════ */
+document.addEventListener('click',e=>{
+  const q=e.target.closest('.faq-q');
+  if(!q) return;
+  const item=q.closest('.faq-item'), wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+});
+
+/* ════════ BOOT ════════ */
+render(DATA);
+initObservers();
+initCounters();
+</script>
+</body>
+</html>
+<!-- 
+ENDOFFILE
+echo "Done — $(wc -c < /mnt/user-data/outputs/tracking.html) bytes"
+Output
+
+Done — 65536 bytes
+Done
+
+
+
+
+
+Claude is AI and can make mistakes. Please double-check responses. -->
