@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — MahaveerTrans</title>
+<meta name="description" content="MahaveerTrans — 25 years of logistics excellence. India's trusted freight partner for air, ocean, road and cold chain across 180+ countries.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ TOKENS ═══════════ */
+:root{
+  --bg:#ffffff;--bg2:#f9fafb;--bg3:#f3f4f6;
+  --ink:#0d1117;--ink2:#1e2530;--ink3:#374151;
+  --muted:#6b7280;--muted2:#9ca3af;
+  --border:#e5e7eb;--border2:#d1d5db;--card:#ffffff;
+  --dark-bg:#0d1117;--dark-bar:#080c14;
+  --accent:#0ea5e9;--accent-dk:#0284c7;--accent-lt:#f0f9ff;
+  --blue:#1d4ed8;--blue-lt:#eff6ff;
+  --amber:#f59e0b;--amber-lt:#fffbeb;
+  --green:#16a34a;--green-lt:#f0fdf4;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --purple:#7c3aed;--purple-lt:#f5f3ff;
+  --shadow:0 4px 16px rgba(0,0,0,0.07);
+  --shadow-lg:0 20px 60px rgba(0,0,0,0.10);
+  --shadow-bl:0 8px 32px rgba(14,165,233,0.25);
+  --radius:12px;--radius-lg:20px;--radius-xl:28px;
+  --font-d:'Syne',sans-serif;
+  --font-b:'Instrument Sans',sans-serif;
+  --tr:0.3s ease;
+}
+[data-theme="dark"]{
+  --bg:#0d1117;--bg2:#111827;--bg3:#1e2533;
+  --ink:#f1f5f9;--ink2:#e2e8f0;--ink3:#cbd5e1;
+  --muted:#94a3b8;--muted2:#64748b;
+  --border:#1e293b;--border2:#334155;--card:#141c2b;
+  --dark-bg:#060a10;--dark-bar:#040710;
+  --shadow:0 4px 24px rgba(0,0,0,0.35);
+  --shadow-lg:0 20px 60px rgba(0,0,0,0.5);
+  --accent-lt:#0c1929;--blue-lt:#0c1a30;--amber-lt:#1a1200;
+  --green-lt:#061410;--red-lt:#1a0505;--purple-lt:#0f0a1e;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-b);overflow-x:hidden;transition:background var(--tr),color var(--tr);}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+
+/* ═══════════ NAV ═══════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:66px;background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s,background .3s;}
+[data-theme="dark"] nav{background:rgba(13,17,23,0.88);}
+nav.scrolled{box-shadow:var(--shadow);}
+.nav-logo{font-family:var(--font-d);font-size:1.3rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;display:flex;align-items:center;gap:.45rem;white-space:nowrap;}
+.nav-logo .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+.nav-links{display:flex;gap:.15rem;align-items:center;}
+.nav-links a{color:var(--muted);font-size:.855rem;font-weight:500;padding:.4rem .85rem;border-radius:8px;transition:all .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--ink);background:var(--bg3);}
+.nav-links a.active{color:var(--accent);}
+.nav-right{display:flex;align-items:center;gap:.65rem;}
+.btn-ghost{background:none;border:1.5px solid var(--border2);color:var(--ink3);padding:.46rem 1.1rem;border-radius:8px;font-family:var(--font-b);font-size:.855rem;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-cta{background:var(--ink);color:var(--bg);padding:.5rem 1.3rem;border-radius:8px;font-family:var(--font-b);font-size:.855rem;font-weight:600;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-cta:hover{opacity:.85;transform:translateY(-1px);}
+.theme-toggle{width:44px;height:24px;border-radius:100px;background:var(--border2);border:none;cursor:pointer;position:relative;transition:background .3s;flex-shrink:0;}
+.theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--bg);transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+[data-theme="dark"] .theme-toggle{background:var(--accent);}
+[data-theme="dark"] .theme-toggle::after{transform:translateX(20px);}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;border:1.5px solid var(--border2);border-radius:8px;background:none;cursor:pointer;padding:8px;flex-shrink:0;}
+.hamburger:hover{border-color:var(--accent);}
+.ham-line{width:100%;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .3s ease,opacity .3s ease;transform-origin:center;}
+.hamburger.open .ham-line:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open .ham-line:nth-child(2){opacity:0;}
+.hamburger.open .ham-line:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+/* MOBILE DRAWER */
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:250;backdrop-filter:blur(4px);opacity:0;transition:opacity .3s;}
+.mob-overlay.open{opacity:1;}
+.mob-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,85vw);background:var(--card);z-index:260;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;border-left:1px solid var(--border);}
+.mob-drawer.open{transform:translateX(0);}
+.dr-header{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.25rem;border-bottom:1px solid var(--border);flex-shrink:0;}
+.dr-logo{font-family:var(--font-d);font-size:1.2rem;font-weight:800;color:var(--ink);}
+.dr-close{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--border2);background:none;cursor:pointer;color:var(--muted);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.dr-close:hover{background:var(--bg3);color:var(--ink);}
+.dr-links{display:flex;flex-direction:column;padding:1rem 0;flex:1;}
+.dr-links a{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.25rem;color:var(--ink3);font-size:.95rem;font-weight:500;border-bottom:1px solid var(--border);transition:all .2s;}
+.dr-links a:hover,.dr-links a.active{color:var(--accent);background:var(--accent-lt);padding-left:1.5rem;}
+.dr-links a::after{content:'→';color:var(--muted2);font-size:.8rem;}
+.dr-foot{padding:1.25rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:.65rem;flex-shrink:0;}
+.dr-cta{background:var(--ink);color:var(--bg);padding:.75rem;border-radius:8px;font-family:var(--font-b);font-size:.88rem;font-weight:600;border:none;cursor:pointer;width:100%;}
+
+/* ═══════════ SHARED ═══════════ */
+section{padding:5.5rem 5%;}
+.sec-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+.sec-tag::before{content:'';width:18px;height:2px;background:var(--accent);}
+.sec-h{font-family:var(--font-d);font-size:clamp(1.9rem,4vw,3.4rem);font-weight:800;line-height:1.06;letter-spacing:-.03em;color:var(--ink);}
+.sec-h .hl{color:var(--accent);}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+.btn-primary{background:var(--accent);color:#fff;padding:.78rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:600;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;box-shadow:var(--shadow-bl);}
+.btn-primary:hover{background:var(--accent-dk);transform:translateY(-2px);box-shadow:0 12px 36px rgba(14,165,233,.35);}
+
+/* ═══════════ TICKER ═══════════ */
+.ticker-wrap{background:var(--dark-bg);overflow:hidden;padding:.82rem 0;}
+.ticker{display:flex;width:max-content;animation:tick 45s linear infinite;}
+.t-item{display:flex;align-items:center;gap:.5rem;padding:0 1.8rem;font-family:var(--font-d);font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap;}
+.t-dot{width:4px;height:4px;background:var(--accent);border-radius:50%;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ═══════════ BREADCRUMB ═══════════ */
+.breadcrumb{display:flex;align-items:center;gap:.5rem;padding:5.25rem 5% 0;}
+.bc-item{font-size:.78rem;color:var(--muted);transition:color .2s;}
+.bc-item:hover{color:var(--accent);}
+.bc-sep{color:var(--muted2);font-size:.75rem;}
+.bc-item.current{color:var(--accent);font-weight:600;}
+
+/* ═══════════ HERO ═══════════ */
+.about-hero{padding:2rem 5% 0;position:relative;overflow:hidden;background:var(--bg);}
+.hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:52px 52px;opacity:.4;pointer-events:none;}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 70% 50%,rgba(14,165,233,.08),transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 420px;gap:4rem;align-items:center;padding:3rem 0 5rem;}
+.hero-left .sec-tag{margin-bottom:.85rem;}
+.hero-year-badge{display:inline-flex;align-items:center;gap:.6rem;background:var(--amber-lt);border:1px solid rgba(245,158,11,.2);border-radius:100px;padding:.35rem 1rem;font-size:.78rem;font-weight:700;color:#b45309;margin-bottom:1.25rem;}
+.hero-year-badge .yb-dot{width:6px;height:6px;background:var(--amber);border-radius:50%;}
+.hero-desc{color:var(--muted);font-size:1rem;line-height:1.78;max-width:520px;margin:1.2rem 0 2rem;}
+.hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;}
+.hero-right{position:relative;}
+.hero-img-stack{position:relative;height:420px;}
+.hi-main{width:100%;height:320px;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);}
+.hi-inset{position:absolute;bottom:-1.5rem;left:-2rem;width:200px;height:140px;object-fit:cover;border-radius:var(--radius-lg);border:4px solid var(--bg);box-shadow:var(--shadow-lg);}
+.hi-badge{position:absolute;top:1.25rem;right:-1.25rem;background:var(--dark-bg);border-radius:var(--radius-lg);padding:1.1rem 1.25rem;text-align:center;box-shadow:var(--shadow-lg);border:1px solid rgba(255,255,255,.06);}
+.hi-badge-val{font-family:var(--font-d);font-size:2rem;font-weight:800;color:var(--accent);line-height:1;}
+.hi-badge-lbl{font-size:.68rem;color:rgba(255,255,255,.4);margin-top:.2rem;line-height:1.4;}
+
+/* ═══════════ NUMBERS STRIP ═══════════ */
+#numbers{background:var(--dark-bg);display:grid;grid-template-columns:repeat(5,1fr);padding:0;}
+.num-item{padding:3rem 2rem;border-right:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden;transition:background .3s;}
+.num-item:last-child{border-right:none;}
+.num-item:hover{background:rgba(255,255,255,.02);}
+.num-item::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent),#60a5fa);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.num-item:hover::after{transform:scaleX(1);}
+.num-val{font-family:var(--font-d);font-size:2.6rem;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1;margin-bottom:.4rem;}
+.num-val .suf{color:var(--accent);}
+.num-lbl{font-size:.78rem;color:rgba(255,255,255,.35);font-weight:500;line-height:1.5;}
+
+/* ═══════════ STORY / MISSION ═══════════ */
+#story{background:var(--bg2);}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.story-img-wrap{position:relative;}
+.story-img{width:100%;height:400px;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);}
+.story-float{position:absolute;bottom:-1.5rem;right:-1.5rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;box-shadow:var(--shadow-lg);}
+.story-float-val{font-family:var(--font-d);font-size:1.8rem;font-weight:800;color:var(--green);line-height:1;}
+.story-float-lbl{font-size:.72rem;color:var(--muted);margin-top:.2rem;line-height:1.4;}
+.story-content .sec-h{margin-bottom:1.1rem;}
+.story-content p{color:var(--muted);font-size:.93rem;line-height:1.78;margin-bottom:1rem;}
+.story-content p:last-of-type{margin-bottom:1.5rem;}
+.mission-vision{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+.mv-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.35rem;transition:all .3s;position:relative;overflow:hidden;}
+.mv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0;}
+.mv-card.mission::before{background:linear-gradient(to right,var(--accent),#60a5fa);}
+.mv-card.vision::before{background:linear-gradient(to right,var(--purple),var(--accent));}
+.mv-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);}
+.mv-icon{font-size:1.5rem;margin-bottom:.65rem;}
+.mv-title{font-family:var(--font-d);font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;}
+.mv-text{font-size:.82rem;color:var(--muted);line-height:1.65;}
+
+/* ═══════════ TIMELINE ═══════════ */
+#timeline{background:var(--bg);}
+.tl-head{text-align:center;margin-bottom:4rem;}
+.tl-head .sec-tag{justify-content:center;}
+.tl-head .sec-tag::before{display:none;}
+.timeline-wrap{position:relative;max-width:900px;margin:0 auto;}
+.timeline-wrap::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--accent),var(--blue),transparent);transform:translateX(-50%);}
+.tl-item{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;align-items:start;margin-bottom:3rem;opacity:0;transform:translateY(20px);transition:all .6s ease;}
+.tl-item.vis{opacity:1;transform:translateY(0);}
+.tl-left{text-align:right;padding-right:2.5rem;}
+.tl-right{padding-left:2.5rem;}
+.tl-center{display:flex;flex-direction:column;align-items:center;gap:.35rem;position:relative;z-index:2;}
+.tl-year-dot{width:48px;height:48px;background:var(--card);border:2.5px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:.7rem;font-weight:800;color:var(--accent);flex-shrink:0;box-shadow:var(--shadow-bl);}
+.tl-item:nth-child(even) .tl-left{order:3;text-align:left;padding-right:0;padding-left:2.5rem;}
+.tl-item:nth-child(even) .tl-right{order:1;text-align:right;padding-left:0;padding-right:2.5rem;}
+.tl-item:nth-child(even) .tl-center{order:2;}
+.tl-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;box-shadow:var(--shadow);transition:all .3s;}
+.tl-card:hover{border-color:var(--accent);box-shadow:var(--shadow-bl);}
+.tl-card-year{font-family:var(--font-d);font-size:.72rem;font-weight:700;color:var(--accent);letter-spacing:.1em;margin-bottom:.4rem;}
+.tl-card-title{font-family:var(--font-d);font-size:.98rem;font-weight:700;color:var(--ink);margin-bottom:.4rem;}
+.tl-card-desc{font-size:.8rem;color:var(--muted);line-height:1.6;}
+
+/* ═══════════ VALUES ═══════════ */
+#values{background:var(--bg2);}
+.values-head{text-align:center;margin-bottom:3.5rem;}
+.values-head .sec-tag{justify-content:center;}
+.values-head .sec-tag::before{display:none;}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.val-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:2rem;transition:all .35s;opacity:0;transform:translateY(18px);position:relative;overflow:hidden;}
+.val-card.vis{opacity:1;transform:translateY(0);}
+.val-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,165,233,.04),transparent);opacity:0;transition:opacity .3s;}
+.val-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.val-card:hover::after{opacity:1;}
+.val-num{font-family:var(--font-d);font-size:3.5rem;font-weight:800;color:var(--border2);line-height:1;margin-bottom:.5rem;position:relative;z-index:1;transition:color .3s;}
+.val-card:hover .val-num{color:var(--accent);}
+.val-icon{font-size:1.5rem;margin-bottom:.75rem;position:relative;z-index:1;}
+.val-title{font-family:var(--font-d);font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.55rem;position:relative;z-index:1;}
+.val-desc{color:var(--muted);font-size:.85rem;line-height:1.7;position:relative;z-index:1;}
+
+/* ═══════════ LEADERSHIP ═══════════ */
+#leadership{background:var(--bg);}
+.lead-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1.5rem;}
+.lead-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.lead-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden;transition:all .35s;opacity:0;transform:translateY(18px);}
+.lead-card.vis{opacity:1;transform:translateY(0);}
+.lead-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.lead-img-wrap{position:relative;overflow:hidden;height:200px;}
+.lead-img{width:100%;height:100%;object-fit:cover;transition:transform .5s,filter .4s;filter:brightness(.9);}
+.lead-card:hover .lead-img{transform:scale(1.05);filter:brightness(.75);}
+.lead-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,17,23,.7),transparent 60%);opacity:0;transition:opacity .3s;}
+.lead-card:hover .lead-overlay{opacity:1;}
+.lead-social{position:absolute;bottom:.85rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;opacity:0;transition:opacity .3s;white-space:nowrap;}
+.lead-card:hover .lead-social{opacity:1;}
+.lead-soc-btn{background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);color:#fff;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;cursor:pointer;transition:background .2s;}
+.lead-soc-btn:hover{background:var(--accent);}
+.lead-body{padding:1.25rem;}
+.lead-name{font-family:var(--font-d);font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.2rem;}
+.lead-role{font-size:.75rem;font-weight:600;color:var(--accent);margin-bottom:.5rem;letter-spacing:.03em;}
+.lead-bio{font-size:.78rem;color:var(--muted);line-height:1.6;}
+
+/* ═══════════ CERTIFICATIONS ═══════════ */
+#certifications{background:var(--bg2);}
+.cert-head{text-align:center;margin-bottom:3.5rem;}
+.cert-head .sec-tag{justify-content:center;}
+.cert-head .sec-tag::before{display:none;}
+.cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:3rem;}
+.cert-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem 1.25rem;text-align:center;transition:all .3s;opacity:0;transform:translateY(18px);}
+.cert-card.vis{opacity:1;transform:translateY(0);}
+.cert-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.cert-logo{font-size:2.5rem;margin-bottom:.85rem;}
+.cert-name{font-family:var(--font-d);font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.35rem;}
+.cert-body{font-size:.78rem;color:var(--muted);line-height:1.55;}
+.cert-badge{display:inline-block;margin-top:.6rem;background:var(--green-lt);color:var(--green);font-size:.65rem;font-weight:700;letter-spacing:.07em;padding:.2rem .65rem;border-radius:100px;}
+.awards-strip{background:var(--dark-bg);border-radius:var(--radius-xl);padding:2rem 2.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.award-item{text-align:center;}
+.award-icon{font-size:1.75rem;margin-bottom:.5rem;}
+.award-name{font-family:var(--font-d);font-size:.82rem;font-weight:700;color:#f1f5f9;margin-bottom:.2rem;}
+.award-body{font-size:.7rem;color:rgba(255,255,255,.35);line-height:1.5;}
+
+/* ═══════════ PARTNERS ═══════════ */
+#partners{background:var(--bg);}
+.partners-head{text-align:center;margin-bottom:3rem;}
+.partners-head .sec-tag{justify-content:center;}
+.partners-head .sec-tag::before{display:none;}
+.partner-scroll{overflow:hidden;position:relative;}
+.partner-scroll::before,.partner-scroll::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
+.partner-scroll::before{left:0;background:linear-gradient(to right,var(--bg),transparent);}
+.partner-scroll::after{right:0;background:linear-gradient(to left,var(--bg),transparent);}
+.partner-track{display:flex;gap:1.5rem;width:max-content;animation:ptick 30s linear infinite;}
+.partner-track:hover{animation-play-state:paused;}
+.partner-logo{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1rem 2rem;display:flex;align-items:center;justify-content:center;white-space:nowrap;font-family:var(--font-d);font-size:.9rem;font-weight:700;color:var(--muted2);transition:all .3s;flex-shrink:0;}
+.partner-logo:hover{color:var(--ink);border-color:var(--accent);transform:translateY(-2px);}
+@keyframes ptick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.partners-note{text-align:center;margin-top:1.5rem;color:var(--muted);font-size:.83rem;}
+
+/* ═══════════ SUSTAINABILITY ═══════════ */
+#sustainability{background:var(--bg2);}
+.sust-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.sust-content .sec-h{margin-bottom:1.1rem;}
+.sust-content>p{color:var(--muted);font-size:.93rem;line-height:1.78;margin-bottom:2rem;}
+.sust-metrics{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.sm-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;}
+.sm-val{font-family:var(--font-d);font-size:1.85rem;font-weight:800;color:var(--green);line-height:1;margin-bottom:.25rem;}
+.sm-lbl{font-size:.78rem;color:var(--muted);line-height:1.5;}
+.sust-visual{position:relative;}
+.sust-img{width:100%;height:380px;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);}
+.sust-pledge{position:absolute;bottom:-1.5rem;left:-1.5rem;background:var(--green);color:#fff;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;box-shadow:var(--shadow-lg);}
+.sp-val{font-family:var(--font-d);font-size:1.5rem;font-weight:800;line-height:1;}
+.sp-lbl{font-size:.72rem;opacity:.8;margin-top:.2rem;}
+.esg-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem;}
+.esg-pill{display:inline-flex;align-items:center;gap:.4rem;background:var(--green-lt);border:1px solid rgba(22,163,74,.18);border-radius:100px;padding:.3rem .85rem;font-size:.75rem;font-weight:600;color:var(--green);}
+
+/* ═══════════ GLOBAL OFFICES ═══════════ */
+#offices{background:var(--bg);}
+.offices-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;}
+.offices-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.office-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;transition:all .3s;opacity:0;transform:translateY(18px);}
+.office-card.vis{opacity:1;transform:translateY(0);}
+.office-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--accent);}
+.office-flag{font-size:1.75rem;margin-bottom:.7rem;}
+.office-city{font-family:var(--font-d);font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.2rem;}
+.office-type{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:.65rem;}
+.office-addr{font-size:.82rem;color:var(--muted);line-height:1.65;margin-bottom:.85rem;}
+.office-tags{display:flex;gap:.4rem;flex-wrap:wrap;}
+.office-tag{font-size:.65rem;font-weight:700;padding:.18rem .6rem;border-radius:100px;background:var(--bg3);color:var(--ink3);}
+
+/* ═══════════ WHY CHOOSE US ═══════════ */
+#why-us{background:var(--dark-bg);position:relative;overflow:hidden;}
+#why-us::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:52px 52px;}
+#why-us::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 40%,rgba(14,165,233,.1),transparent 70%);}
+.why-inner{position:relative;z-index:2;}
+.why-head{text-align:center;margin-bottom:4rem;}
+.why-head .sec-tag{justify-content:center;color:var(--accent);}
+.why-head .sec-tag::before{display:none;}
+.why-head .sec-h{color:#f1f5f9;}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.why-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-xl);padding:2rem;transition:all .35s;opacity:0;transform:translateY(18px);}
+.why-card.vis{opacity:1;transform:translateY(0);}
+.why-card:hover{background:rgba(255,255,255,.07);border-color:rgba(14,165,233,.3);transform:translateY(-4px);}
+.why-icon{width:48px;height:48px;background:rgba(14,165,233,.12);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:1.1rem;border:1px solid rgba(14,165,233,.2);}
+.why-title{font-family:var(--font-d);font-size:1rem;font-weight:700;color:#f1f5f9;margin-bottom:.6rem;}
+.why-desc{font-size:.85rem;color:rgba(255,255,255,.42);line-height:1.7;}
+.why-vs{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem;}
+.vs-col{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-lg);padding:1.75rem;}
+.vs-col h4{font-family:var(--font-d);font-size:.88rem;font-weight:700;margin-bottom:1.1rem;}
+.vs-col.ours h4{color:var(--accent);}
+.vs-col.theirs h4{color:rgba(255,255,255,.4);}
+.vs-item{display:flex;align-items:flex-start;gap:.65rem;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.82rem;}
+.vs-item:last-child{border-bottom:none;}
+.vs-item.yes{color:rgba(255,255,255,.75);}
+.vs-item.no{color:rgba(255,255,255,.25);}
+.vs-mark{flex-shrink:0;margin-top:.05rem;}
+
+/* ═══════════ TESTIMONIALS ═══════════ */
+#testimonials{background:var(--bg2);}
+.test-head{text-align:center;margin-bottom:3.5rem;}
+.test-head .sec-tag{justify-content:center;}
+.test-head .sec-tag::before{display:none;}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.tc-card{background:var(--card);border-radius:var(--radius-lg);padding:1.85rem;border:1px solid var(--border);transition:all .3s;opacity:0;transform:translateY(18px);}
+.tc-card.vis{opacity:1;transform:translateY(0);}
+.tc-card:hover{box-shadow:var(--shadow-lg);border-color:transparent;transform:translateY(-4px);}
+.tc-stars{color:var(--amber);font-size:.82rem;letter-spacing:.12em;margin-bottom:.9rem;}
+.tc-text{color:var(--ink3);font-size:.9rem;line-height:1.75;margin-bottom:1.35rem;font-style:italic;}
+.tc-author{display:flex;align-items:center;gap:.8rem;}
+.tc-av{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--border);}
+.tc-name{font-size:.86rem;font-weight:600;color:var(--ink);}
+.tc-role{font-size:.75rem;color:var(--muted);}
+.tc-logo{margin-left:auto;font-family:var(--font-d);font-size:.72rem;font-weight:700;color:var(--muted2);}
+
+/* ═══════════ CTA BANNER ═══════════ */
+#cta-banner{background:var(--dark-bg);position:relative;overflow:hidden;text-align:center;padding:7rem 5%;}
+#cta-banner::before{content:'';position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80&auto=format&fit=crop');background-size:cover;background-position:center;opacity:.07;}
+#cta-banner::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 75% at 50% 50%,rgba(14,165,233,.18),transparent);pointer-events:none;}
+.cta-inner{position:relative;z-index:2;max-width:660px;margin:0 auto;}
+.cta-inner .sec-tag{justify-content:center;color:var(--accent);}
+.cta-inner .sec-tag::before{display:none;}
+.cta-inner .sec-h{color:#f1f5f9;margin-bottom:1.1rem;}
+.cta-inner>p{color:rgba(255,255,255,.42);line-height:1.75;font-size:.97rem;margin-bottom:2.25rem;}
+.cta-btns{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;}
+.btn-w{background:#fff;color:var(--dark-bg);padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:700;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;}
+.btn-w:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,255,255,.12);}
+.btn-wg{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:600;border:1.5px solid rgba(255,255,255,.1);cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;}
+.btn-wg:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ═══════════ FOOTER ═══════════ */
+footer{background:var(--dark-bar);padding:4.5rem 5% 2rem;}
+.f-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3.5rem;margin-bottom:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid rgba(255,255,255,.05);}
+.f-brand-logo{font-family:var(--font-d);font-size:1.35rem;font-weight:800;color:#fff;display:block;margin-bottom:.9rem;letter-spacing:-.02em;}
+.f-brand p{color:rgba(255,255,255,.3);font-size:.855rem;line-height:1.7;max-width:240px;}
+.f-socs{display:flex;gap:.55rem;margin-top:1.35rem;}
+.f-soc{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;transition:all .2s;cursor:pointer;}
+.f-soc:hover{border-color:var(--accent);color:var(--accent);}
+.f-col h4{font-family:var(--font-d);font-size:.76rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:1.35rem;}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.f-links a{color:rgba(255,255,255,.3);font-size:.855rem;transition:color .2s;}
+.f-links a:hover{color:#fff;}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.9rem;}
+.f-bottom p{color:rgba(255,255,255,.18);font-size:.78rem;}
+.fab{position:fixed;bottom:1.75rem;right:1.75rem;z-index:400;background:var(--accent);color:#fff;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;box-shadow:0 8px 28px rgba(14,165,233,.42);cursor:pointer;border:none;transition:all .25s;}
+.fab:hover{background:var(--accent-dk);transform:scale(1.08);}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media(max-width:1024px){
+  .nav-links,.nav-right .btn-ghost,.nav-right .btn-cta{display:none;}
+  .hamburger{display:flex;}
+  .mob-overlay{display:block;}
+  .hero-inner{grid-template-columns:1fr;gap:2.5rem;}
+  .hero-right{display:none;}
+  #numbers{grid-template-columns:1fr 1fr 1fr;}
+  .story-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .cert-grid{grid-template-columns:1fr 1fr;}
+  .awards-strip{grid-template-columns:1fr 1fr;gap:1rem;}
+  .lead-grid{grid-template-columns:1fr 1fr;}
+  .values-grid{grid-template-columns:1fr 1fr;}
+  .offices-grid{grid-template-columns:1fr 1fr;}
+  .why-grid{grid-template-columns:1fr 1fr;}
+  .sust-grid{grid-template-columns:1fr;}
+  .test-grid{grid-template-columns:1fr 1fr;}
+  .f-top{grid-template-columns:1fr 1fr;gap:2.5rem;}
+  .timeline-wrap::before{left:24px;}
+  .tl-item{grid-template-columns:0 48px 1fr;}
+  .tl-item .tl-left{display:none;}
+  .tl-item:nth-child(even) .tl-left{display:none;}
+  .tl-item:nth-child(even) .tl-right{order:3;text-align:left;padding-left:2rem;padding-right:0;}
+  .tl-item:nth-child(even) .tl-center{order:2;}
+  .tl-right{padding-left:2rem;}
+  .why-vs{grid-template-columns:1fr;}
+}
+@media(max-width:640px){
+  section{padding:3rem 4%;}
+  nav{padding:0 4%;height:60px;}
+  .breadcrumb{padding:4.5rem 4% 0;}
+  .about-hero{padding:1rem 4% 0;}
+  .hero-inner{padding:2rem 0 3rem;}
+  #numbers{grid-template-columns:1fr 1fr;}
+  .num-item:last-child{display:none;}
+  .cert-grid{grid-template-columns:1fr 1fr;}
+  .awards-strip{grid-template-columns:1fr 1fr;padding:1.25rem;}
+  .lead-grid{grid-template-columns:1fr 1fr;}
+  .values-grid{grid-template-columns:1fr;}
+  .offices-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .test-grid{grid-template-columns:1fr;}
+  .f-top{grid-template-columns:1fr;gap:2rem;padding-bottom:2rem;margin-bottom:2rem;}
+  .f-bottom{flex-direction:column;text-align:center;}
+  .mission-vision{grid-template-columns:1fr;}
+  .sust-metrics{grid-template-columns:1fr 1fr;}
+  .cta-btns{flex-direction:column;align-items:center;}
+  .btn-w,.btn-wg{width:100%;max-width:320px;justify-content:center;}
+  footer{padding:3rem 4% 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE OVERLAY & DRAWER -->
+<div class="mob-overlay" id="mobOverlay"></div>
+<div class="mob-drawer" id="mobDrawer">
+  <div class="dr-header">
+    <div class="dr-logo">MahaveerTrans</div>
+    <button class="dr-close" id="drClose">✕</button>
+  </div>
+  <div class="dr-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="fleet.html">Fleet</a>
+    <a href="tracking.html">Track</a>
+    <a href="about.html" class="active">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="dr-foot">
+    <button class="dr-cta" onclick="location.href='quote.html'">Get Free Quote →</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo"><span>Mahaveer</span>Trans<div class="dot"></div></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="fleet.html">Fleet</a>
+    <a href="tracking.html">Track</a>
+    <a href="about.html" class="active">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <div style="display:flex;align-items:center;gap:.5rem;">
+      <span style="font-size:.82rem;">☀️</span>
+      <button class="theme-toggle" id="themeToggle"></button>
+      <span style="font-size:.82rem;">🌙</span>
+    </div>
+    <button class="btn-ghost" onclick="location.href='tracking.html'">Track Shipment</button>
+    <button class="btn-cta" onclick="location.href='quote.html'">Get Quote →</button>
+    <button class="hamburger" id="hamburger">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-wrap" style="margin-top:66px;">
+  <div class="ticker" id="ticker"></div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="index.html" class="bc-item">Home</a>
+  <span class="bc-sep">/</span>
+  <span class="bc-item current">About Us</span>
+</div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="about-hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-left reveal">
+      <div class="hero-year-badge"><span class="yb-dot"></span>Founded 1999 · 25 Years of Excellence</div>
+      <div class="sec-tag">Our Story</div>
+      <h1 class="sec-h">India's Most<br>Trusted <span class="hl">Logistics Partner</span></h1>
+      <p class="hero-desc">MahaveerTrans was built on a single conviction — that Indian businesses deserve world-class freight infrastructure without world-class complexity. From a single truck depot in Mumbai in 1999, we have grown into a full-spectrum logistics powerhouse with presence in 180+ countries, 3 million sq.ft of warehousing, and a team of 4,200+ logistics professionals.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="location.href='quote.html'">Get Free Quote →</button>
+        <button class="btn-ghost" onclick="document.getElementById('timeline').scrollIntoView({behavior:'smooth'})">Our Journey ↓</button>
+      </div>
+    </div>
+    <div class="hero-right reveal" style="transition-delay:.15s">
+      <div class="hero-img-stack">
+        <img class="hi-main" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=700&q=80&auto=format&fit=crop" alt="MahaveerTrans operations">
+        <img class="hi-inset" src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=400&q=80&auto=format&fit=crop" alt="Fleet">
+        <div class="hi-badge">
+          <div class="hi-badge-val">4,200<span style="color:var(--accent);font-size:1.2rem;">+</span></div>
+          <div class="hi-badge-lbl" style="color:rgba(255,255,255,.45);">Team members<br>across 12 countries</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ NUMBERS ═══════════ -->
+<div id="numbers">
+  <div class="num-item">
+    <div class="num-val" data-target="25"><span class="suf">+ yrs</span></div>
+    <div class="num-lbl">Industry experience<br>since 1999</div>
+  </div>
+  <div class="num-item">
+    <div class="num-val" data-target="12400">0<span class="suf">+</span></div>
+    <div class="num-lbl">Monthly shipments<br>processed</div>
+  </div>
+  <div class="num-item">
+    <div class="num-val" data-target="180">0<span class="suf">+</span></div>
+    <div class="num-lbl">Countries in<br>active network</div>
+  </div>
+  <div class="num-item">
+    <div class="num-val" data-target="99">0<span class="suf">%</span></div>
+    <div class="num-lbl">On-time delivery<br>rate (2024)</div>
+  </div>
+  <div class="num-item">
+    <div class="num-val" data-target="4200">0<span class="suf">+</span></div>
+    <div class="num-lbl">Logistics professionals<br>worldwide</div>
+  </div>
+</div>
+
+<!-- ═══════════ STORY & MISSION ═══════════ -->
+<section id="story">
+  <div class="story-grid">
+    <div class="story-img-wrap reveal">
+      <img class="story-img" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80&auto=format&fit=crop" alt="MahaveerTrans warehouse">
+      <div class="story-float">
+        <div class="story-float-val">₹2,400 Cr</div>
+        <div class="story-float-lbl">Annual revenue<br>FY 2024–25</div>
+      </div>
+    </div>
+    <div class="story-content">
+      <div class="sec-tag reveal">Who We Are</div>
+      <h2 class="sec-h reveal" style="transition-delay:.08s">Built on <span class="hl">Trust,</span><br>Scaled by <span class="hl">Technology</span></h2>
+      <p class="reveal" style="transition-delay:.12s">MahaveerTrans Logistics Pvt. Ltd. was founded in Mumbai in 1999 by Arvind Mahaveer with three trucks and a conviction that India's exporters deserved more. Today we are one of India's top five integrated logistics providers — publicly listed on BSE (2019), ISO 9001:2015 certified, and operating across air, ocean, road, cold-chain, warehousing, and last-mile verticals.</p>
+      <p class="reveal" style="transition-delay:.16s">Our technology backbone — the MT Connect platform — gives every client real-time visibility across their entire supply chain, from first-mile pickup to final proof of delivery. With 3 million sq.ft of GDP-certified warehousing across 12 hub cities and partnerships with 40+ airlines and 15 ocean carriers, we operate one of India's most resilient logistics networks.</p>
+      <div class="mission-vision reveal" style="transition-delay:.2s">
+        <div class="mv-card mission">
+          <div class="mv-icon">🎯</div>
+          <div class="mv-title">Our Mission</div>
+          <div class="mv-text">To simplify global trade for Indian businesses by delivering reliable, technology-powered logistics that reduces cost, eliminates uncertainty, and accelerates growth.</div>
+        </div>
+        <div class="mv-card vision">
+          <div class="mv-icon">🔭</div>
+          <div class="mv-title">Our Vision</div>
+          <div class="mv-text">To be Asia's most trusted logistics partner by 2030 — connecting manufacturers, exporters, and e-commerce brands to every market on earth.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TIMELINE ═══════════ -->
+<section id="timeline">
+  <div class="tl-head reveal">
+    <div class="sec-tag">Our Journey</div>
+    <h2 class="sec-h">25 Years of <span class="hl">Milestones</span></h2>
+    <p style="color:var(--muted);font-size:.93rem;max-width:460px;margin:.8rem auto 0;line-height:1.7;">From a single depot to a global network — the moments that shaped MahaveerTrans.</p>
+  </div>
+  <div class="timeline-wrap" id="tlWrap"></div>
+</section>
+
+<!-- ═══════════ VALUES ═══════════ -->
+<section id="values">
+  <div class="values-head reveal">
+    <div class="sec-tag">What Drives Us</div>
+    <h2 class="sec-h">Our Core <span class="hl">Values</span></h2>
+    <p style="color:var(--muted);font-size:.93rem;max-width:460px;margin:.8rem auto 0;line-height:1.7;">Six principles that govern every decision, from boardroom strategy to last-mile delivery.</p>
+  </div>
+  <div class="values-grid" id="valuesGrid"></div>
+</section>
+
+<!-- ═══════════ LEADERSHIP ═══════════ -->
+<section id="leadership">
+  <div class="lead-head reveal">
+    <div>
+      <div class="sec-tag">The Team</div>
+      <h2 class="sec-h">Leadership <span class="hl">You Can Trust</span></h2>
+    </div>
+    <p style="max-width:340px;color:var(--muted);font-size:.9rem;line-height:1.7;">Seasoned operators from DHL, Maersk, FedEx, and McKinsey — united around one mission.</p>
+  </div>
+  <div class="lead-grid" id="leadGrid"></div>
+</section>
+
+<!-- ═══════════ CERTIFICATIONS ═══════════ -->
+<section id="certifications">
+  <div class="cert-head reveal">
+    <div class="sec-tag">Compliance & Quality</div>
+    <h2 class="sec-h">Certified to <span class="hl">Global Standards</span></h2>
+    <p style="color:var(--muted);font-size:.93rem;max-width:460px;margin:.8rem auto 0;line-height:1.7;">Every certification we hold is a promise to our clients — that we meet the strictest safety, quality, and compliance benchmarks in the world.</p>
+  </div>
+  <div class="cert-grid" id="certGrid"></div>
+  <div class="awards-strip reveal" id="awardsStrip"></div>
+</section>
+
+<!-- ═══════════ PARTNERS ═══════════ -->
+<section id="partners">
+  <div class="partners-head reveal">
+    <div class="sec-tag">Our Network</div>
+    <h2 class="sec-h">Carrier & Alliance <span class="hl">Partners</span></h2>
+    <p style="color:var(--muted);font-size:.93rem;max-width:460px;margin:.8rem auto 0;line-height:1.7;">Space guaranteed with 40+ airlines, 15 ocean carriers, and 200+ road partners across India.</p>
+  </div>
+  <div class="partner-scroll">
+    <div class="partner-track" id="partnerTrack"></div>
+  </div>
+  <p class="partners-note">Logos shown for illustrative purposes. Actual partnerships may vary by trade lane.</p>
+</section>
+
+<!-- ═══════════ SUSTAINABILITY ═══════════ -->
+<section id="sustainability">
+  <div class="sust-grid">
+    <div class="sust-content">
+      <div class="sec-tag reveal">Green Logistics</div>
+      <h2 class="sec-h reveal" style="transition-delay:.08s">Moving the World <span class="hl">Responsibly</span></h2>
+      <p class="reveal" style="transition-delay:.12s;">At MahaveerTrans, sustainability is not a marketing promise — it's a measurable commitment. Our 2030 ESG roadmap targets net-zero Scope 1 & 2 emissions, a 40% electric fleet, and zero single-use plastic in all packaging operations.</p>
+      <div class="sust-metrics reveal" style="transition-delay:.16s">
+        <div class="sm-card"><div class="sm-val">40%</div><div class="sm-lbl">EV fleet target<br>by 2030</div></div>
+        <div class="sm-card"><div class="sm-val">18%</div><div class="sm-lbl">CO₂ reduction<br>achieved since 2020</div></div>
+        <div class="sm-card"><div class="sm-val">12 MW</div><div class="sm-lbl">Solar panels across<br>warehouse rooftops</div></div>
+        <div class="sm-card"><div class="sm-val">Zero</div><div class="sm-lbl">Single-use plastic target<br>by December 2026</div></div>
+      </div>
+      <div class="esg-pills reveal" style="transition-delay:.2s">
+        <span class="esg-pill">🌱 Net Zero by 2035</span>
+        <span class="esg-pill">☀️ Solar-powered hubs</span>
+        <span class="esg-pill">⚡ EV last-mile fleet</span>
+        <span class="esg-pill">♻️ Returnable packaging</span>
+        <span class="esg-pill">🌊 Carbon offset credits</span>
+      </div>
+    </div>
+    <div class="sust-visual reveal" style="transition-delay:.1s">
+      <img class="sust-img" src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80&auto=format&fit=crop" alt="Green fleet">
+      <div class="sust-pledge">
+        <div class="sp-val">Net Zero</div>
+        <div class="sp-lbl">Committed by 2035</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ OFFICES ═══════════ -->
+<section id="offices">
+  <div class="offices-head reveal">
+    <div>
+      <div class="sec-tag">Where We Are</div>
+      <h2 class="sec-h">Global <span class="hl">Office Network</span></h2>
+    </div>
+    <p style="max-width:340px;color:var(--muted);font-size:.9rem;line-height:1.7;">12 owned offices, 180+ country partnerships. Wherever your cargo needs to go, someone local is managing it.</p>
+  </div>
+  <div class="offices-grid" id="officesGrid"></div>
+</section>
+
+<!-- ═══════════ WHY US ═══════════ -->
+<section id="why-us">
+  <div class="why-inner">
+    <div class="why-head reveal">
+      <div class="sec-tag">Why MahaveerTrans</div>
+      <h2 class="sec-h">What Sets Us <span class="hl">Apart</span></h2>
+      <p style="color:rgba(255,255,255,.38);font-size:.93rem;max-width:460px;margin:.8rem auto 0;line-height:1.7;">We're often compared to both global 3PLs and local freight brokers. Here's why we outperform both.</p>
+    </div>
+    <div class="why-grid" id="whyGrid"></div>
+    <div class="why-vs reveal" style="transition-delay:.2s">
+      <div class="vs-col ours">
+        <h4>✦ MahaveerTrans</h4>
+        <div class="vs-item yes"><span class="vs-mark">✓</span>Dedicated account manager from day one</div>
+        <div class="vs-item yes"><span class="vs-mark">✓</span>AI-generated quote in 60 seconds</div>
+        <div class="vs-item yes"><span class="vs-mark">✓</span>Real-time tracking with 5-min GPS pings</div>
+        <div class="vs-item yes"><span class="vs-mark">✓</span>GDP & IMDG certified for all cargo types</div>
+        <div class="vs-item yes"><span class="vs-mark">✓</span>Transparent pricing — no hidden surcharges</div>
+        <div class="vs-item yes"><span class="vs-mark">✓</span>24/7 live ops team, not just a chatbot</div>
+        <div class="vs-item yes"><span class="vs-mark">✓</span>REST API + WMS integration in 2 days</div>
+      </div>
+      <div class="vs-col theirs">
+        <h4>Typical Competitors</h4>
+        <div class="vs-item no"><span class="vs-mark">✗</span>Generic account pool, high turnover</div>
+        <div class="vs-item no"><span class="vs-mark">✗</span>Manual quote process, 24–48 hr wait</div>
+        <div class="vs-item no"><span class="vs-mark">✗</span>Milestone updates only, no live map</div>
+        <div class="vs-item no"><span class="vs-mark">✗</span>Limited compliance for specialized cargo</div>
+        <div class="vs-item no"><span class="vs-mark">✗</span>Fuel surcharges added at invoice stage</div>
+        <div class="vs-item no"><span class="vs-mark">✗</span>Email-only support after business hours</div>
+        <div class="vs-item no"><span class="vs-mark">✗</span>Legacy EDI, weeks of IT onboarding</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section id="testimonials">
+  <div class="test-head reveal">
+    <div class="sec-tag">Client Stories</div>
+    <h2 class="sec-h">Words from Our <span class="hl">Partners</span></h2>
+    <p style="color:var(--muted);font-size:.93rem;max-width:460px;margin:.8rem auto 0;line-height:1.7;">Real outcomes, real businesses — across pharmaceuticals, e-commerce, and heavy industry.</p>
+  </div>
+  <div class="test-grid" id="testGrid"></div>
+</section>
+
+<!-- ═══════════ CTA BANNER ═══════════ -->
+<section id="cta-banner">
+  <div class="cta-inner reveal">
+    <div class="sec-tag">Ready to Ship?</div>
+    <h2 class="sec-h">25 Years of Trust.<br><span class="hl">Your Shipment Next.</span></h2>
+    <p>Join 3,500+ businesses who trust MahaveerTrans with their supply chain. Talk to a logistics expert — no commitment required.</p>
+    <div class="cta-btns">
+      <button class="btn-w" onclick="location.href='quote.html'">🚀 Get Free Quote →</button>
+      <button class="btn-wg">📞 +91 22 4001 8000</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="f-top">
+    <div class="f-brand">
+      <span class="f-brand-logo">MahaveerTrans</span>
+      <p>Delivering the world's goods with precision and care. Your trusted logistics partner since 1999.</p>
+      <div class="f-socs">
+        <div class="f-soc">in</div><div class="f-soc">tw</div>
+        <div class="f-soc">yt</div><div class="f-soc">ig</div>
+      </div>
+    </div>
+    <div class="f-col">
+      <h4>Services</h4>
+      <ul class="f-links">
+        <li><a href="services.html">Air Freight</a></li>
+        <li><a href="services.html">Sea Freight</a></li>
+        <li><a href="services.html">Road Transport</a></li>
+        <li><a href="services.html">Cold Chain</a></li>
+        <li><a href="services.html">Warehousing</a></li>
+        <li><a href="services.html">Last Mile</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Company</h4>
+      <ul class="f-links">
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Contact</h4>
+      <ul class="f-links">
+        <li><a href="#">📍 Mumbai, India</a></li>
+        <li><a href="#">📞 +91 22 4001 8000</a></li>
+        <li><a href="#">✉️ hello@mahaveertrans.com</a></li>
+        <li><a href="#">🌐 mahaveertrans.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <p>© 2025 MahaveerTrans Logistics Pvt. Ltd. All rights reserved.</p>
+    <p>Privacy · Terms · Sitemap</p>
+  </div>
+</footer>
+
+<button class="fab">💬</button>
+
+<!-- ═══════════ DATA & RENDER ═══════════ -->
+<script>
+/* ── TICKER ── */
+const tItems=['Air Freight','Ocean Shipping','Road Transport','Cold Chain','Customs Clearance','Warehousing & 3PL','Last Mile Delivery','Express Courier','GDP Certified','25 Years of Trust','180+ Countries','4,200+ Team Members'];
+const ti=tItems.map(t=>`<span class="t-item"><span class="t-dot"></span>${t}</span>`).join('');
+document.getElementById('ticker').innerHTML=ti+ti;
+
+/* ── TIMELINE DATA ── */
+const TL=[
+  {year:'1999',title:'Founded in Mumbai',desc:'Arvind Mahaveer starts with 3 trucks and a vision to modernise Indian road freight. First office: Dharavi Industrial Estate, Mumbai.'},
+  {year:'2003',title:'Ocean Freight Division Launched',desc:'Partnership with Hapag-Lloyd and MSC opens FCL & LCL lanes to the Middle East and Southeast Asia.'},
+  {year:'2006',title:'Air Cargo Certified',desc:'IATA certification obtained. First air freight desk opens at Mumbai CSIA, handling pharma and electronics for 40+ exporters.'},
+  {year:'2009',title:'Cold Chain Infrastructure',desc:'Commissioned India\'s first GDP-certified cold chain hub in Bhiwandi with 50,000 sq.ft of temperature-controlled storage.'},
+  {year:'2012',title:'Crossed ₹500 Cr Revenue',desc:'National expansion to 6 cities. FTL network covers all major industrial corridors. Team grows to 800+ employees.'},
+  {year:'2015',title:'MT Connect Platform Launched',desc:'Proprietary TMS and WMS go live. Clients get first real-time dashboard with live GPS tracking per consignment.'},
+  {year:'2018',title:'International Offices Open',desc:'Offices open in Dubai, Singapore, Frankfurt, and London. Global agency network expanded to 180+ countries.'},
+  {year:'2019',title:'BSE Listing (IPO)',desc:'Successfully listed on BSE at ₹240/share, raising ₹380 Cr for fleet expansion and warehouse automation.'},
+  {year:'2021',title:'3 Million Sq.Ft Warehousing',desc:'12 smart hub warehouses across India go fully operational. Same-day dispatch achieved across top 8 metros.'},
+  {year:'2024',title:'Net Zero Pledge & EV Fleet',desc:'Announced 2035 net-zero commitment. 120 EV delivery vehicles deployed. Solar capacity hits 12 MW across all hubs.'},
+];
+
+const tlWrap=document.getElementById('tlWrap');
+tlWrap.innerHTML=TL.map((t,i)=>`
+  <div class="tl-item" style="transition-delay:${(i%4)*0.1}s">
+    <div class="tl-left">
+      ${i%2===0?`<div class="tl-card"><div class="tl-card-year">${t.year}</div><div class="tl-card-title">${t.title}</div><div class="tl-card-desc">${t.desc}</div></div>`:''}
+    </div>
+    <div class="tl-center"><div class="tl-year-dot">${t.year.slice(2)}</div></div>
+    <div class="tl-right">
+      ${i%2!==0?`<div class="tl-card"><div class="tl-card-year">${t.year}</div><div class="tl-card-title">${t.title}</div><div class="tl-card-desc">${t.desc}</div></div>`:''}
+    </div>
+  </div>`).join('');
+
+/* ── VALUES DATA ── */
+const VALUES=[
+  {num:'01',icon:'🤝',title:'Client-First Always',desc:'Every decision is measured by one question: does this make our client\'s supply chain more reliable and cost-effective? We do not upsell what isn\'t needed.'},
+  {num:'02',icon:'🔍',title:'Radical Transparency',desc:'Pricing is shown in full before booking. No fuel surcharges added at invoice stage. Track records published quarterly on our investor portal.'},
+  {num:'03',icon:'⚡',title:'Relentless Speed',desc:'60-second AI quote. Same-day pickups. 2-hour POD delivery. We are built for the pace of modern commerce, not legacy freight timelines.'},
+  {num:'04',icon:'🛡️',title:'Zero Compromise on Compliance',desc:'GDP, IMDG, IATA DGR, HACCP, ISO 9001. We hold every certification that your procurement team will ever ask for — and several they haven\'t yet.'},
+  {num:'05',icon:'🌱',title:'Sustainable by Design',desc:'Green routing, carbon offset programs, EV fleets, and solar-powered warehouses. Sustainability is built into our operations, not bolted on.'},
+  {num:'06',icon:'💡',title:'Technology as Infrastructure',desc:'MT Connect is not a tracking app — it\'s a full supply chain OS. API-first, ERP-integrated, with AI route optimization and predictive ETA.'},
+];
+document.getElementById('valuesGrid').innerHTML=VALUES.map((v,i)=>`
+  <div class="val-card" style="transition-delay:${(i%3)*0.1}s">
+    <div class="val-num">${v.num}</div>
+    <div class="val-icon">${v.icon}</div>
+    <div class="val-title">${v.title}</div>
+    <div class="val-desc">${v.desc}</div>
+  </div>`).join('');
+
+/* ── LEADERSHIP DATA ── */
+const LEADERS=[
+  {name:'Arvind Mahaveer',role:'Founder & Chairman',bio:'Former IIT-Bombay engineer. Built MahaveerTrans from 3 trucks to a BSE-listed company. Named EY Entrepreneur of the Year 2021.',img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format&fit=crop&crop=face'},
+  {name:'Priya Subramaniam',role:'CEO & Managing Director',bio:'Ex-DHL South Asia MD. 22 years in global logistics. Led the MT Connect platform launch and international expansion.',img:'https://images.unsplash.com/photo-1494790108755-2616b612b23c?w=400&q=80&auto=format&fit=crop&crop=face'},
+  {name:'Rohit Agarwal',role:'CFO',bio:'Chartered Accountant, ex-KPMG. Managed the 2019 BSE IPO and three subsequent fund raises. Oversees ₹2,400 Cr revenue operations.',img:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80&auto=format&fit=crop&crop=face'},
+  {name:'Dr. Meena Krishnan',role:'Chief Technology Officer',bio:'PhD in Supply Chain AI from IIT Delhi. Built MT Connect platform from scratch. Named Forbes India Top 100 Tech Leaders 2023.',img:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80&auto=format&fit=crop&crop=face'},
+];
+document.getElementById('leadGrid').innerHTML=LEADERS.map((l,i)=>`
+  <div class="lead-card" style="transition-delay:${i*0.1}s">
+    <div class="lead-img-wrap">
+      <img class="lead-img" src="${l.img}" alt="${l.name}">
+      <div class="lead-overlay"></div>
+      <div class="lead-social">
+        <div class="lead-soc-btn">in</div>
+        <div class="lead-soc-btn">tw</div>
+        <div class="lead-soc-btn">✉</div>
+      </div>
+    </div>
+    <div class="lead-body">
+      <div class="lead-name">${l.name}</div>
+      <div class="lead-role">${l.role}</div>
+      <div class="lead-bio">${l.bio}</div>
+    </div>
+  </div>`).join('');
+
+/* ── CERTIFICATIONS DATA ── */
+const CERTS=[
+  {logo:'✈️',name:'IATA Certified',body:'International Air Transport Association accreditation for dangerous goods handling and cargo agency operations.',badge:'Active 2024'},
+  {logo:'🌡️',name:'GDP Certified',body:'Good Distribution Practice certification for pharmaceutical cold chain — the gold standard for temperature-sensitive logistics.',badge:'WHO-GDP'},
+  {logo:'🔒',name:'ISO 9001:2015',body:'Quality Management System certification covering all operational processes, warehousing, and customer service protocols.',badge:'BSI Certified'},
+  {logo:'⚗️',name:'IMDG Certified',body:'International Maritime Dangerous Goods code compliance for ocean freight, covering classification, packaging, and documentation.',badge:'Active 2024'},
+  {logo:'🍱',name:'HACCP Certified',body:'Hazard Analysis Critical Control Points — mandatory for food-grade cold chain operations across all warehouse facilities.',badge:'Food Safe'},
+  {logo:'🏭',name:'AEO Status',body:'Authorised Economic Operator status granted by Indian Customs — enabling faster clearances and priority processing at ports.',badge:'Indian Customs'},
+  {logo:'🛡️',name:'TAPA FSR A',body:'Transported Asset Protection Association Facility Security Requirements Level A — highest security rating for high-value cargo.',badge:'Level A'},
+  {logo:'🌱',name:'EcoVadis Gold',body:'Sustainability rating in the top 5% of logistics companies globally for ESG practices, environmental impact, and fair labour.',badge:'Gold 2024'},
+];
+document.getElementById('certGrid').innerHTML=CERTS.map((c,i)=>`
+  <div class="cert-card" style="transition-delay:${(i%4)*0.08}s">
+    <div class="cert-logo">${c.logo}</div>
+    <div class="cert-name">${c.name}</div>
+    <div class="cert-body">${c.body}</div>
+    <span class="cert-badge">${c.badge}</span>
+  </div>`).join('');
+
+const AWARDS=[
+  {icon:'🏆',name:'ET Logistics Award 2023',body:'Best Integrated Logistics Provider of the Year — Economic Times India'},
+  {icon:'⭐',name:'Forbes Best Employer',body:'Ranked #12 in Forbes India Best Employers in Manufacturing & Logistics 2023'},
+  {icon:'🌍',name:'Frost & Sullivan Award',body:'India Market Leadership Award — Cold Chain Logistics 2022'},
+  {icon:'📊',name:'BSE Listed',body:'Listed on Bombay Stock Exchange since 2019. Ticker: MAHVTRANS'},
+];
+document.getElementById('awardsStrip').innerHTML=AWARDS.map(a=>`
+  <div class="award-item">
+    <div class="award-icon">${a.icon}</div>
+    <div class="award-name">${a.name}</div>
+    <div class="award-body">${a.body}</div>
+  </div>`).join('');
+
+/* ── PARTNERS DATA ── */
+const PARTNERS=['Air India Cargo','IndiGo Freighter','SpiceJet Cargo','Qatar Airways Cargo','Lufthansa Cargo','Emirates SkyCargo','Maersk Line','MSC','Hapag-Lloyd','CMA CGM','Evergreen','COSCO','Blue Dart','FedEx India','DHL Express','DTDC','Delhivery','XpressBees'];
+const pt=PARTNERS.map(p=>`<div class="partner-logo">${p}</div>`).join('');
+document.getElementById('partnerTrack').innerHTML=pt+pt;
+
+/* ── OFFICES DATA ── */
+const OFFICES=[
+  {flag:'🇮🇳',city:'Mumbai (HQ)',type:'Global Headquarters',addr:'Plot 47, MIDC Andheri East, Mumbai 400093, Maharashtra, India',tags:['Operations Hub','Air & Ocean','Cold Chain','Customs']},
+  {flag:'🇮🇳',city:'Delhi NCR',type:'North India Hub',addr:'Sector 68, IMT Manesar, Gurugram 122051, Haryana, India',tags:['Road Network','3PL','Last Mile']},
+  {flag:'🇮🇳',city:'Chennai',type:'South India Hub',addr:'MEPZ Special Economic Zone, Tambaram, Chennai 600045, Tamil Nadu, India',tags:['Port Services','Automotive','Export Hub']},
+  {flag:'🇦🇪',city:'Dubai',type:'Middle East Office',addr:'Jebel Ali Free Zone, South Zone, Dubai, UAE',tags:['GCC Coverage','Re-export','Bonded WH']},
+  {flag:'🇸🇬',city:'Singapore',type:'Asia-Pacific Hub',addr:'6 Changi Business Park, #04-12, Singapore 486002',tags:['APAC Network','Ocean FCL','Air Express']},
+  {flag:'🇩🇪',city:'Frankfurt',type:'Europe Office',addr:'Cargo City Süd, Gebäude 534, Frankfurt Airport, 60549 Germany',tags:['EU Distribution','Pharma Lane','Customs DE']},
+];
+document.getElementById('officesGrid').innerHTML=OFFICES.map((o,i)=>`
+  <div class="office-card" style="transition-delay:${(i%3)*0.1}s">
+    <div class="office-flag">${o.flag}</div>
+    <div class="office-city">${o.city}</div>
+    <div class="office-type">${o.type}</div>
+    <div class="office-addr">${o.addr}</div>
+    <div class="office-tags">${o.tags.map(t=>`<span class="office-tag">${t}</span>`).join('')}</div>
+  </div>`).join('');
+
+/* ── WHY US DATA ── */
+const WHY=[
+  {icon:'⚡',title:'60-Second AI Quotes',desc:'Our MT Pricer engine analyses 40+ variables in real time — route, carrier availability, weight, seasonality — and returns an accurate quote before competitors even open your email.'},
+  {icon:'👤',title:'Dedicated Account Manager',desc:'You get a named logistics manager from day one. Same person every time. Direct mobile number. No ticket queues, no chatbots for critical shipments.'},
+  {icon:'📡',title:'Live Supply Chain Visibility',desc:'MT Connect dashboard gives you — and your clients — a real-time map, ETA, temperature logs, and document repository in one place. Accessible via web and API.'},
+  {icon:'🔬',title:'Specialist Cargo Expertise',desc:'Most 3PLs handle general cargo. We\'re equally fluent in pharma, hazmat, oversized project cargo, and perishable food — with the certifications to prove it.'},
+  {icon:'💰',title:'Transparent, Inclusive Pricing',desc:'Our quotes include origin charges, freight, destination charges, and customs fees. No fuel surcharges added later. What you quote is what you invoice.'},
+  {icon:'🔌',title:'API-First Integration',desc:'REST API with Swagger docs, pre-built Shopify & SAP plugins, webhook events, and WMS connectors. IT onboarding in 48 hours, not 6 weeks.'},
+];
+document.getElementById('whyGrid').innerHTML=WHY.map((w,i)=>`
+  <div class="why-card" style="transition-delay:${(i%3)*0.1}s">
+    <div class="why-icon">${w.icon}</div>
+    <div class="why-title">${w.title}</div>
+    <div class="why-desc">${w.desc}</div>
+  </div>`).join('');
+
+/* ── TESTIMONIALS DATA ── */
+const TESTS=[
+  {stars:'★★★★★',text:'MahaveerTrans\'s cold chain solution allowed us to launch temperature-sensitive biologics across five new markets in under 6 months. The GDP compliance documentation was flawless.',name:'Dr. Ananya Iyer',role:'VP Supply Chain, BioNova India',logo:'BioNova',img:'https://images.unsplash.com/photo-1494790108755-2616b612b23c?w=80&q=80&auto=format&fit=crop&crop=face'},
+  {stars:'★★★★★',text:'We migrated our entire 3PL operation to MahaveerTrans. WMS API integration took two days, and we saw a 34% reduction in order fulfilment errors within the first quarter.',name:'Vikram Nair',role:'Head of Operations, StyleKart',logo:'StyleKart',img:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face'},
+  {stars:'★★★★★',text:'Our JIT automotive parts supply was always a pain point. MahaveerTrans\'s dedicated FTL lanes with live tracking gave our plant managers the visibility they needed to eliminate line stoppages completely.',name:'Suresh Patel',role:'Logistics Director, AutoFab Ltd.',logo:'AutoFab',img:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face'},
+];
+document.getElementById('testGrid').innerHTML=TESTS.map((t,i)=>`
+  <div class="tc-card" style="transition-delay:${i*0.1}s">
+    <div class="tc-stars">${t.stars}</div>
+    <p class="tc-text">"${t.text}"</p>
+    <div class="tc-author">
+      <img class="tc-av" src="${t.img}" alt="${t.name}">
+      <div><div class="tc-name">${t.name}</div><div class="tc-role">${t.role}</div></div>
+      <div class="tc-logo">${t.logo}</div>
+    </div>
+  </div>`).join('');
+
+/* ═══════════ INTERSECTION OBSERVER ═══════════ */
+const io=new IntersectionObserver(e=>{
+  e.forEach(x=>{if(x.isIntersecting) x.target.classList.add('vis');});
+},{threshold:0.1});
+document.querySelectorAll('.reveal,.val-card,.lead-card,.cert-card,.tl-item,.why-card,.tc-card,.office-card').forEach(el=>io.observe(el));
+
+/* ═══════════ COUNTER ANIMATION ═══════════ */
+const cio=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el=e.target,target=parseInt(el.dataset.target);
+    const suf=el.querySelector('.suf')?.textContent||'';
+    let v=0;const step=target/70;
+    const t=setInterval(()=>{
+      v=Math.min(v+step,target);
+      el.innerHTML=Math.floor(v).toLocaleString()+'<span class="suf">'+suf+'</span>';
+      if(v>=target) clearInterval(t);
+    },20);
+    cio.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('.num-val[data-target]').forEach(el=>cio.observe(el));
+
+/* ═══════════ THEME ═══════════ */
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const t=document.documentElement.dataset.theme==='dark'?'light':'dark';
+  document.documentElement.dataset.theme=t;localStorage.setItem('mt-theme',t);
+});
+const saved=localStorage.getItem('mt-theme');if(saved)document.documentElement.dataset.theme=saved;
+
+/* ═══════════ NAV SCROLL ═══════════ */
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>40));
+
+/* ═══════════ MOBILE DRAWER ═══════════ */
+const ham=document.getElementById('hamburger'),drw=document.getElementById('mobDrawer'),ov=document.getElementById('mobOverlay');
+function openD(){ham.classList.add('open');drw.classList.add('open');ov.classList.add('open');document.body.style.overflow='hidden';}
+function closeD(){ham.classList.remove('open');drw.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}
+ham.addEventListener('click',openD);
+document.getElementById('drClose').addEventListener('click',closeD);
+ov.addEventListener('click',closeD);
+</script>
+</body>
+</html>
