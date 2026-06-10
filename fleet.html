@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleet — MahaveerTrans</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══ TOKENS ═══ */
+:root{
+  --bg:#ffffff;--bg2:#f9fafb;--bg3:#f3f4f6;
+  --ink:#0d1117;--ink2:#1e2530;--ink3:#374151;
+  --muted:#6b7280;--muted2:#9ca3af;
+  --border:#e5e7eb;--border2:#d1d5db;--card:#ffffff;
+  --dark-bg:#0d1117;--dark-bar:#080c14;
+  --accent:#0ea5e9;--accent-dk:#0284c7;--accent-lt:#f0f9ff;
+  --green:#16a34a;--green-lt:#f0fdf4;
+  --amber:#f59e0b;--amber-lt:#fffbeb;
+  --blue:#1d4ed8;--blue-lt:#eff6ff;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --purple:#7c3aed;--purple-lt:#f5f3ff;
+  --shadow:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.10);
+  --shadow-bl:0 8px 32px rgba(14,165,233,.25);
+  --radius:12px;--radius-lg:20px;--radius-xl:28px;
+  --font-d:'Syne',sans-serif;--font-b:'Instrument Sans',sans-serif;
+  --tr:.3s ease;
+}
+[data-theme="dark"]{
+  --bg:#0d1117;--bg2:#111827;--bg3:#1e2533;
+  --ink:#f1f5f9;--ink2:#e2e8f0;--ink3:#cbd5e1;
+  --muted:#94a3b8;--muted2:#64748b;
+  --border:#1e293b;--border2:#334155;--card:#141c2b;
+  --dark-bg:#060a10;--dark-bar:#040710;
+  --shadow:0 4px 24px rgba(0,0,0,.35);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.5);
+  --accent-lt:#0c1929;--blue-lt:#0c1a30;--amber-lt:#1a1200;
+  --green-lt:#061410;--red-lt:#1a0505;--purple-lt:#0f0a1e;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-b);overflow-x:hidden;transition:background var(--tr),color var(--tr);line-height:1.6;}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:66px;background:rgba(255,255,255,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s,background .3s;}
+[data-theme="dark"] nav{background:rgba(13,17,23,.88);}
+nav.scrolled{box-shadow:var(--shadow);}
+.nav-logo{font-family:var(--font-d);font-size:1.3rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;display:flex;align-items:center;gap:.45rem;white-space:nowrap;}
+.nav-logo .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+.nav-links{display:flex;gap:.15rem;align-items:center;}
+.nav-links a{color:var(--muted);font-size:.855rem;font-weight:500;padding:.4rem .85rem;border-radius:8px;transition:all .2s;}
+.nav-links a:hover{color:var(--ink);background:var(--bg3);}
+.nav-links a.active{color:var(--accent);background:var(--accent-lt);}
+.nav-right{display:flex;align-items:center;gap:.65rem;}
+.btn-ghost{background:none;border:1.5px solid var(--border2);color:var(--ink3);padding:.46rem 1.1rem;border-radius:8px;font-family:var(--font-b);font-size:.855rem;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-cta-nav{background:var(--ink);color:var(--bg);padding:.5rem 1.3rem;border-radius:8px;font-family:var(--font-b);font-size:.855rem;font-weight:600;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-cta-nav:hover{opacity:.85;transform:translateY(-1px);box-shadow:var(--shadow);}
+.theme-toggle{width:44px;height:24px;border-radius:100px;background:var(--border2);border:none;cursor:pointer;position:relative;transition:background .3s;flex-shrink:0;}
+.theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--bg);transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+[data-theme="dark"] .theme-toggle{background:var(--accent);}
+[data-theme="dark"] .theme-toggle::after{transform:translateX(20px);}
+.theme-icon{font-size:.85rem;pointer-events:none;}
+
+/* ═══ HAMBURGER ═══ */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;border:1.5px solid var(--border2);border-radius:8px;background:none;cursor:pointer;padding:8px;transition:border-color .2s;flex-shrink:0;}
+.hamburger:hover{border-color:var(--accent);}
+.ham-line{width:100%;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .3s ease,opacity .3s ease;transform-origin:center;}
+.hamburger.open .ham-line:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open .ham-line:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open .ham-line:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:250;backdrop-filter:blur(4px);opacity:0;transition:opacity .3s;}
+.mob-overlay.open{opacity:1;}
+.mob-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,85vw);background:var(--card);z-index:260;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;border-left:1px solid var(--border);}
+.mob-drawer.open{transform:translateX(0);}
+.dr-header{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.25rem;border-bottom:1px solid var(--border);}
+.dr-logo{font-family:var(--font-d);font-size:1.2rem;font-weight:800;color:var(--ink);}
+.dr-close{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--border2);background:none;cursor:pointer;color:var(--muted);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.dr-close:hover{background:var(--bg3);color:var(--ink);}
+.dr-links{display:flex;flex-direction:column;padding:1rem 0;flex:1;}
+.dr-links a{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.25rem;color:var(--ink3);font-size:.95rem;font-weight:500;border-bottom:1px solid var(--border);transition:all .2s;}
+.dr-links a:hover,.dr-links a.active{color:var(--accent);background:var(--accent-lt);padding-left:1.5rem;}
+.dr-links a::after{content:'→';color:var(--muted2);font-size:.8rem;}
+.dr-links a:hover::after,.dr-links a.active::after{color:var(--accent);}
+.dr-foot{padding:1.25rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:.65rem;}
+.dr-theme-row{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem;background:var(--bg2);border-radius:10px;}
+.dr-theme-lbl{font-size:.82rem;font-weight:600;color:var(--ink3);}
+.dr-cta-btn{background:var(--ink);color:var(--bg);padding:.75rem;border-radius:8px;font-family:var(--font-b);font-size:.88rem;font-weight:600;border:none;cursor:pointer;width:100%;transition:all .2s;}
+
+/* ═══ BREADCRUMB ═══ */
+.breadcrumb{display:flex;align-items:center;gap:.5rem;padding:5.5rem 5% 0;}
+.bc-item{font-size:.78rem;color:var(--muted);transition:color .2s;cursor:pointer;}
+.bc-item:hover,.bc-item.cur{color:var(--accent);}
+.bc-item.cur{font-weight:600;}
+.bc-sep{color:var(--muted2);font-size:.75rem;}
+
+/* ═══ HERO ═══ */
+.fleet-hero{position:relative;overflow:hidden;background:var(--dark-bg);}
+.fh-bg-img{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.22) saturate(.6);transform:scale(1.04);animation:slowzoom 20s ease-in-out infinite alternate;}
+@keyframes slowzoom{from{transform:scale(1.04);}to{transform:scale(1.1);}}
+.fh-overlay{position:absolute;inset:0;background:linear-gradient(100deg,rgba(10,15,30,.96) 45%,rgba(10,15,30,.3) 100%),linear-gradient(to top,rgba(10,15,30,.9) 0%,transparent 50%);}
+.fh-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 65% 45%,rgba(14,165,233,.12),transparent 70%);pointer-events:none;}
+.fh-inner{position:relative;z-index:2;padding:5rem 5% 5.5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.sec-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+.sec-tag::before{content:'';width:18px;height:2px;background:var(--accent);}
+.sec-tag.center{justify-content:center;}
+.sec-tag.center::before{display:none;}
+.sec-h{font-family:var(--font-d);font-size:clamp(2rem,4.5vw,3.8rem);font-weight:800;line-height:1.06;letter-spacing:-.03em;}
+.sec-h .hl{color:var(--accent);}
+.fh-title{color:#f1f5f9;}
+.fh-desc{color:rgba(255,255,255,.45);font-size:1rem;line-height:1.75;margin:1.25rem 0 2.5rem;max-width:480px;}
+.fh-actions{display:flex;gap:.85rem;flex-wrap:wrap;}
+.btn-primary{background:var(--accent);color:#fff;padding:.78rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:600;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;box-shadow:var(--shadow-bl);}
+.btn-primary:hover{background:var(--accent-dk);transform:translateY(-2px);box-shadow:0 12px 36px rgba(14,165,233,.35);}
+.btn-outline-dark{background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);padding:.78rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:600;border:1.5px solid rgba(255,255,255,.12);cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;}
+.btn-outline-dark:hover{border-color:var(--accent);color:var(--accent);}
+.fh-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-xl);overflow:hidden;}
+.fhs-item{padding:1.75rem 2rem;background:rgba(255,255,255,.02);transition:background .3s;}
+.fhs-item:hover{background:rgba(255,255,255,.05);}
+.fhs-val{font-family:var(--font-d);font-size:2.4rem;font-weight:800;color:#f1f5f9;line-height:1;}
+.fhs-val .s{color:var(--accent);}
+.fhs-lbl{font-size:.75rem;color:rgba(255,255,255,.38);margin-top:.35rem;letter-spacing:.03em;}
+
+/* ═══ TICKER ═══ */
+.ticker-wrap{background:var(--dark-bar);overflow:hidden;padding:.82rem 0;}
+.ticker{display:flex;width:max-content;animation:tick 42s linear infinite;}
+.t-item{display:flex;align-items:center;gap:.5rem;padding:0 1.8rem;font-family:var(--font-d);font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap;}
+.t-dot{width:4px;height:4px;background:var(--accent);border-radius:50%;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ═══ SHARED ═══ */
+section{padding:5.5rem 5%;}
+/* Scroll-reveal base — every gallery item, card, step starts invisible */
+.sr{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.sr.vis{opacity:1;transform:translateY(0);}
+.sr-left{opacity:0;transform:translateX(-32px);transition:opacity .7s ease,transform .7s ease;}
+.sr-left.vis{opacity:1;transform:translateX(0);}
+.sr-right{opacity:0;transform:translateX(32px);transition:opacity .7s ease,transform .7s ease;}
+.sr-right.vis{opacity:1;transform:translateX(0);}
+.sr-scale{opacity:0;transform:scale(.92);transition:opacity .7s ease,transform .7s ease;}
+.sr-scale.vis{opacity:1;transform:scale(1);}
+
+/* ═══ FILTER TABS ═══ */
+.filter-section{background:var(--bg2);padding:3rem 5%;}
+.filter-section-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
+.filter-row{display:flex;gap:.5rem;flex-wrap:wrap;}
+.filter-btn{display:flex;align-items:center;gap:.5rem;padding:.5rem 1.15rem;border-radius:100px;border:1.5px solid var(--border2);background:none;color:var(--muted);font-family:var(--font-b);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s;}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent);}
+.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.filter-btn .f-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.fleet-count{font-size:.82rem;color:var(--muted);white-space:nowrap;}
+.fleet-count span{font-weight:700;color:var(--ink);}
+
+/* ═══ GALLERY GRID — vertical stacked mosaic ═══ */
+#gallery{background:var(--bg);padding-top:4rem;padding-bottom:5.5rem;}
+.gallery-head{margin-bottom:3rem;}
+
+/* MASONRY: 3-column with vertical rhythm  */
+.gallery-masonry{
+  columns:3;
+  column-gap:1rem;
+}
+@media(max-width:900px){.gallery-masonry{columns:2;}}
+@media(max-width:520px){.gallery-masonry{columns:1;}}
+
+.gi-wrap{
+  break-inside:avoid;
+  margin-bottom:1rem;
+  position:relative;
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  cursor:pointer;
+  background:var(--bg3);
+}
+.gi-wrap img{
+  width:100%;
+  display:block;
+  object-fit:cover;
+  filter:brightness(.82);
+  transition:transform .6s cubic-bezier(.4,0,.2,1),filter .45s;
+}
+.gi-wrap:hover img{transform:scale(1.06);filter:brightness(.65);}
+
+/* tall variants driven by data-size */
+.gi-wrap[data-size="tall"] img{height:480px;}
+.gi-wrap[data-size="medium"] img{height:300px;}
+.gi-wrap[data-size="short"] img{height:210px;}
+
+/* overlay label */
+.gi-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:1.25rem 1.5rem;
+  background:linear-gradient(to top,rgba(13,17,23,.92) 0%,transparent 100%);
+  transform:translateY(8px);opacity:0;
+  transition:opacity .35s,transform .35s;
+}
+.gi-wrap:hover .gi-label{opacity:1;transform:translateY(0);}
+.gi-label h4{font-family:var(--font-d);font-size:1rem;font-weight:700;color:#fff;margin-bottom:.2rem;}
+.gi-label p{font-size:.75rem;color:rgba(255,255,255,.6);}
+.gi-tag-pill{
+  position:absolute;top:.85rem;left:.85rem;
+  font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  padding:.22rem .7rem;border-radius:100px;
+  background:rgba(0,0,0,.35);backdrop-filter:blur(8px);
+  color:#fff;border:1px solid rgba(255,255,255,.18);
+}
+/* vehicle count badge */
+.gi-count{
+  position:absolute;top:.85rem;right:.85rem;
+  font-size:.7rem;font-weight:700;
+  background:var(--accent);color:#fff;
+  padding:.2rem .6rem;border-radius:100px;
+}
+/* hidden items when filter active */
+.gi-wrap.hidden{display:none;}
+
+/* ═══ SPEC CARDS ═══ */
+#specs{background:var(--bg2);}
+.spec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;}
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.5rem;}
+.spec-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden;transition:all .35s;position:relative;}
+.spec-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.spec-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--accent),#60a5fa);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.spec-card:hover::before{transform:scaleX(1);}
+.sc-img-wrap{position:relative;overflow:hidden;}
+.sc-img{width:100%;height:190px;object-fit:cover;transition:transform .5s,filter .4s;filter:brightness(.85);}
+.spec-card:hover .sc-img{transform:scale(1.04);filter:brightness(.72);}
+.sc-badge{position:absolute;top:.85rem;left:.85rem;display:flex;gap:.4rem;}
+.tag-pill{display:inline-flex;align-items:center;gap:.3rem;font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.22rem .7rem;border-radius:100px;}
+.tp-sky{background:var(--accent-lt);color:var(--accent);}
+.tp-blue{background:var(--blue-lt);color:var(--blue);}
+.tp-amber{background:var(--amber-lt);color:#b45309;}
+.tp-green{background:var(--green-lt);color:var(--green);}
+.tp-red{background:var(--red-lt);color:var(--red);}
+.tp-purple{background:var(--purple-lt);color:var(--purple);}
+.sc-body{padding:1.5rem 1.75rem 1.75rem;}
+.sc-icon{font-size:1.6rem;margin-bottom:.65rem;}
+.sc-title{font-family:var(--font-d);font-size:1.15rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;}
+.sc-desc{color:var(--muted);font-size:.84rem;line-height:1.65;margin-bottom:1.25rem;}
+/* spec table inside card */
+.sc-specs{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .75rem;margin-bottom:1.4rem;}
+.sc-spec-row{display:flex;flex-direction:column;gap:.1rem;padding:.55rem .75rem;background:var(--bg2);border-radius:8px;}
+.ss-key{font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);}
+.ss-val{font-size:.84rem;font-weight:600;color:var(--ink);}
+.sc-footer{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--border);}
+.sc-availability{display:flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:600;}
+.avail-dot{width:7px;height:7px;border-radius:50%;}
+.avail-green{background:var(--green);}
+.avail-amber{background:var(--amber);}
+.avail-red{background:var(--red);}
+.sc-link{display:inline-flex;align-items:center;gap:.35rem;color:var(--accent);font-size:.8rem;font-weight:600;transition:gap .2s;cursor:pointer;}
+.sc-link:hover{gap:.6rem;}
+/* hidden */
+.spec-card.hidden{display:none;}
+
+/* ═══ NUMBERS STRIP ═══ */
+#numbers{background:var(--dark-bg);display:grid;grid-template-columns:repeat(4,1fr);padding:0;}
+.num-item{padding:3.25rem 2.25rem;border-right:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden;transition:background .3s;}
+.num-item:last-child{border-right:none;}
+.num-item:hover{background:rgba(255,255,255,.02);}
+.num-item::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent),#60a5fa);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.num-item:hover::after{transform:scaleX(1);}
+.num-val{font-family:var(--font-d);font-size:2.85rem;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1;margin-bottom:.45rem;}
+.num-val .suf{color:var(--accent);}
+.num-lbl{font-size:.8rem;color:rgba(255,255,255,.38);font-weight:500;line-height:1.5;}
+
+/* ═══ FEATURES SECTION ═══ */
+#features{background:var(--bg);}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.feat-img-col{position:relative;}
+.feat-main-img{width:100%;height:480px;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);}
+.feat-badge{position:absolute;bottom:-1.75rem;right:-1.75rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.35rem 1.75rem;box-shadow:var(--shadow-lg);text-align:center;}
+.fb-val{font-family:var(--font-d);font-size:2.5rem;font-weight:800;color:var(--accent);line-height:1;}
+.fb-lbl{font-size:.75rem;color:var(--muted);margin-top:.25rem;line-height:1.4;}
+.feat-strip{position:absolute;top:1.75rem;left:-1.25rem;background:var(--ink);color:var(--bg);padding:.65rem 1.1rem;border-radius:var(--radius);font-size:.75rem;font-weight:700;letter-spacing:.06em;writing-mode:vertical-rl;transform:rotate(180deg);}
+.feat-list{display:flex;flex-direction:column;gap:1.1rem;margin:2rem 0;}
+.feat-item{display:flex;gap:1rem;align-items:flex-start;padding:1rem 1.25rem;background:var(--bg2);border-radius:var(--radius-lg);border:1px solid var(--border);transition:all .3s;}
+.feat-item:hover{border-color:var(--accent);box-shadow:var(--shadow);}
+.fi-icon{font-size:1.35rem;flex-shrink:0;width:40px;height:40px;background:var(--accent-lt);border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.fi-title{font-family:var(--font-d);font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.25rem;}
+.fi-desc{font-size:.82rem;color:var(--muted);line-height:1.55;}
+
+/* ═══ CERTIFICATIONS ═══ */
+#certifications{background:var(--bg2);}
+.cert-head{text-align:center;margin-bottom:3.5rem;}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.25rem;}
+.cert-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;text-align:center;transition:all .3s;}
+.cert-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--accent);}
+.cert-icon{font-size:2rem;margin-bottom:.75rem;}
+.cert-name{font-family:var(--font-d);font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.35rem;}
+.cert-body{font-size:.78rem;color:var(--muted);line-height:1.55;}
+
+/* ═══ TESTIMONIALS ═══ */
+#testimonials{background:var(--bg);}
+.test-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.tc{background:var(--card);border-radius:var(--radius-lg);padding:1.85rem;border:1px solid var(--border);transition:all .3s;}
+.tc:hover{box-shadow:var(--shadow-lg);border-color:transparent;transform:translateY(-4px);}
+.tc-stars{color:var(--amber);font-size:.82rem;letter-spacing:.12em;margin-bottom:.9rem;}
+.tc-text{color:var(--ink3);font-size:.9rem;line-height:1.75;margin-bottom:1.35rem;font-style:italic;}
+.tc-author{display:flex;align-items:center;gap:.8rem;}
+.tc-av{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--border);}
+.tc-name{font-size:.86rem;font-weight:600;color:var(--ink);}
+.tc-role{font-size:.75rem;color:var(--muted);margin-top:.08rem;}
+
+/* ═══ DARK CTA ═══ */
+#cta-banner{background:var(--dark-bg);position:relative;overflow:hidden;padding:8rem 5%;}
+.cta-bg-img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.09;}
+.cta-overlay-glow{position:absolute;inset:0;background:radial-gradient(ellipse 55% 75% at 50% 50%,rgba(14,165,233,.2),transparent);pointer-events:none;}
+.cta-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.cta-left .sec-tag{color:var(--accent);}
+.cta-left .sec-h{color:#f1f5f9;font-size:clamp(2rem,4vw,3.4rem);margin-bottom:1.1rem;}
+.cta-left > p{color:rgba(255,255,255,.42);line-height:1.75;font-size:.97rem;margin-bottom:2.25rem;}
+.cta-btns{display:flex;gap:.85rem;flex-wrap:wrap;}
+.btn-w{background:#fff;color:var(--dark-bg);padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:700;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;}
+.btn-w:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,255,255,.12);}
+.btn-wg{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:600;border:1.5px solid rgba(255,255,255,.1);cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;}
+.btn-wg:hover{border-color:var(--accent);color:var(--accent);}
+/* mini contact card on right */
+.cta-contact{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-xl);padding:2.5rem;display:flex;flex-direction:column;gap:1.5rem;}
+.cc-item{display:flex;gap:1rem;align-items:flex-start;}
+.cc-icon{font-size:1.25rem;width:42px;height:42px;background:rgba(14,165,233,.12);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cc-label{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.2rem;}
+.cc-val{font-size:.92rem;font-weight:600;color:#f1f5f9;}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--dark-bar);padding:4.5rem 5% 2rem;}
+.f-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3.5rem;margin-bottom:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid rgba(255,255,255,.05);}
+.f-brand-logo{font-family:var(--font-d);font-size:1.35rem;font-weight:800;color:#fff;display:block;margin-bottom:.9rem;}
+.f-brand p{color:rgba(255,255,255,.3);font-size:.855rem;line-height:1.7;max-width:240px;}
+.f-socs{display:flex;gap:.55rem;margin-top:1.35rem;}
+.f-soc{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;transition:all .2s;}
+.f-soc:hover{border-color:var(--accent);color:var(--accent);}
+.f-col h4{font-family:var(--font-d);font-size:.76rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:1.35rem;}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.f-links a{color:rgba(255,255,255,.3);font-size:.855rem;transition:color .2s;}
+.f-links a:hover{color:#fff;}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.9rem;}
+.f-bottom p{color:rgba(255,255,255,.18);font-size:.78rem;}
+.fab{position:fixed;bottom:1.75rem;right:1.75rem;z-index:400;background:var(--accent);color:#fff;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;box-shadow:0 8px 28px rgba(14,165,233,.42);animation:fab-p 3s ease-in-out infinite;cursor:pointer;border:none;transition:all .25s;}
+.fab:hover{background:var(--accent-dk);transform:scale(1.08);}
+@keyframes fab-p{0%,100%{box-shadow:0 8px 28px rgba(14,165,233,.42);}50%{box-shadow:0 8px 44px rgba(14,165,233,.68);}}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){
+  .nav-links,.nav-right .btn-ghost,.nav-right .btn-cta-nav{display:none;}
+  .hamburger{display:flex;}
+  .mob-overlay{display:block;}
+  .fh-inner{grid-template-columns:1fr;gap:2.5rem;}
+  .fh-stats{grid-template-columns:repeat(4,1fr);}
+  .feat-grid{grid-template-columns:1fr;gap:3rem;}
+  .feat-img-col{display:none;}
+  .cta-inner{grid-template-columns:1fr;gap:2.5rem;}
+  .test-grid{grid-template-columns:1fr 1fr;}
+  .f-top{grid-template-columns:1fr 1fr;gap:2.5rem;}
+  #numbers{grid-template-columns:1fr 1fr;}
+  .num-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.05);}
+  .num-item:nth-child(odd){border-right:1px solid rgba(255,255,255,.05);}
+}
+@media(max-width:640px){
+  section{padding:3rem 4%;}
+  nav{padding:0 4%;height:60px;}
+  .breadcrumb{padding:4.5rem 4% 0;}
+  .fleet-hero{padding:0;}
+  .fh-inner{padding:3rem 4% 3.5rem;gap:2rem;}
+  .fh-stats{grid-template-columns:1fr 1fr;}
+  .fh-actions{flex-direction:column;gap:.65rem;}
+  .fh-actions .btn-primary,.fh-actions .btn-outline-dark{width:100%;justify-content:center;}
+  .filter-section{padding:2rem 4%;}
+  .filter-section-inner{flex-direction:column;align-items:flex-start;gap:1rem;}
+  #gallery{padding:3rem 4%;}
+  .gallery-masonry{columns:1;}
+  .spec-head{flex-direction:column;align-items:flex-start;gap:.75rem;}
+  .spec-grid{grid-template-columns:1fr;}
+  #numbers{grid-template-columns:1fr 1fr;}
+  .num-item{padding:2rem 1.25rem;}.num-val{font-size:1.9rem;}
+  .cert-grid{grid-template-columns:1fr 1fr;}
+  .test-grid{grid-template-columns:1fr;}
+  .cta-btns{flex-direction:column;}
+  .btn-w,.btn-wg{width:100%;max-width:340px;justify-content:center;}
+  .f-top{grid-template-columns:1fr;gap:2rem;padding-bottom:2rem;margin-bottom:2rem;}
+  .f-bottom{flex-direction:column;text-align:center;}
+  footer{padding:3rem 4% 1.5rem;}
+}
+@media(max-width:380px){
+  #numbers{grid-template-columns:1fr;}
+  .num-item:nth-child(odd){border-right:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- OVERLAY -->
+<div class="mob-overlay" id="mobOverlay"></div>
+
+<!-- MOBILE DRAWER -->
+<div class="mob-drawer" id="mobDrawer">
+  <div class="dr-header">
+    <div class="dr-logo" id="drLogo"></div>
+    <button class="dr-close" id="drClose">✕</button>
+  </div>
+  <div class="dr-links" id="drLinks"></div>
+  <div class="dr-foot">
+    <div class="dr-theme-row">
+      <span class="dr-theme-lbl" id="drThemeLbl"></span>
+      <button class="theme-toggle" id="themeToggleMob"></button>
+    </div>
+    <button class="dr-cta-btn" id="drCta"></button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo" id="navLogo"><div class="dot"></div></div>
+  <div class="nav-links" id="navLinks"></div>
+  <div class="nav-right">
+    <div style="display:flex;align-items:center;gap:.55rem;">
+      <span class="theme-icon">☀️</span>
+      <button class="theme-toggle" id="themeToggle"></button>
+      <span class="theme-icon">🌙</span>
+    </div>
+    <button class="btn-ghost" id="loginBtn"></button>
+    <button class="btn-cta-nav" id="quoteBtn"></button>
+    <button class="hamburger" id="hamburger">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb" id="breadcrumb"></div>
+
+<!-- HERO -->
+<div class="fleet-hero" id="fleetHero">
+  <div class="fh-bg-img" id="fhBgImg"></div>
+  <div class="fh-overlay"></div>
+  <div class="fh-glow"></div>
+  <div class="fh-inner">
+    <div class="fh-left">
+      <div class="sec-tag" id="heroTag"></div>
+      <h1 class="sec-h fh-title" id="heroH"></h1>
+      <p class="fh-desc" id="heroDesc"></p>
+      <div class="fh-actions">
+        <button class="btn-primary" id="heroCta1"></button>
+        <button class="btn-outline-dark" id="heroCta2"></button>
+      </div>
+    </div>
+    <div class="fh-stats" id="fhStats"></div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap"><div class="ticker" id="ticker"></div></div>
+
+<!-- FILTER + GALLERY -->
+<div class="filter-section">
+  <div class="filter-section-inner">
+    <div class="filter-row" id="filterRow"></div>
+    <div class="fleet-count" id="fleetCount"></div>
+  </div>
+</div>
+
+<section id="gallery">
+  <div class="gallery-head sr">
+    <div class="sec-tag" id="galTag"></div>
+    <h2 class="sec-h" id="galH"></h2>
+    <p style="color:var(--muted);font-size:.93rem;max-width:480px;margin:.8rem 0 0;line-height:1.7;" id="galDesc"></p>
+  </div>
+  <div class="gallery-masonry" id="galleryMasonry"></div>
+</section>
+
+<!-- SPEC CARDS -->
+<section id="specs">
+  <div class="spec-head sr">
+    <div>
+      <div class="sec-tag" id="specTag"></div>
+      <h2 class="sec-h" id="specH"></h2>
+    </div>
+    <p style="max-width:320px;color:var(--muted);font-size:.88rem;line-height:1.65;" id="specDesc"></p>
+  </div>
+  <div class="spec-grid" id="specGrid"></div>
+</section>
+
+<!-- NUMBERS -->
+<div id="numbers"></div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="feat-grid">
+    <div class="feat-img-col sr-left">
+      <div class="feat-strip" id="featStrip"></div>
+      <img class="feat-main-img" id="featImg" src="" alt="Fleet technology">
+      <div class="feat-badge">
+        <div class="fb-val" id="fbVal"></div>
+        <div class="fb-lbl" id="fbLbl"></div>
+      </div>
+    </div>
+    <div class="feat-right sr-right">
+      <div class="sec-tag" id="featTag"></div>
+      <h2 class="sec-h" id="featH"></h2>
+      <p style="color:var(--muted);font-size:.93rem;line-height:1.75;margin:.9rem 0 0;" id="featDesc"></p>
+      <div class="feat-list" id="featList"></div>
+      <button class="btn-primary" id="featCta"></button>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="cert-head sr">
+    <div class="sec-tag center" id="certTag"></div>
+    <h2 class="sec-h" id="certH"></h2>
+    <p style="color:var(--muted);font-size:.93rem;max-width:460px;margin:.75rem auto 0;line-height:1.7;" id="certDesc"></p>
+  </div>
+  <div class="cert-grid" id="certGrid"></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="test-head sr">
+    <div>
+      <div class="sec-tag" id="testTag"></div>
+      <h2 class="sec-h" id="testH"></h2>
+    </div>
+  </div>
+  <div class="test-grid" id="testGrid"></div>
+</section>
+
+<!-- DARK CTA -->
+<section id="cta-banner">
+  <div class="cta-bg-img" id="ctaBgImg"></div>
+  <div class="cta-overlay-glow"></div>
+  <div class="cta-inner sr">
+    <div class="cta-left">
+      <div class="sec-tag" id="ctaTag"></div>
+      <h2 class="sec-h" id="ctaH"></h2>
+      <p id="ctaDesc"></p>
+      <div class="cta-btns">
+        <button class="btn-w" id="ctaBtn1"></button>
+        <button class="btn-wg" id="ctaBtn2"></button>
+      </div>
+    </div>
+    <div class="cta-contact" id="ctaContact"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-top" id="footerTop">
+    <div class="f-brand">
+      <span class="f-brand-logo" id="fLogo"></span>
+      <p id="fTagline"></p>
+      <div class="f-socs" id="fSocials"></div>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <p id="fCopy"></p>
+    <p id="fLinks"></p>
+  </div>
+</footer>
+
+<button class="fab" id="fabBtn"></button>
+
+<!-- ════════════════════════════════════════
+     MASTER DATA OBJECT
+════════════════════════════════════════ -->
+<script>
+const DATA = {
+  meta:{ title:"Fleet & Vehicles — MahaveerTrans" },
+
+  nav:{
+    logoPrefix:"Mahaveer", logoSuffix:"Trans",
+    links:[
+      {label:"Home",     href:"index.html"},
+      {label:"Services", href:"services.html"},
+      {label:"Fleet",    href:"fleet.html", active:true},
+      {label:"Track",    href:"tracking.html"},
+      {label:"About",    href:"about.html"},
+      {label:"Contact",  href:"contact.html"}
+    ],
+    loginBtn:"Log in", quoteBtn:"Get Quote →",
+    themeLabel:"☀️ / 🌙 Theme", drawerCta:"Get Free Quote →"
+  },
+
+  breadcrumb:[
+    {label:"Home",   href:"index.html"},
+    {label:"Fleet",  href:"fleet.html", current:true}
+  ],
+
+  hero:{
+    bgImage:"https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1600&q=80&auto=format&fit=crop",
+    tag:"Our Fleet",
+    headingPart1:"Built to Move",
+    headingHl:"The World",
+    description:"200+ owned & leased vehicles across road, air, and ocean modes — GPS-tracked, certified, and operated by 3,200 logistics professionals across 40 countries.",
+    cta1:"Request a Vehicle →",
+    cta2:"Download Fleet Brochure",
+    stats:[
+      {val:"200",  suf:"+",   lbl:"Road Vehicles"},
+      {val:"40",   suf:"+",   lbl:"Airline Partners"},
+      {val:"3M",   suf:" sqft",lbl:"Warehouse Space"},
+      {val:"24",   suf:"/7",  lbl:"Fleet Operations"}
+    ]
+  },
+
+  ticker:["Heavy Haulage","Reefer Trucks","Air Cargo","Container Vessels","LCL Consolidation","EV Last Mile","Flatbed Trailers","Hazmat Certified","GDP Cold Chain","Multi-axle Specials"],
+
+  filters:[
+    {id:"all",   label:"All Fleet",  dot:"#0ea5e9"},
+    {id:"road",  label:"Road",       dot:"#f59e0b"},
+    {id:"air",   label:"Air",        dot:"#7c3aed"},
+    {id:"ocean", label:"Ocean",      dot:"#1d4ed8"},
+    {id:"cold",  label:"Cold Chain", dot:"#16a34a"},
+    {id:"last",  label:"Last Mile",  dot:"#dc2626"}
+  ],
+  fleetCountLabel:"Showing {n} vehicles",
+
+  gallery:{
+    tag:"Full Fleet Gallery",
+    headingPart1:"Every Vehicle,",
+    headingHl:"Every Mode",
+    description:"Browse our full fleet across all transport categories. Hover to see specs, click a filter above to narrow by type.",
+    items:[
+      {cat:"road",  size:"tall",   tag:"Heavy Haulage", count:"80+",  title:"Multi-axle Heavy Truck",   sub:"Up to 25T payload — FTL lanes", image:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop"},
+      {cat:"ocean", size:"medium", tag:"Ocean",         count:"FCL",  title:"40ft Container Vessel",    sub:"Major global trade lanes",      image:"https://images.unsplash.com/photo-1562408590-e32931084e23?w=600&q=80&auto=format&fit=crop"},
+      {cat:"air",   size:"short",  tag:"Air Cargo",     count:"40+ Airlines", title:"Air Cargo Network", sub:"Express & economy lanes",      image:"https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80&auto=format&fit=crop"},
+      {cat:"cold",  size:"tall",   tag:"Cold Chain",    count:"60+",  title:"Reefer Truck Fleet",       sub:"-25°C to +25°C controlled",     image:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80&auto=format&fit=crop"},
+      {cat:"road",  size:"medium", tag:"Road — LTL",    count:"50+",  title:"LTL Delivery Van",         sub:"Urban & intercity LTL service", image:"https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=700&q=80&auto=format&fit=crop"},
+      {cat:"last",  size:"short",  tag:"Last Mile",     count:"200+", title:"EV Delivery Bike",         sub:"Same-day urban delivery",       image:"https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80&auto=format&fit=crop"},
+      {cat:"road",  size:"medium", tag:"Flatbed",       count:"30+",  title:"Flatbed Trailer",          sub:"Oversized & project cargo",     image:"https://images.unsplash.com/photo-1540835296355-0a0015f3c02e?w=700&q=80&auto=format&fit=crop"},
+      {cat:"ocean", size:"tall",   tag:"Ocean — LCL",   count:"LCL",  title:"LCL Consolidation Hub",    sub:"0.1 CBM minimum from any port", image:"https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=800&q=80&auto=format&fit=crop"},
+      {cat:"road",  size:"short",  tag:"Hazmat",        count:"20+",  title:"Hazmat-Certified Tanker",  sub:"IMDG class 3, 6, 8 approved",  image:"https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80&auto=format&fit=crop"},
+      {cat:"cold",  size:"medium", tag:"Cold — Air",    count:"Pharma",title:"Pharma Air Shipper",      sub:"GDP compliant, 2°C–8°C",        image:"https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=700&q=80&auto=format&fit=crop"},
+      {cat:"last",  size:"tall",   tag:"Last Mile",     count:"100+", title:"Cargo Van — Urban",        sub:"Next-day B2C delivery fleet",   image:"https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80&auto=format&fit=crop"},
+      {cat:"road",  size:"short",  tag:"Open Trailer",  count:"25+",  title:"Open Flatbed Trailer",     sub:"Construction & steel cargo",    image:"https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=600&q=80&auto=format&fit=crop"}
+    ]
+  },
+
+  specs:{
+    tag:"Vehicle Classes",
+    headingPart1:"Spec Sheets for",
+    headingHl:"Every Class",
+    description:"Detailed specifications for each vehicle class in our fleet. All units are GPS-tracked, insured, and driver-certified.",
+    enquireLabel:"Enquire →",
+    classes:[
+      {
+        cat:"road", tagLabel:"FTL", tagCls:"tp-amber", icon:"🚛",
+        title:"Multi-axle Truck (25T)",
+        image:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80&auto=format&fit=crop",
+        desc:"Our workhorse for FTL road freight. Available in 9T, 15T, and 25T configurations with GPS tracking and driver telemetry.",
+        specs:[
+          {key:"Payload",       val:"Up to 25 T"},
+          {key:"Volume",        val:"90 CBM"},
+          {key:"Body Type",     val:"Enclosed / Open"},
+          {key:"Temp Control",  val:"Optional"},
+          {key:"GPS Tracking",  val:"Real-time"},
+          {key:"Driver Shift",  val:"12 / 24 hr"}
+        ],
+        availability:"available", availLabel:"Available Now"
+      },
+      {
+        cat:"cold", tagLabel:"Reefer", tagCls:"tp-green", icon:"❄️",
+        title:"Refrigerated Reefer Truck",
+        image:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=700&q=80&auto=format&fit=crop",
+        desc:"Temperature-controlled trucks for pharma, food, and biotech cargo. Dual-zone capability with continuous logging.",
+        specs:[
+          {key:"Temp Range",    val:"-25°C to +25°C"},
+          {key:"Payload",       val:"Up to 18 T"},
+          {key:"Zones",         val:"Dual temperature"},
+          {key:"Logger",        val:"Every 5 min"},
+          {key:"Certification", val:"GDP / HACCP"},
+          {key:"Alerting",      val:"SMS on deviation"}
+        ],
+        availability:"available", availLabel:"Available Now"
+      },
+      {
+        cat:"air", tagLabel:"Express", tagCls:"tp-purple", icon:"✈️",
+        title:"Air Cargo — Express Lane",
+        image:"https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=700&q=80&auto=format&fit=crop",
+        desc:"Next-flight-out and day-definite express air services through partnerships with 40+ airlines on 300+ daily departures.",
+        specs:[
+          {key:"Min. Weight",   val:"0.5 kg"},
+          {key:"Max. Weight",   val:"Unlimited (charter)"},
+          {key:"Transit Time",  val:"1–3 business days"},
+          {key:"Tracking",      val:"AWB live tracking"},
+          {key:"Dangerous Goods",val:"IATA certified"},
+          {key:"Coverage",      val:"180+ countries"}
+        ],
+        availability:"available", availLabel:"Slots Available"
+      },
+      {
+        cat:"ocean", tagLabel:"FCL", tagCls:"tp-blue", icon:"🚢",
+        title:"Ocean FCL — 40ft HC",
+        image:"https://images.unsplash.com/photo-1562408590-e32931084e23?w=700&q=80&auto=format&fit=crop",
+        desc:"Full container loads in 20ft, 40ft, and 40HC configurations. Guaranteed space on weekly sailings from all major Indian ports.",
+        specs:[
+          {key:"Container",     val:"20ft / 40ft / 40HC"},
+          {key:"Max Weight",    val:"26,500 kg"},
+          {key:"Internal Vol.", val:"67 CBM (40HC)"},
+          {key:"Transit",       val:"14–28 days"},
+          {key:"Ports",         val:"JNPT, Chennai, Mundra"},
+          {key:"Reefer",        val:"Available"}
+        ],
+        availability:"available", availLabel:"Weekly Sailings"
+      },
+      {
+        cat:"road", tagLabel:"Flatbed", tagCls:"tp-amber", icon:"🏗️",
+        title:"Flatbed Trailer (ODC)",
+        image:"https://images.unsplash.com/photo-1540835296355-0a0015f3c02e?w=700&q=80&auto=format&fit=crop",
+        desc:"For over-dimensional cargo (ODC), heavy machinery, and steel structures. Includes route survey, police escort, and permit management.",
+        specs:[
+          {key:"Deck Length",   val:"Up to 20 m"},
+          {key:"Max Width",     val:"5.5 m (with escort)"},
+          {key:"Payload",       val:"Up to 80 T"},
+          {key:"Permit",        val:"Included in service"},
+          {key:"Police Escort", val:"Available"},
+          {key:"GPS",           val:"Real-time tracking"}
+        ],
+        availability:"limited", availLabel:"Limited Availability"
+      },
+      {
+        cat:"last", tagLabel:"B2C", tagCls:"tp-red", icon:"🛵",
+        title:"EV Last Mile Fleet",
+        image:"https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=700&q=80&auto=format&fit=crop",
+        desc:"200+ electric vehicles for same-day and next-day urban delivery. API-integrated with all major e-commerce platforms.",
+        specs:[
+          {key:"Payload",       val:"Up to 150 kg"},
+          {key:"Range",         val:"160 km / charge"},
+          {key:"Delivery SLA",  val:"Same-day / Next-day"},
+          {key:"POD",           val:"Photo + OTP"},
+          {key:"Integration",   val:"REST API"},
+          {key:"Coverage",      val:"12 metro cities"}
+        ],
+        availability:"available", availLabel:"Available Now"
+      }
+    ]
+  },
+
+  numbers:[
+    {value:200,  suffix:"+",     label:"Owned & leased road vehicles"},
+    {value:40,   suffix:"+",     label:"Airline cargo partnerships"},
+    {value:3,    suffix:"M sqft",label:"Temperature-controlled storage"},
+    {value:99,   suffix:"%",     label:"Fleet uptime SLA"}
+  ],
+
+  features:{
+    tag:"Fleet Technology",
+    headingPart1:"Smart Vehicles,",
+    headingHl:"Smarter Operations",
+    description:"Every vehicle in our fleet is equipped with a suite of telematics, sensor, and communication hardware — giving our control tower and your team full operational visibility.",
+    image:"https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=900&q=80&auto=format&fit=crop",
+    stripLabel:"Telematics",
+    badgeVal:"99%",
+    badgeLbl:"Real-time fleet uptime across all modes",
+    cta:"Book a Vehicle →",
+    items:[
+      {icon:"📡", title:"Real-time GPS Tracking",       desc:"Every vehicle broadcasts its location every 60 seconds to our control tower and your tracking portal."},
+      {icon:"🌡️", title:"Cold Chain Sensors",           desc:"Temperature and humidity loggers record data every 5 minutes with automatic SMS alerts on deviation."},
+      {icon:"🔒", title:"Tamper-evident e-Seals",       desc:"Electronic seals with tamper alerts for pharmaceutical and high-value cargo — compliant with WHO GDP guidelines."},
+      {icon:"📲", title:"Driver Mobile App",             desc:"Drivers scan cargo, capture POD photos, and receive route updates through our proprietary logistics app."},
+      {icon:"⚡", title:"EV Fleet Management",           desc:"Battery levels, charging status, and range data integrated into our control tower for all 200+ EV last-mile vehicles."},
+      {icon:"🛡️", title:"Insurance & Compliance",       desc:"All vehicles carry comprehensive cargo insurance. Fleet compliance documents are auto-synced and always audit-ready."}
+    ]
+  },
+
+  certifications:{
+    tag:"Compliance",
+    headingPart1:"Certified Across",
+    headingHl:"Every Standard",
+    description:"Our fleet and operations meet the most stringent international compliance frameworks across all transport modes.",
+    items:[
+      {icon:"🏆", name:"ISO 9001:2015",      body:"Quality management systems — all fleet operations and maintenance procedures."},
+      {icon:"✈️", name:"IATA Dangerous Goods",body:"Certified handling and carriage of IATA-classified dangerous goods by air."},
+      {icon:"💊", name:"WHO GDP",             body:"Good Distribution Practice for pharmaceutical and temperature-sensitive cargo."},
+      {icon:"🌿", name:"HACCP",               body:"Hazard Analysis Critical Control Point for food-grade cold chain operations."},
+      {icon:"🚢", name:"IMDG Code",           body:"International Maritime Dangerous Goods code compliance for ocean freight."},
+      {icon:"🔐", name:"AEO Certified",       body:"Authorised Economic Operator status for expedited customs handling in 50+ countries."},
+      {icon:"🌱", name:"Carbon Neutral 2030", body:"Pathway to carbon neutrality: 40% EV fleet by 2027, 100% renewable energy in warehouses."},
+      {icon:"⭐", name:"FIATA Member",         body:"International Federation of Freight Forwarders Associations — global network of trust."}
+    ]
+  },
+
+  testimonials:{
+    tag:"What Clients Say",
+    headingPart1:"Fleet Performance,",
+    headingHl:"Proven in the Field",
+    items:[
+      {stars:"★★★★★", text:"MahaveerTrans's reefer fleet maintained our vaccine cargo at 2°C–8°C across a 4,000 km road journey with zero deviation. The temperature logs were immaculate and saved us in a regulatory audit.", name:"Dr. Karan Mehta",   role:"VP Logistics, Cipla Ltd.",          avatar:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face"},
+      {stars:"★★★★★", text:"Their multi-axle fleet handled our 18-tonne machinery move from Pune to Mundra with police escort and proper ODC permits — on time and without a scratch. Exceptional project cargo execution.", name:"Suresh Iyer",      role:"Plant Logistics Head, L&T Heavy",   avatar:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face"},
+      {stars:"★★★★★", text:"We switched our e-commerce last-mile to MahaveerTrans's EV fleet in Mumbai. Same-day delivery rate jumped from 76% to 94% and our carbon footprint reports look significantly better.", name:"Priya Nambiar",   role:"Head of Supply Chain, Nykaa",       avatar:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face"}
+    ]
+  },
+
+  cta:{
+    bgImage:"https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1600&q=80&auto=format&fit=crop",
+    tag:"Book Our Fleet",
+    headingPart1:"The Right Vehicle",
+    headingHl:"For Every Load",
+    description:"From a single pallet to a full container — tell us what you need to move and we'll match you to the right vehicle class, route, and driver within 2 hours.",
+    btn1:"Get a Fleet Quote →",
+    btn2:"📞 Call Fleet Ops",
+    contacts:[
+      {icon:"📞", label:"Fleet Operations",      val:"+91 22 4001 8001"},
+      {icon:"✉️", label:"Fleet Enquiries",        val:"fleet@mahaveertrans.com"},
+      {icon:"💬", label:"WhatsApp Fleet Support", val:"+91 98200 40018"},
+      {icon:"📍", label:"Fleet HQ",               val:"JNPT Road, Navi Mumbai"}
+    ]
+  },
+
+  footer:{
+    logo:"MahaveerTrans",
+    tagline:"Delivering the world's goods with precision and care. Your trusted logistics partner since 1999.",
+    socials:[{label:"in",url:"#"},{label:"tw",url:"#"},{label:"yt",url:"#"},{label:"ig",url:"#"}],
+    columns:[
+      {heading:"Services", links:[["Air Freight","#"],["Sea Freight","#"],["Road Transport","#"],["Cold Chain","#"],["Warehousing","#"],["Last Mile","#"]]},
+      {heading:"Company",  links:[["About Us","#"],["Careers","#"],["Sustainability","#"],["Press","#"],["Contact","#"]]},
+      {heading:"Contact",  links:[["📍 Mumbai, India","#"],["📞 +91 22 4001 8000","#"],["✉️ hello@mahaveertrans.com","#"],["🌐 mahaveertrans.com","#"]]}
+    ],
+    copyright:"© 2025 MahaveerTrans Logistics Pvt. Ltd. All rights reserved.",
+    footerLinks:"Privacy · Terms · Sitemap"
+  },
+
+  fab:"💬"
+};
+
+/* ════════════════════════════════════════
+   RENDER ENGINE — 100% data-driven
+════════════════════════════════════════ */
+function render(D){
+  document.title = D.meta.title;
+
+  /* NAV */
+  const logoEl = document.getElementById('navLogo');
+  logoEl.innerHTML = `<span>${D.nav.logoPrefix}</span>${D.nav.logoSuffix}<div class="dot"></div>`;
+  document.getElementById('navLinks').innerHTML = D.nav.links.map(l=>`<a href="${l.href}"${l.active?' class="active"':''}>${l.label}</a>`).join('');
+  document.getElementById('loginBtn').textContent = D.nav.loginBtn;
+  document.getElementById('quoteBtn').textContent = D.nav.quoteBtn;
+  document.getElementById('drLogo').textContent = D.nav.logoPrefix + D.nav.logoSuffix;
+  document.getElementById('drLinks').innerHTML = D.nav.links.map(l=>`<a href="${l.href}"${l.active?' class="active"':''}>${l.label}</a>`).join('');
+  document.getElementById('drThemeLbl').textContent = D.nav.themeLabel;
+  document.getElementById('drCta').textContent = D.nav.drawerCta;
+
+  /* BREADCRUMB */
+  document.getElementById('breadcrumb').innerHTML = D.breadcrumb.map((b,i)=>
+    `${i>0?'<span class="bc-sep">/</span>':''}<a href="${b.href}" class="bc-item${b.current?' cur':''}">${b.label}</a>`
+  ).join('');
+
+  /* HERO */
+  document.getElementById('fhBgImg').style.backgroundImage = `url('${D.hero.bgImage}')`;
+  document.getElementById('heroTag').textContent = D.hero.tag;
+  document.getElementById('heroH').innerHTML = `${D.hero.headingPart1} <span class="hl">${D.hero.headingHl}</span>`;
+  document.getElementById('heroDesc').textContent = D.hero.description;
+  document.getElementById('heroCta1').textContent = D.hero.cta1;
+  document.getElementById('heroCta2').textContent = D.hero.cta2;
+  document.getElementById('fhStats').innerHTML = D.hero.stats.map(s=>`
+    <div class="fhs-item">
+      <div class="fhs-val">${s.val}<span class="s">${s.suf}</span></div>
+      <div class="fhs-lbl">${s.lbl}</div>
+    </div>`).join('');
+
+  /* TICKER */
+  const ti = D.ticker.map(t=>`<span class="t-item"><span class="t-dot"></span>${t}</span>`).join('');
+  document.getElementById('ticker').innerHTML = ti + ti;
+
+  /* FILTERS */
+  document.getElementById('filterRow').innerHTML = D.filters.map(f=>`
+    <button class="filter-btn${f.id==='all'?' active':''}" data-filter="${f.id}">
+      <span class="f-dot" style="background:${f.dot}"></span>${f.label}
+    </button>`).join('');
+  updateFleetCount();
+
+  /* GALLERY */
+  document.getElementById('galTag').textContent = D.gallery.tag;
+  document.getElementById('galH').innerHTML = `${D.gallery.headingPart1} <span class="hl">${D.gallery.headingHl}</span>`;
+  document.getElementById('galDesc').textContent = D.gallery.description;
+  document.getElementById('galleryMasonry').innerHTML = D.gallery.items.map((item,i)=>`
+    <div class="gi-wrap sr" data-cat="${item.cat}" data-size="${item.size}" style="transition-delay:${(i%3)*.1}s">
+      <img src="${item.image}" alt="${item.title}" loading="lazy">
+      <div class="gi-tag-pill">${item.tag}</div>
+      <div class="gi-count">${item.count}</div>
+      <div class="gi-label">
+        <h4>${item.title}</h4>
+        <p>${item.sub}</p>
+      </div>
+    </div>`).join('');
+
+  /* SPEC CARDS */
+  document.getElementById('specTag').textContent = D.specs.tag;
+  document.getElementById('specH').innerHTML = `${D.specs.headingPart1} <span class="hl">${D.specs.headingHl}</span>`;
+  document.getElementById('specDesc').textContent = D.specs.description;
+  const availColor = {available:'avail-green', limited:'avail-amber', unavailable:'avail-red'};
+  document.getElementById('specGrid').innerHTML = D.specs.classes.map((c,i)=>`
+    <div class="spec-card sr" data-cat="${c.cat}" style="transition-delay:${(i%3)*.09}s">
+      <div class="sc-img-wrap">
+        <img class="sc-img" src="${c.image}" alt="${c.title}" loading="lazy">
+        <div class="sc-badge"><span class="tag-pill ${c.tagCls}">${c.tagLabel}</span></div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-icon">${c.icon}</div>
+        <h3 class="sc-title">${c.title}</h3>
+        <p class="sc-desc">${c.desc}</p>
+        <div class="sc-specs">
+          ${c.specs.map(s=>`<div class="sc-spec-row"><div class="ss-key">${s.key}</div><div class="ss-val">${s.val}</div></div>`).join('')}
+        </div>
+        <div class="sc-footer">
+          <div class="sc-availability">
+            <span class="avail-dot ${availColor[c.availability]}"></span>${c.availLabel}
+          </div>
+          <span class="sc-link">${D.specs.enquireLabel}</span>
+        </div>
+      </div>
+    </div>`).join('');
+
+  /* NUMBERS */
+  document.getElementById('numbers').innerHTML = D.numbers.map(n=>`
+    <div class="num-item">
+      <div class="num-val" data-target="${n.value}">0<span class="suf">${n.suffix}</span></div>
+      <div class="num-lbl">${n.label}</div>
+    </div>`).join('');
+
+  /* FEATURES */
+  document.getElementById('featTag').textContent = D.features.tag;
+  document.getElementById('featH').innerHTML = `${D.features.headingPart1} <span class="hl">${D.features.headingHl}</span>`;
+  document.getElementById('featDesc').textContent = D.features.description;
+  document.getElementById('featImg').src = D.features.image;
+  document.getElementById('featStrip').textContent = D.features.stripLabel;
+  document.getElementById('fbVal').textContent = D.features.badgeVal;
+  document.getElementById('fbLbl').textContent = D.features.badgeLbl;
+  document.getElementById('featCta').textContent = D.features.cta;
+  document.getElementById('featList').innerHTML = D.features.items.map(f=>`
+    <div class="feat-item sr" style="">
+      <div class="fi-icon">${f.icon}</div>
+      <div><div class="fi-title">${f.title}</div><div class="fi-desc">${f.desc}</div></div>
+    </div>`).join('');
+
+  /* CERTIFICATIONS */
+  document.getElementById('certTag').textContent = D.certifications.tag;
+  document.getElementById('certH').innerHTML = `${D.certifications.headingPart1} <span class="hl">${D.certifications.headingHl}</span>`;
+  document.getElementById('certDesc').textContent = D.certifications.description;
+  document.getElementById('certGrid').innerHTML = D.certifications.items.map((c,i)=>`
+    <div class="cert-card sr" style="transition-delay:${(i%4)*.07}s">
+      <div class="cert-icon">${c.icon}</div>
+      <div class="cert-name">${c.name}</div>
+      <div class="cert-body">${c.body}</div>
+    </div>`).join('');
+
+  /* TESTIMONIALS */
+  document.getElementById('testTag').textContent = D.testimonials.tag;
+  document.getElementById('testH').innerHTML = `${D.testimonials.headingPart1} <span class="hl">${D.testimonials.headingHl}</span>`;
+  document.getElementById('testGrid').innerHTML = D.testimonials.items.map((t,i)=>`
+    <div class="tc sr" style="transition-delay:${i*.1}s">
+      <div class="tc-stars">${t.stars}</div>
+      <p class="tc-text">"${t.text}"</p>
+      <div class="tc-author">
+        <img class="tc-av" src="${t.avatar}" alt="${t.name}">
+        <div><div class="tc-name">${t.name}</div><div class="tc-role">${t.role}</div></div>
+      </div>
+    </div>`).join('');
+
+  /* DARK CTA */
+  document.getElementById('ctaBgImg').style.backgroundImage = `url('${D.cta.bgImage}')`;
+  document.getElementById('ctaTag').textContent = D.cta.tag;
+  document.getElementById('ctaH').innerHTML = `${D.cta.headingPart1}<br><span class="hl">${D.cta.headingHl}</span>`;
+  document.getElementById('ctaDesc').textContent = D.cta.description;
+  document.getElementById('ctaBtn1').textContent = D.cta.btn1;
+  document.getElementById('ctaBtn2').textContent = D.cta.btn2;
+  document.getElementById('ctaContact').innerHTML = D.cta.contacts.map(c=>`
+    <div class="cc-item">
+      <div class="cc-icon">${c.icon}</div>
+      <div><div class="cc-label">${c.label}</div><div class="cc-val">${c.val}</div></div>
+    </div>`).join('');
+
+  /* FOOTER */
+  document.getElementById('fLogo').textContent = D.footer.logo;
+  document.getElementById('fTagline').textContent = D.footer.tagline;
+  document.getElementById('fCopy').textContent = D.footer.copyright;
+  document.getElementById('fLinks').textContent = D.footer.footerLinks;
+  document.getElementById('fSocials').innerHTML = D.footer.socials.map(s=>`<a href="${s.url}" class="f-soc">${s.label}</a>`).join('');
+  document.getElementById('footerTop').innerHTML +=
+    D.footer.columns.map(col=>`
+      <div class="f-col">
+        <h4>${col.heading}</h4>
+        <ul class="f-links">${col.links.map(([l,u])=>`<li><a href="${u}">${l}</a></li>`).join('')}</ul>
+      </div>`).join('');
+
+  document.getElementById('fabBtn').textContent = D.fab;
+}
+
+/* ════ FILTER LOGIC ════ */
+function updateFleetCount(){
+  const active = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+  const items = document.querySelectorAll('.gi-wrap');
+  let shown = 0;
+  items.forEach(el=>{
+    const hide = active !== 'all' && el.dataset.cat !== active;
+    el.classList.toggle('hidden', hide);
+    if(!hide) shown++;
+  });
+  /* also filter spec cards */
+  document.querySelectorAll('.spec-card').forEach(el=>{
+    el.classList.toggle('hidden', active !== 'all' && el.dataset.cat !== active);
+  });
+  const lbl = DATA.fleetCountLabel.replace('{n}', shown);
+  document.getElementById('fleetCount').innerHTML = `<span>${shown}</span> ${lbl.split(' ').slice(1).join(' ')}`;
+}
+
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  updateFleetCount();
+  /* re-trigger scroll reveal for newly shown items */
+  setTimeout(initObservers, 50);
+});
+
+/* ════ SCROLL REVEAL ════ */
+function initObservers(){
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target); }});
+  },{threshold:0.1});
+  document.querySelectorAll('.sr:not(.vis),.sr-left:not(.vis),.sr-right:not(.vis),.sr-scale:not(.vis)').forEach(el=>io.observe(el));
+}
+
+/* ════ COUNTERS ════ */
+function initCounters(){
+  const cio = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const el=e.target, target=parseInt(el.dataset.target), suf=el.querySelector('.suf').textContent;
+      let v=0; const step=target/65;
+      const t=setInterval(()=>{
+        v=Math.min(v+step,target);
+        el.innerHTML=Math.floor(v).toLocaleString()+'<span class="suf">'+suf+'</span>';
+        if(v>=target) clearInterval(t);
+      },22);
+      cio.unobserve(el);
+    });
+  },{threshold:.5});
+  document.querySelectorAll('.num-val[data-target]').forEach(el=>cio.observe(el));
+}
+
+/* ════ THEME ════ */
+function applyTheme(t){document.documentElement.dataset.theme=t;localStorage.setItem('mt-theme',t);}
+function toggleTheme(){applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');}
+document.getElementById('themeToggle').addEventListener('click',toggleTheme);
+document.getElementById('themeToggleMob').addEventListener('click',toggleTheme);
+const saved=localStorage.getItem('mt-theme'); if(saved) applyTheme(saved);
+
+/* ════ DRAWER ════ */
+const ham=document.getElementById('hamburger'),drw=document.getElementById('mobDrawer'),ov=document.getElementById('mobOverlay');
+function openD(){ham.classList.add('open');drw.classList.add('open');ov.classList.add('open');document.body.style.overflow='hidden';}
+function closeD(){ham.classList.remove('open');drw.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}
+ham.addEventListener('click',openD);
+document.getElementById('drClose').addEventListener('click',closeD);
+ov.addEventListener('click',closeD);
+document.getElementById('drLinks').addEventListener('click',e=>{ if(e.target.tagName==='A') closeD(); });
+
+/* ════ NAV SCROLL ════ */
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>40));
+
+/* ════ BOOT ════ */
+render(DATA);
+initObservers();
+initCounters();
+</script>
+</body>
+</html>
