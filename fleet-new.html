@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery & Clients — MahaveerTrans</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;--bg2:#f9fafb;--bg3:#f3f4f6;
+  --ink:#0d1117;--ink2:#1e2530;--ink3:#374151;
+  --muted:#6b7280;--muted2:#9ca3af;
+  --border:#e5e7eb;--border2:#d1d5db;--card:#ffffff;
+  --dark-bg:#0d1117;--dark-bar:#080c14;
+  --accent:#0ea5e9;--accent-dk:#0284c7;--accent-lt:#f0f9ff;
+  --green:#16a34a;--green-lt:#f0fdf4;
+  --amber:#f59e0b;
+  --shadow:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.12);
+  --shadow-bl:0 8px 32px rgba(14,165,233,.25);
+  --radius:12px;--radius-lg:20px;--radius-xl:28px;
+  --font-d:'Syne',sans-serif;--font-b:'Instrument Sans',sans-serif;
+  --tr:.3s ease;
+}
+[data-theme="dark"]{
+  --bg:#0d1117;--bg2:#111827;--bg3:#1e2533;
+  --ink:#f1f5f9;--ink2:#e2e8f0;--ink3:#cbd5e1;
+  --muted:#94a3b8;--muted2:#64748b;
+  --border:#1e293b;--border2:#334155;--card:#141c2b;
+  --dark-bg:#060a10;--dark-bar:#040710;
+  --shadow:0 4px 24px rgba(0,0,0,.35);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.5);
+  --accent-lt:#0c1929;--green-lt:#061410;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-b);overflow-x:hidden;transition:background var(--tr),color var(--tr);line-height:1.6;}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:66px;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s,background .3s;}
+[data-theme="dark"] nav{background:rgba(13,17,23,.9);}
+nav.scrolled{box-shadow:var(--shadow);}
+.nav-logo{font-family:var(--font-d);font-size:1.3rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;display:flex;align-items:center;gap:.45rem;white-space:nowrap;}
+.nav-logo .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+.nav-links{display:flex;gap:.15rem;}
+.nav-links a{color:var(--muted);font-size:.855rem;font-weight:500;padding:.4rem .85rem;border-radius:8px;transition:all .2s;}
+.nav-links a:hover{color:var(--ink);background:var(--bg3);}
+.nav-links a.active{color:var(--accent);background:var(--accent-lt);}
+.nav-right{display:flex;align-items:center;gap:.65rem;}
+.btn-ghost{background:none;border:1.5px solid var(--border2);color:var(--ink3);padding:.46rem 1.1rem;border-radius:8px;font-family:var(--font-b);font-size:.855rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-cta-nav{background:var(--ink);color:var(--bg);padding:.5rem 1.3rem;border-radius:8px;font-family:var(--font-b);font-size:.855rem;font-weight:600;border:none;cursor:pointer;transition:all .2s;}
+.btn-cta-nav:hover{opacity:.85;transform:translateY(-1px);}
+.theme-toggle{width:44px;height:24px;border-radius:100px;background:var(--border2);border:none;cursor:pointer;position:relative;transition:background .3s;}
+.theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--bg);transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+[data-theme="dark"] .theme-toggle{background:var(--accent);}
+[data-theme="dark"] .theme-toggle::after{transform:translateX(20px);}
+.theme-icon{font-size:.85rem;}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;border:1.5px solid var(--border2);border-radius:8px;background:none;cursor:pointer;padding:8px;transition:border-color .2s;}
+.hamburger:hover{border-color:var(--accent);}
+.ham-line{width:100%;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .3s,opacity .3s;transform-origin:center;}
+.hamburger.open .ham-line:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open .ham-line:nth-child(2){opacity:0;}
+.hamburger.open .ham-line:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:250;backdrop-filter:blur(4px);opacity:0;transition:opacity .3s;}
+.mob-overlay.open{opacity:1;}
+.mob-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,85vw);background:var(--card);z-index:260;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;border-left:1px solid var(--border);}
+.mob-drawer.open{transform:translateX(0);}
+.dr-header{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.25rem;border-bottom:1px solid var(--border);}
+.dr-logo{font-family:var(--font-d);font-size:1.2rem;font-weight:800;color:var(--ink);}
+.dr-close{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--border2);background:none;cursor:pointer;color:var(--muted);font-size:1rem;display:flex;align-items:center;justify-content:center;}
+.dr-links{display:flex;flex-direction:column;padding:1rem 0;flex:1;}
+.dr-links a{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.25rem;color:var(--ink3);font-size:.95rem;font-weight:500;border-bottom:1px solid var(--border);transition:all .2s;}
+.dr-links a:hover,.dr-links a.active{color:var(--accent);background:var(--accent-lt);padding-left:1.5rem;}
+.dr-links a::after{content:'→';color:var(--muted2);font-size:.8rem;}
+.dr-foot{padding:1.25rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:.65rem;}
+.dr-theme-row{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem;background:var(--bg2);border-radius:10px;}
+.dr-theme-lbl{font-size:.82rem;font-weight:600;color:var(--ink3);}
+.dr-cta-btn{background:var(--ink);color:var(--bg);padding:.75rem;border-radius:8px;font-family:var(--font-b);font-size:.88rem;font-weight:600;border:none;cursor:pointer;width:100%;}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;align-items:center;gap:.5rem;padding:5.5rem 5% 0;}
+.bc-item{font-size:.78rem;color:var(--muted);cursor:pointer;transition:color .2s;}
+.bc-item:hover,.bc-item.cur{color:var(--accent);}
+.bc-item.cur{font-weight:600;}
+.bc-sep{color:var(--muted2);font-size:.75rem;}
+
+/* ── SHARED ── */
+.sec-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+.sec-tag::before{content:'';width:18px;height:2px;background:var(--accent);}
+.sec-tag.c{justify-content:center;}
+.sec-tag.c::before{display:none;}
+.sec-h{font-family:var(--font-d);font-size:clamp(1.9rem,4vw,3.2rem);font-weight:800;line-height:1.06;letter-spacing:-.03em;color:var(--ink);}
+.sec-h .hl{color:var(--accent);}
+.sr{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.sr.vis{opacity:1;transform:translateY(0);}
+
+/* ══════════════════════════════════════
+   HERO — THREE.JS CANVAS BACKGROUND
+══════════════════════════════════════ */
+#hero-section{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;
+  overflow:hidden;background:var(--dark-bg);
+}
+#three-canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;
+}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to right,rgba(13,17,23,.92) 45%,rgba(13,17,23,.3) 100%),
+             linear-gradient(to top,rgba(13,17,23,.8) 0%,transparent 40%);
+}
+.hero-inner{
+  position:relative;z-index:2;
+  padding:7rem 5% 5rem;
+  max-width:700px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.25);
+  color:var(--accent);font-size:.75rem;font-weight:600;letter-spacing:.05em;
+  padding:.35rem .95rem;border-radius:100px;margin-bottom:1.75rem;
+  animation:fadeUp .7s .1s ease-out both;
+}
+.live-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:blink 1.4s infinite;}
+.hero-h1{
+  font-family:var(--font-d);font-size:clamp(2.8rem,7vw,6rem);
+  font-weight:800;line-height:.98;letter-spacing:-.03em;
+  color:#f1f5f9;margin-bottom:1.5rem;
+  animation:fadeUp .7s .25s ease-out both;
+}
+.hero-h1 .hl{color:var(--accent);}
+.hero-h1 .outline{-webkit-text-stroke:1.5px rgba(255,255,255,.25);color:transparent;}
+.hero-desc{
+  color:rgba(255,255,255,.45);font-size:1.05rem;line-height:1.75;
+  max-width:500px;margin-bottom:2.5rem;
+  animation:fadeUp .7s .4s ease-out both;
+}
+.hero-actions{
+  display:flex;gap:.85rem;flex-wrap:wrap;
+  animation:fadeUp .7s .55s ease-out both;
+}
+.btn-primary{background:var(--accent);color:#fff;padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:600;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;box-shadow:var(--shadow-bl);}
+.btn-primary:hover{background:var(--accent-dk);transform:translateY(-2px);box-shadow:0 12px 36px rgba(14,165,233,.4);}
+.btn-wg{background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:600;border:1.5px solid rgba(255,255,255,.1);cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;}
+.btn-wg:hover{border-color:var(--accent);color:var(--accent);}
+/* floating stat cards on hero */
+.hero-stats-strip{
+  position:absolute;bottom:3rem;right:5%;z-index:2;
+  display:flex;flex-direction:column;gap:1rem;
+  animation:slideLeft .8s .7s ease-out both;
+}
+@keyframes slideLeft{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
+.hs-card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius-lg);padding:1rem 1.5rem;text-align:right;
+  border-right:2px solid var(--accent);
+}
+.hs-val{font-family:var(--font-d);font-size:2rem;font-weight:800;color:#f1f5f9;line-height:1;}
+.hs-val .s{color:var(--accent);}
+.hs-lbl{font-size:.68rem;color:rgba(255,255,255,.38);letter-spacing:.06em;margin-top:.15rem;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+
+/* ══════════════════════════════════════
+   TICKER
+══════════════════════════════════════ */
+.ticker-wrap{background:var(--dark-bar);overflow:hidden;padding:.82rem 0;}
+.ticker{display:flex;width:max-content;animation:tick 42s linear infinite;}
+.t-item{display:flex;align-items:center;gap:.5rem;padding:0 1.8rem;font-family:var(--font-d);font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap;}
+.t-dot{width:4px;height:4px;background:var(--accent);border-radius:50%;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ══════════════════════════════════════
+   STATS ROW
+══════════════════════════════════════ */
+#stats-row{background:var(--dark-bg);display:grid;grid-template-columns:repeat(4,1fr);padding:0;}
+.sr-num{padding:3rem 2.25rem;border-right:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden;transition:background .3s;}
+.sr-num:last-child{border-right:none;}
+.sr-num:hover{background:rgba(255,255,255,.02);}
+.sr-num::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent),#60a5fa);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.sr-num:hover::after{transform:scaleX(1);}
+.srn-val{font-family:var(--font-d);font-size:2.7rem;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1;margin-bottom:.4rem;}
+.srn-val .suf{color:var(--accent);}
+.srn-lbl{font-size:.78rem;color:rgba(255,255,255,.38);}
+
+/* ══════════════════════════════════════
+   PHOTO GALLERY
+══════════════════════════════════════ */
+#photo-gallery{background:var(--bg);padding:5.5rem 5%;}
+.gal-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;}
+/* Filter */
+.gal-filters{display:flex;gap:.5rem;flex-wrap:wrap;}
+.gf-btn{display:flex;align-items:center;gap:.45rem;padding:.45rem 1.1rem;border-radius:100px;border:1.5px solid var(--border2);background:none;color:var(--muted);font-family:var(--font-b);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.gf-btn:hover{border-color:var(--accent);color:var(--accent);}
+.gf-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.gf-dot{width:6px;height:6px;border-radius:50%;}
+/* MASONRY GRID */
+.gal-masonry{
+  columns:3;column-gap:1rem;
+}
+/* Photo item */
+.gi{
+  break-inside:avoid;
+  margin-bottom:1rem;
+  position:relative;
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  cursor:pointer;
+  background:var(--bg3);
+  /* scroll-reveal starts hidden */
+  opacity:0;transform:translateY(32px) scale(.97);
+  transition:opacity .65s ease,transform .65s ease;
+}
+.gi.vis{opacity:1;transform:translateY(0) scale(1);}
+.gi.hidden{display:none;}
+.gi img{
+  width:100%;display:block;object-fit:cover;
+  filter:brightness(.78);
+  transition:transform .6s cubic-bezier(.4,0,.2,1),filter .4s;
+}
+.gi[data-size="tall"] img{height:460px;}
+.gi[data-size="medium"] img{height:290px;}
+.gi[data-size="short"] img{height:200px;}
+.gi:hover img{transform:scale(1.06);filter:brightness(.55);}
+/* tag + label */
+.gi-tag{position:absolute;top:.85rem;left:.85rem;font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.22rem .7rem;border-radius:100px;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);color:#fff;border:1px solid rgba(255,255,255,.18);}
+.gi-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:1.25rem 1.35rem;
+  background:linear-gradient(to top,rgba(13,17,23,.92) 0%,transparent 100%);
+  opacity:0;transform:translateY(6px);
+  transition:opacity .35s,transform .35s;
+}
+.gi:hover .gi-label{opacity:1;transform:translateY(0);}
+.gi-label h4{font-family:var(--font-d);font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.15rem;}
+.gi-label p{font-size:.72rem;color:rgba(255,255,255,.55);}
+/* lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(0,0,0,.92);backdrop-filter:blur(12px);
+  display:none;align-items:center;justify-content:center;
+  padding:2rem;
+}
+.lightbox.open{display:flex;}
+.lb-inner{position:relative;max-width:900px;width:100%;}
+.lb-img{width:100%;max-height:80vh;object-fit:contain;border-radius:var(--radius-lg);box-shadow:0 40px 120px rgba(0,0,0,.6);}
+.lb-close{position:absolute;top:-1.5rem;right:-1.5rem;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.lb-close:hover{background:var(--accent);border-color:var(--accent);}
+.lb-caption{margin-top:1rem;text-align:center;}
+.lb-caption h4{font-family:var(--font-d);font-size:1.1rem;font-weight:700;color:#f1f5f9;}
+.lb-caption p{font-size:.82rem;color:rgba(255,255,255,.4);margin-top:.25rem;}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.lb-nav:hover{background:var(--accent);}
+.lb-prev{left:-3.5rem;}
+.lb-next{right:-3.5rem;}
+
+/* ══════════════════════════════════════
+   THREE.JS ROUTE MAP SECTION
+══════════════════════════════════════ */
+#route-map{
+  background:var(--dark-bg);position:relative;overflow:hidden;
+  padding:5.5rem 5%;
+}
+#route-canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;opacity:.35;
+}
+.route-inner{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
+}
+.route-left .sec-tag{color:var(--accent);}
+.route-left .sec-h{color:#f1f5f9;margin-bottom:1rem;}
+.route-left > p{color:rgba(255,255,255,.42);line-height:1.75;font-size:.93rem;margin-bottom:2rem;}
+.route-points{display:flex;flex-direction:column;gap:.75rem;}
+.rp{display:flex;align-items:center;gap:.85rem;padding:.85rem 1.1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);}
+.rp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.rp-city{font-size:.88rem;font-weight:600;color:#e2e8f0;}
+.rp-dist{font-size:.75rem;color:rgba(255,255,255,.3);margin-left:auto;}
+.route-right{display:flex;flex-direction:column;gap:1rem;}
+.route-stat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-lg);padding:1.35rem 1.5rem;transition:border-color .3s;}
+.route-stat-card:hover{border-color:var(--accent);}
+.rsc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;}
+.rsc-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.rsc-badge{font-size:.65rem;font-weight:700;padding:.18rem .6rem;border-radius:100px;}
+.badge-green{background:rgba(22,163,74,.15);color:#4ade80;}
+.badge-amber{background:rgba(245,158,11,.15);color:#fbbf24;}
+.rsc-val{font-family:var(--font-d);font-size:1.55rem;font-weight:800;color:#f1f5f9;line-height:1;}
+.rsc-sub{font-size:.75rem;color:rgba(255,255,255,.3);margin-top:.25rem;}
+.rsc-bar{height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-top:.75rem;}
+.rsc-fill{height:100%;border-radius:2px;background:linear-gradient(to right,var(--accent),#60a5fa);transition:width 1.2s ease;}
+
+/* ══════════════════════════════════════
+   HAPPY CLIENTS
+══════════════════════════════════════ */
+#clients{background:var(--bg2);padding:5.5rem 5%;}
+.clients-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1.5rem;}
+/* Client logo bar */
+.logo-bar{display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center;padding:2rem 0 3rem;border-bottom:1px solid var(--border);margin-bottom:3.5rem;}
+.client-logo-pill{font-family:var(--font-d);font-size:1rem;font-weight:800;letter-spacing:.05em;color:var(--muted2);transition:color .25s;cursor:default;}
+.client-logo-pill:hover{color:var(--ink);}
+/* Client cards */
+.client-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
+.client-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);
+  overflow:hidden;transition:all .35s;
+  opacity:0;transform:translateY(20px);
+}
+.client-card.vis{opacity:1;transform:translateY(0);}
+.client-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.client-card::before{content:'';display:block;height:3px;background:linear-gradient(to right,var(--accent),#60a5fa);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.client-card:hover::before{transform:scaleX(1);}
+.cc-img-wrap{position:relative;overflow:hidden;}
+.cc-img{width:100%;height:200px;object-fit:cover;filter:brightness(.82);transition:transform .5s,filter .4s;}
+.client-card:hover .cc-img{transform:scale(1.04);filter:brightness(.68);}
+.cc-industry-tag{position:absolute;top:.85rem;left:.85rem;font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.22rem .7rem;border-radius:100px;}
+.tag-road{background:rgba(245,158,11,.15);backdrop-filter:blur(8px);color:#fbbf24;border:1px solid rgba(245,158,11,.2);}
+.tag-cold{background:rgba(22,163,74,.15);backdrop-filter:blur(8px);color:#4ade80;border:1px solid rgba(22,163,74,.2);}
+.tag-bulk{background:rgba(14,165,233,.15);backdrop-filter:blur(8px);color:#38bdf8;border:1px solid rgba(14,165,233,.2);}
+.tag-fmcg{background:rgba(124,58,237,.15);backdrop-filter:blur(8px);color:#a78bfa;border:1px solid rgba(124,58,237,.2);}
+.cc-body{padding:1.4rem 1.6rem 1.6rem;}
+.cc-company{display:flex;align-items:center;gap:.75rem;margin-bottom:.9rem;}
+.cc-logo-placeholder{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:var(--bg3);flex-shrink:0;}
+.cc-name{font-family:var(--font-d);font-size:1rem;font-weight:700;color:var(--ink);}
+.cc-sector{font-size:.72rem;color:var(--muted);margin-top:.1rem;}
+.cc-testimonial{color:var(--ink3);font-size:.86rem;line-height:1.7;font-style:italic;margin-bottom:1.1rem;}
+.cc-meta{display:flex;align-items:center;justify-content:space-between;}
+.cc-stars{color:var(--amber);font-size:.8rem;letter-spacing:.1em;}
+.cc-stat{font-size:.75rem;font-weight:600;color:var(--accent);}
+
+/* ══════════════════════════════════════
+   TESTIMONIAL MARQUEE
+══════════════════════════════════════ */
+#testimonial-marquee{background:var(--bg);padding:5rem 0;overflow:hidden;}
+.tm-label{text-align:center;margin-bottom:2.5rem;}
+.marquee-track{display:flex;gap:1.5rem;animation:marquee 40s linear infinite;}
+.marquee-track:hover{animation-play-state:paused;}
+.mq-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:1.75rem;min-width:340px;flex-shrink:0;transition:all .3s;}
+.mq-card:hover{box-shadow:var(--shadow-lg);border-color:transparent;transform:translateY(-3px);}
+.mq-stars{color:var(--amber);font-size:.8rem;letter-spacing:.1em;margin-bottom:.85rem;}
+.mq-text{color:var(--ink3);font-size:.88rem;line-height:1.72;font-style:italic;margin-bottom:1.25rem;}
+.mq-author{display:flex;align-items:center;gap:.75rem;}
+.mq-av{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--border);}
+.mq-name{font-size:.85rem;font-weight:600;color:var(--ink);}
+.mq-role{font-size:.73rem;color:var(--muted);margin-top:.08rem;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ══════════════════════════════════════
+   DARK CTA
+══════════════════════════════════════ */
+#cta-section{background:var(--dark-bg);position:relative;overflow:hidden;text-align:center;padding:8rem 5%;}
+#cta-section::before{content:'';position:absolute;inset:0;background-size:cover;background-position:center;opacity:.07;}
+#cta-section::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(14,165,233,.2),transparent);pointer-events:none;}
+.cta-inner-center{position:relative;z-index:2;max-width:660px;margin:0 auto;}
+.cta-inner-center .sec-tag{justify-content:center;color:var(--accent);}
+.cta-inner-center .sec-tag::before{display:none;}
+.cta-inner-center .sec-h{color:#f1f5f9;font-size:clamp(2.2rem,5vw,3.8rem);margin-bottom:1.1rem;}
+.cta-inner-center > p{color:rgba(255,255,255,.42);line-height:1.75;margin-bottom:2.25rem;}
+.cta-btns{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;}
+.btn-w{background:#fff;color:var(--dark-bg);padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:700;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;}
+.btn-w:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,255,255,.12);}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer{background:var(--dark-bar);padding:4.5rem 5% 2rem;}
+.f-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3.5rem;margin-bottom:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid rgba(255,255,255,.05);}
+.f-brand-logo{font-family:var(--font-d);font-size:1.35rem;font-weight:800;color:#fff;display:block;margin-bottom:.9rem;}
+.f-brand p{color:rgba(255,255,255,.3);font-size:.855rem;line-height:1.7;max-width:240px;}
+.f-socs{display:flex;gap:.55rem;margin-top:1.35rem;}
+.f-soc{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;transition:all .2s;}
+.f-soc:hover{border-color:var(--accent);color:var(--accent);}
+.f-col h4{font-family:var(--font-d);font-size:.76rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:1.35rem;}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.f-links a{color:rgba(255,255,255,.3);font-size:.855rem;transition:color .2s;}
+.f-links a:hover{color:#fff;}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.9rem;}
+.f-bottom p{color:rgba(255,255,255,.18);font-size:.78rem;}
+.fab{position:fixed;bottom:1.75rem;right:1.75rem;z-index:400;background:var(--accent);color:#fff;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;box-shadow:0 8px 28px rgba(14,165,233,.42);animation:fab-p 3s ease-in-out infinite;cursor:pointer;border:none;}
+@keyframes fab-p{0%,100%{box-shadow:0 8px 28px rgba(14,165,233,.42);}50%{box-shadow:0 8px 44px rgba(14,165,233,.68);}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .nav-links,.nav-right .btn-ghost,.nav-right .btn-cta-nav{display:none;}
+  .hamburger{display:flex;}
+  .mob-overlay{display:block;}
+  .hero-stats-strip{display:none;}
+  .route-inner{grid-template-columns:1fr;gap:2.5rem;}
+  #stats-row{grid-template-columns:1fr 1fr;}
+  .sr-num{border-right:none;border-bottom:1px solid rgba(255,255,255,.05);}
+  .sr-num:nth-child(odd){border-right:1px solid rgba(255,255,255,.05);}
+  .f-top{grid-template-columns:1fr 1fr;gap:2.5rem;}
+}
+@media(max-width:640px){
+  nav{padding:0 4%;height:60px;}
+  .breadcrumb{padding:4.5rem 4% 0;}
+  #photo-gallery,#clients,#route-map,#testimonial-marquee{padding:3rem 4%;}
+  .gal-masonry{columns:1;}
+  #stats-row{grid-template-columns:1fr 1fr;}
+  .hero-h1{font-size:2.6rem;}
+  .hero-inner{padding:5rem 4% 3rem;}
+  .cta-btns{flex-direction:column;align-items:center;}
+  .btn-w,.btn-wg{width:100%;max-width:340px;justify-content:center;}
+  .f-top{grid-template-columns:1fr;gap:2rem;padding-bottom:2rem;margin-bottom:2rem;}
+  .f-bottom{flex-direction:column;text-align:center;}
+  footer{padding:3rem 4% 1.5rem;}
+}
+@media(max-width:400px){
+  .gal-masonry{columns:1;}
+  #stats-row{grid-template-columns:1fr;}
+  .sr-num:nth-child(odd){border-right:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-inner">
+    <button class="lb-nav lb-prev" id="lbPrev">‹</button>
+    <img class="lb-img" id="lbImg" src="" alt="">
+    <button class="lb-nav lb-next" id="lbNext">›</button>
+    <button class="lb-close" id="lbClose">✕</button>
+    <div class="lb-caption"><h4 id="lbTitle"></h4><p id="lbSub"></p></div>
+  </div>
+</div>
+
+<!-- MOBILE OVERLAY -->
+<div class="mob-overlay" id="mobOverlay"></div>
+<div class="mob-drawer" id="mobDrawer">
+  <div class="dr-header">
+    <div class="dr-logo" id="drLogo"></div>
+    <button class="dr-close" id="drClose">✕</button>
+  </div>
+  <div class="dr-links" id="drLinks"></div>
+  <div class="dr-foot">
+    <div class="dr-theme-row">
+      <span class="dr-theme-lbl" id="drThemeLbl"></span>
+      <button class="theme-toggle" id="themeToggleMob"></button>
+    </div>
+    <button class="dr-cta-btn" id="drCta"></button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo" id="navLogo"><div class="dot"></div></div>
+  <div class="nav-links" id="navLinks"></div>
+  <div class="nav-right">
+    <div style="display:flex;align-items:center;gap:.55rem;">
+      <span class="theme-icon">☀️</span>
+      <button class="theme-toggle" id="themeToggle"></button>
+      <span class="theme-icon">🌙</span>
+    </div>
+    <button class="btn-ghost" id="loginBtn"></button>
+    <button class="btn-cta-nav" id="quoteBtn"></button>
+    <button class="hamburger" id="hamburger">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb" id="breadcrumb"></div>
+
+<!-- HERO (Three.js canvas) -->
+<section id="hero-section">
+  <canvas id="three-canvas"></canvas>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow" id="heroEyebrow"><span class="live-dot"></span><span id="heroEyebrowText"></span></div>
+    <h1 class="hero-h1" id="heroH1"></h1>
+    <p class="hero-desc" id="heroDesc"></p>
+    <div class="hero-actions">
+      <button class="btn-primary" id="heroCta1"></button>
+      <button class="btn-wg" id="heroCta2"></button>
+    </div>
+  </div>
+  <div class="hero-stats-strip" id="heroStatsStrip"></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap"><div class="ticker" id="ticker"></div></div>
+
+<!-- STATS ROW (dark) -->
+<div id="stats-row"></div>
+
+<!-- PHOTO GALLERY -->
+<section id="photo-gallery">
+  <div class="gal-head sr">
+    <div>
+      <div class="sec-tag" id="galTag"></div>
+      <h2 class="sec-h" id="galH"></h2>
+    </div>
+    <div class="gal-filters" id="galFilters"></div>
+  </div>
+  <div class="gal-masonry" id="galMasonry"></div>
+</section>
+
+<!-- ROUTE MAP (Three.js canvas) -->
+<section id="route-map">
+  <canvas id="route-canvas"></canvas>
+  <div class="route-inner">
+    <div class="route-left sr">
+      <div class="sec-tag" id="routeTag"></div>
+      <h2 class="sec-h" id="routeH"></h2>
+      <p id="routeDesc"></p>
+      <div class="route-points" id="routePoints"></div>
+    </div>
+    <div class="route-right sr" id="routeCards"></div>
+  </div>
+</section>
+
+<!-- HAPPY CLIENTS -->
+<section id="clients">
+  <div class="clients-head sr">
+    <div>
+      <div class="sec-tag" id="clientsTag"></div>
+      <h2 class="sec-h" id="clientsH"></h2>
+    </div>
+    <p style="max-width:310px;color:var(--muted);font-size:.88rem;line-height:1.65;" id="clientsDesc"></p>
+  </div>
+  <div class="logo-bar" id="logoBar"></div>
+  <div class="client-grid" id="clientGrid"></div>
+</section>
+
+<!-- TESTIMONIAL MARQUEE -->
+<section id="testimonial-marquee">
+  <div class="tm-label sr">
+    <div class="sec-tag c" id="tmTag"></div>
+    <h2 class="sec-h" id="tmH"></h2>
+  </div>
+  <div style="overflow:hidden;padding:1.5rem 0;">
+    <div class="marquee-track" id="marqueeTrack"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta-section">
+  <div class="cta-inner-center sr">
+    <div class="sec-tag" id="ctaTag"></div>
+    <h2 class="sec-h" id="ctaH"></h2>
+    <p id="ctaDesc"></p>
+    <div class="cta-btns">
+      <button class="btn-w" id="ctaBtn1"></button>
+      <button class="btn-wg" id="ctaBtn2"></button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-top" id="footerTop">
+    <div class="f-brand">
+      <span class="f-brand-logo" id="fLogo"></span>
+      <p id="fTagline"></p>
+      <div class="f-socs" id="fSocials"></div>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <p id="fCopy"></p>
+    <p id="fLinks"></p>
+  </div>
+</footer>
+
+<button class="fab" id="fabBtn"></button>
+
+<!-- ════════════════════════ MASTER DATA ════════════════════════ -->
+<script>
+const DATA = {
+  meta:{ title:"Gallery & Happy Clients — MahaveerTrans" },
+  nav:{
+    logoPrefix:"Mahaveer", logoSuffix:"Trans",
+    links:[
+      {label:"Home",     href:"index.html"},
+      {label:"Services", href:"services.html"},
+      {label:"Fleet",    href:"fleet.html"},
+      {label:"Track",    href:"tracking.html"},
+      {label:"Gallery",  href:"gallery.html", active:true},
+      {label:"Contact",  href:"contact.html"}
+    ],
+    loginBtn:"Log in", quoteBtn:"Get Quote →",
+    themeLabel:"☀️ / 🌙 Theme", drawerCta:"Get Free Quote →"
+  },
+  breadcrumb:[
+    {label:"Home",    href:"index.html"},
+    {label:"Gallery", href:"gallery.html", current:true}
+  ],
+  hero:{
+    eyebrow:"Trusted by 4,800+ businesses across India",
+    headingLine1:"Where Every",
+    headingHl:"Road",
+    headingLine2:"Tells a Story",
+    description:"From the dusty NH44 highways of the Deccan to the snow-cut passes of Himachal — our trucks have covered every kilometre so your cargo doesn't have to worry about the journey.",
+    cta1:"Explore Gallery →",
+    cta2:"View Our Clients",
+    stats:[
+      {val:"4,800", suf:"+", lbl:"Happy Clients"},
+      {val:"2.4M",  suf:" km",lbl:"Driven This Year"},
+      {val:"99",    suf:"%",  lbl:"On-time Delivery"}
+    ]
+  },
+  ticker:["Mumbai to Delhi","Chennai to Kolkata","Pune to Ahmedabad","Hyderabad to Bengaluru","Jaipur to Nagpur","Surat to Lucknow","Indore to Vizag","Coimbatore to Patna"],
+  statsRow:[
+    {value:4800,  suffix:"+",    label:"Happy clients served"},
+    {value:2400000,suffix:" km", label:"Kilometres driven this year"},
+    {value:200,   suffix:"+",    label:"Long-route vehicles"},
+    {value:99,    suffix:"%",    label:"On-time delivery rate"}
+  ],
+  gallery:{
+    tag:"Photo Gallery",
+    headingPart1:"On the Road,",
+    headingHl:"Every Day",
+    filters:[
+      {id:"all",   label:"All Photos",    dot:"#0ea5e9"},
+      {id:"trucks",label:"Our Fleet",     dot:"#f59e0b"},
+      {id:"roads", label:"On the Road",   dot:"#16a34a"},
+      {id:"ops",   label:"Operations",    dot:"#7c3aed"},
+      {id:"cargo", label:"Cargo & Load",  dot:"#dc2626"}
+    ],
+    photos:[
+      {cat:"trucks",size:"tall",  tag:"Heavy Haulage", title:"25T Multi-axle on NH48",    sub:"Mumbai–Bengaluru Express Highway",  img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80&auto=format&fit=crop"},
+      {cat:"roads", size:"medium",tag:"Highway",       title:"Dawn Run — Yamuna Expressway",sub:"Delhi to Agra corridor, 4:30 AM",  img:"https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=700&q=80&auto=format&fit=crop"},
+      {cat:"cargo", size:"short", tag:"Loading",       title:"Container Loading — JNPT",   sub:"Navi Mumbai Port Terminal",         img:"https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80&auto=format&fit=crop"},
+      {cat:"trucks",size:"medium",tag:"Reefer Fleet",  title:"Cold Chain Convoy",          sub:"Pharma delivery — Pune to Delhi",   img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=700&q=80&auto=format&fit=crop"},
+      {cat:"roads", size:"tall",  tag:"Mountain Route",title:"Rohtang Pass Delivery",      sub:"High-altitude cargo, Manali sector", img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80&auto=format&fit=crop"},
+      {cat:"ops",   size:"short", tag:"Control Room",  title:"24/7 Fleet Operations",      sub:"MahaveerTrans Control Tower, Mumbai",img:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format&fit=crop"},
+      {cat:"trucks",size:"short", tag:"Flatbed",       title:"Steel Coil Transport",       sub:"Bhilai to Pune Industrial Corridor", img:"https://images.unsplash.com/photo-1540835296355-0a0015f3c02e?w=600&q=80&auto=format&fit=crop"},
+      {cat:"cargo", size:"tall",  tag:"Warehouse",     title:"Smart Warehouse — Bhiwandi", sub:"3M sqft distribution centre",       img:"https://images.unsplash.com/photo-1553413077-190dd305871c?w=700&q=80&auto=format&fit=crop"},
+      {cat:"roads", size:"medium",tag:"Night Ops",     title:"Night Convoy — NH44",        sub:"Hyderabad to Chennai, 2:00 AM",     img:"https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=700&q=80&auto=format&fit=crop"},
+      {cat:"ops",   size:"medium",tag:"Team",          title:"Driver Briefing — Mumbai Hub",sub:"Daily safety & route debrief",     img:"https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&q=80&auto=format&fit=crop"},
+      {cat:"trucks",size:"tall",  tag:"EV Last Mile",  title:"Electric Delivery Fleet",    sub:"Bengaluru urban zone, 200+ EVs",    img:"https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=700&q=80&auto=format&fit=crop"},
+      {cat:"roads", size:"short", tag:"Sunset Run",    title:"Golden Hour — Rajasthan NH",  sub:"Jaipur to Jodhpur corridor",       img:"https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80&auto=format&fit=crop"}
+    ]
+  },
+  routeMap:{
+    tag:"Our Routes",
+    headingPart1:"Every Major",
+    headingHl:"Highway Covered",
+    description:"MahaveerTrans runs dedicated long-distance truck lanes on 18 national highway corridors — covering 96% of India's industrial clusters with scheduled departures.",
+    routes:[
+      {city:"Mumbai ↔ Delhi",    dist:"1,421 km", color:"#0ea5e9"},
+      {city:"Chennai ↔ Kolkata", dist:"1,659 km", color:"#f59e0b"},
+      {city:"Bengaluru ↔ Pune",  dist:"840 km",   color:"#16a34a"},
+      {city:"Hyderabad ↔ Ahmedabad",dist:"1,100 km",color:"#7c3aed"},
+      {city:"Surat ↔ Lucknow",   dist:"1,206 km", color:"#dc2626"}
+    ],
+    cards:[
+      {label:"Scheduled Departures / Day",badge:"Live",badgeCls:"badge-green",val:"48+",   sub:"Across all major corridors",      barPct:96},
+      {label:"Average Transit Accuracy",   badge:"SLA",badgeCls:"badge-green",val:"99%",   sub:"On-time within ±2 hr window",    barPct:99},
+      {label:"Active Trucks On Road Now",  badge:"Now",badgeCls:"badge-amber",val:"200+",  sub:"GPS tracked, live dashboard",    barPct:72},
+      {label:"Shortest Turnaround Route",  badge:"Fast",badgeCls:"badge-green",val:"6 hrs",sub:"Pune ↔ Mumbai express lane",     barPct:100}
+    ]
+  },
+  clients:{
+    tag:"Happy Clients",
+    headingPart1:"Brands That",
+    headingHl:"Trust Our Wheels",
+    description:"From FMCG giants to pharma exporters — businesses that moved their goods with MahaveerTrans keep coming back.",
+    logos:["MAHINDRA","RELIANCE","CIPLA","L&T","NYKAA","TVS","TATA MOTORS","GODREJ","WIPRO","ITC"],
+    cards:[
+      {
+        industry:"Road Freight",tagCls:"tag-road",icon:"🏭",
+        company:"Mahindra Logistics",sector:"Automotive OEM & Parts",
+        testimonial:"MahaveerTrans handles 400+ FTL trips monthly for our plant-to-dealer network. Zero stockouts in 18 months since onboarding.",
+        stars:"★★★★★",stat:"400 trips/month",
+        img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80&auto=format&fit=crop"
+      },
+      {
+        industry:"Cold Chain",tagCls:"tag-cold",icon:"💊",
+        company:"Cipla Ltd.",sector:"Pharmaceuticals",
+        testimonial:"GDP-compliant cold chain to 22 states. Temperature deviation rate under 0.3% across 12 months of pharma deliveries.",
+        stars:"★★★★★",stat:"22 states covered",
+        img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&q=80&auto=format&fit=crop"
+      },
+      {
+        industry:"Bulk Road",tagCls:"tag-bulk",icon:"🏗️",
+        company:"L&T Construction",sector:"Infrastructure",
+        testimonial:"Multi-axle fleet for heavy equipment movement across 8 active project sites. Permit management handled end-to-end — zero delays.",
+        stars:"★★★★★",stat:"8 project sites",
+        img:"https://images.unsplash.com/photo-1540835296355-0a0015f3c02e?w=500&q=80&auto=format&fit=crop"
+      },
+      {
+        industry:"FMCG",tagCls:"tag-fmcg",icon:"🛒",
+        company:"ITC Limited",sector:"FMCG & Consumer Goods",
+        testimonial:"Daily replenishment runs to 1,200 retail points across Maharashtra and Karnataka. 98.6% fill rate, up from 91% with previous 3PL.",
+        stars:"★★★★★",stat:"1,200 retail points",
+        img:"https://images.unsplash.com/photo-1553413077-190dd305871c?w=500&q=80&auto=format&fit=crop"
+      },
+      {
+        industry:"Road Freight",tagCls:"tag-road",icon:"👗",
+        company:"Nykaa Fashion",sector:"E-Commerce & Apparel",
+        testimonial:"Our MahaveerTrans last-mile fleet handles 6,000 B2C deliveries per day in 12 metros with 94% same-day success rate.",
+        stars:"★★★★★",stat:"6,000 deliveries/day",
+        img:"https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=500&q=80&auto=format&fit=crop"
+      },
+      {
+        industry:"Bulk Road",tagCls:"tag-bulk",icon:"🚜",
+        company:"TVS Motor Company",sector:"Two-Wheeler Manufacturing",
+        testimonial:"JIT delivery from our Hosur plant reduced line stoppages by 91%. MahaveerTrans's telematics dashboard gave us the visibility we needed.",
+        stars:"★★★★★",stat:"91% fewer stoppages",
+        img:"https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=500&q=80&auto=format&fit=crop"
+      }
+    ]
+  },
+  marquee:{
+    tag:"Client Voices",
+    headingPart1:"Straight From",
+    headingHl:"The Road",
+    items:[
+      {stars:"★★★★★",text:"Switched to MahaveerTrans 2 years ago. On-time delivery jumped from 83% to 99%. Our retailers stopped complaining.",name:"Ravi Shankar",role:"Distribution Head, Reliance Retail",avatar:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face"},
+      {stars:"★★★★★",text:"Their drivers know the NH48 better than anyone. We run Chennai to Mumbai twice a week — never a missed window.",name:"Kalpana Murthy",role:"Logistics Manager, Ashok Leyland",avatar:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face"},
+      {stars:"★★★★★",text:"Best reefer fleet in western India. The temp logs are immaculate. Regulators were impressed in our last GDP audit.",name:"Dr. Sunil Joshi",role:"VP Supply Chain, Sun Pharma",avatar:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face"},
+      {stars:"★★★★★",text:"1,200 retail drops across Maharashtra, every single day. MahaveerTrans has never missed a Monday fresh-goods window in 14 months.",name:"Priya Iyer",role:"Supply Chain Director, Marico",avatar:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&q=80&auto=format&fit=crop&crop=face"},
+      {stars:"★★★★★",text:"Flatbed permit management used to take us 2 weeks. MahaveerTrans does it in 48 hours. Our Pune project is running ahead of schedule.",name:"Arun Desai",role:"Project Manager, Shapoorji Pallonji",avatar:"https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=80&q=80&auto=format&fit=crop&crop=face"},
+      {stars:"★★★★★",text:"The GPS dashboard gives our planners visibility we never had. We can see every truck live and reroute before a delay becomes a problem.",name:"Neha Kulkarni",role:"Operations Lead, Godrej Consumer",avatar:"https://images.unsplash.com/photo-1554151228-14d9def656e4?w=80&q=80&auto=format&fit=crop&crop=face"}
+    ]
+  },
+  cta:{
+    tag:"Partner With Us",
+    headingPart1:"Move Your Goods",
+    headingHl:"With Confidence",
+    description:"Join 4,800+ businesses that trust MahaveerTrans for reliable, GPS-tracked, on-time road freight across India.",
+    btn1:"Get a Free Quote →",
+    btn2:"📞 +91 22 4001 8000"
+  },
+  footer:{
+    logo:"MahaveerTrans",
+    tagline:"Delivering the world's goods with precision and care. Your trusted road logistics partner since 1999.",
+    socials:[{label:"in",url:"#"},{label:"tw",url:"#"},{label:"yt",url:"#"},{label:"ig",url:"#"}],
+    columns:[
+      {heading:"Services",links:[["Road Transport","#"],["Cold Chain","#"],["Last Mile","#"],["Warehousing","#"],["Air Freight","#"],["Sea Freight","#"]]},
+      {heading:"Company", links:[["About Us","#"],["Fleet","#"],["Gallery","#"],["Careers","#"],["Contact","#"]]},
+      {heading:"Contact",  links:[["📍 Mumbai, India","#"],["📞 +91 22 4001 8000","#"],["✉️ hello@mahaveertrans.com","#"],["🌐 mahaveertrans.com","#"]]}
+    ],
+    copyright:"© 2025 MahaveerTrans Logistics Pvt. Ltd. All rights reserved.",
+    footerLinks:"Privacy · Terms · Sitemap"
+  },
+  fab:"💬"
+};
+
+/* ════════════════════════ RENDER ════════════════════════ */
+function render(D){
+  document.title = D.meta.title;
+
+  /* NAV */
+  document.getElementById('navLogo').innerHTML = `<span>${D.nav.logoPrefix}</span>${D.nav.logoSuffix}<div class="dot"></div>`;
+  document.getElementById('navLinks').innerHTML = D.nav.links.map(l=>`<a href="${l.href}"${l.active?' class="active"':''}>${l.label}</a>`).join('');
+  document.getElementById('loginBtn').textContent = D.nav.loginBtn;
+  document.getElementById('quoteBtn').textContent = D.nav.quoteBtn;
+  document.getElementById('drLogo').textContent = D.nav.logoPrefix + D.nav.logoSuffix;
+  document.getElementById('drLinks').innerHTML = D.nav.links.map(l=>`<a href="${l.href}"${l.active?' class="active"':''}>${l.label}</a>`).join('');
+  document.getElementById('drThemeLbl').textContent = D.nav.themeLabel;
+  document.getElementById('drCta').textContent = D.nav.drawerCta;
+
+  /* BREADCRUMB */
+  document.getElementById('breadcrumb').innerHTML = D.breadcrumb.map((b,i)=>
+    `${i>0?'<span class="bc-sep">/</span>':''}<a href="${b.href}" class="bc-item${b.current?' cur':''}">${b.label}</a>`
+  ).join('');
+
+  /* HERO */
+  document.getElementById('heroEyebrowText').textContent = D.hero.eyebrow;
+  document.getElementById('heroH1').innerHTML =
+    `${D.hero.headingLine1} <span class="hl">${D.hero.headingHl}</span><br><span class="outline">${D.hero.headingLine2}</span>`;
+  document.getElementById('heroDesc').textContent = D.hero.description;
+  document.getElementById('heroCta1').textContent = D.hero.cta1;
+  document.getElementById('heroCta2').textContent = D.hero.cta2;
+  document.getElementById('heroStatsStrip').innerHTML = D.hero.stats.map(s=>`
+    <div class="hs-card">
+      <div class="hs-val">${s.val}<span class="s">${s.suf}</span></div>
+      <div class="hs-lbl">${s.lbl}</div>
+    </div>`).join('');
+
+  /* TICKER */
+  const ti = D.ticker.map(t=>`<span class="t-item"><span class="t-dot"></span>${t}</span>`).join('');
+  document.getElementById('ticker').innerHTML = ti + ti;
+
+  /* STATS ROW */
+  document.getElementById('stats-row').innerHTML = D.statsRow.map(n=>`
+    <div class="sr-num">
+      <div class="srn-val" data-target="${n.value}">0<span class="suf">${n.suffix}</span></div>
+      <div class="srn-lbl">${n.label}</div>
+    </div>`).join('');
+
+  /* GALLERY */
+  document.getElementById('galTag').textContent = D.gallery.tag;
+  document.getElementById('galH').innerHTML = `${D.gallery.headingPart1} <span class="hl">${D.gallery.headingHl}</span>`;
+  document.getElementById('galFilters').innerHTML = D.gallery.filters.map(f=>`
+    <button class="gf-btn${f.id==='all'?' active':''}" data-filter="${f.id}">
+      <span class="gf-dot" style="background:${f.dot}"></span>${f.label}
+    </button>`).join('');
+  document.getElementById('galMasonry').innerHTML = D.gallery.photos.map((p,i)=>`
+    <div class="gi" data-cat="${p.cat}" data-size="${p.size}" data-title="${p.title}" data-sub="${p.sub}" data-img="${p.img}" style="transition-delay:${(i%3)*.1}s">
+      <img src="${p.img}" alt="${p.title}" loading="lazy">
+      <div class="gi-tag">${p.tag}</div>
+      <div class="gi-label"><h4>${p.title}</h4><p>${p.sub}</p></div>
+    </div>`).join('');
+
+  /* ROUTE MAP */
+  document.getElementById('routeTag').textContent = D.routeMap.tag;
+  document.getElementById('routeH').innerHTML = `${D.routeMap.headingPart1} <span class="hl">${D.routeMap.headingHl}</span>`;
+  document.getElementById('routeDesc').textContent = D.routeMap.description;
+  document.getElementById('routePoints').innerHTML = D.routeMap.routes.map(r=>`
+    <div class="rp">
+      <span class="rp-dot" style="background:${r.color}"></span>
+      <span class="rp-city">${r.city}</span>
+      <span class="rp-dist">${r.dist}</span>
+    </div>`).join('');
+  document.getElementById('routeCards').innerHTML = D.routeMap.cards.map(c=>`
+    <div class="route-stat-card">
+      <div class="rsc-top">
+        <span class="rsc-label">${c.label}</span>
+        <span class="rsc-badge ${c.badgeCls}">${c.badge}</span>
+      </div>
+      <div class="rsc-val">${c.val}</div>
+      <div class="rsc-sub">${c.sub}</div>
+      <div class="rsc-bar"><div class="rsc-fill" data-pct="${c.barPct}" style="width:0%"></div></div>
+    </div>`).join('');
+
+  /* CLIENTS */
+  document.getElementById('clientsTag').textContent = D.clients.tag;
+  document.getElementById('clientsH').innerHTML = `${D.clients.headingPart1} <span class="hl">${D.clients.headingHl}</span>`;
+  document.getElementById('clientsDesc').textContent = D.clients.description;
+  document.getElementById('logoBar').innerHTML = D.clients.logos.map(l=>`<span class="client-logo-pill">${l}</span>`).join('');
+  document.getElementById('clientGrid').innerHTML = D.clients.cards.map((c,i)=>`
+    <div class="client-card" style="transition-delay:${(i%3)*.08}s">
+      <div class="cc-img-wrap">
+        <img class="cc-img" src="${c.img}" alt="${c.company}" loading="lazy">
+        <span class="cc-industry-tag ${c.tagCls}">${c.industry}</span>
+      </div>
+      <div class="cc-body">
+        <div class="cc-company">
+          <div class="cc-logo-placeholder">${c.icon}</div>
+          <div><div class="cc-name">${c.company}</div><div class="cc-sector">${c.sector}</div></div>
+        </div>
+        <p class="cc-testimonial">"${c.testimonial}"</p>
+        <div class="cc-meta">
+          <span class="cc-stars">${c.stars}</span>
+          <span class="cc-stat">${c.stat}</span>
+        </div>
+      </div>
+    </div>`).join('');
+
+  /* MARQUEE */
+  document.getElementById('tmTag').textContent = D.marquee.tag;
+  document.getElementById('tmH').innerHTML = `${D.marquee.headingPart1} <span class="hl">${D.marquee.headingHl}</span>`;
+  const cards = D.marquee.items.map(t=>`
+    <div class="mq-card">
+      <div class="mq-stars">${t.stars}</div>
+      <p class="mq-text">"${t.text}"</p>
+      <div class="mq-author">
+        <img class="mq-av" src="${t.avatar}" alt="${t.name}">
+        <div><div class="mq-name">${t.name}</div><div class="mq-role">${t.role}</div></div>
+      </div>
+    </div>`).join('');
+  document.getElementById('marqueeTrack').innerHTML = cards + cards;
+
+  /* CTA */
+  document.getElementById('ctaTag').textContent = D.cta.tag;
+  document.getElementById('ctaH').innerHTML = `${D.cta.headingPart1} <span class="hl">${D.cta.headingHl}</span>`;
+  document.getElementById('ctaDesc').textContent = D.cta.description;
+  document.getElementById('ctaBtn1').textContent = D.cta.btn1;
+  document.getElementById('ctaBtn2').textContent = D.cta.btn2;
+
+  /* FOOTER */
+  document.getElementById('fLogo').textContent = D.footer.logo;
+  document.getElementById('fTagline').textContent = D.footer.tagline;
+  document.getElementById('fCopy').textContent = D.footer.copyright;
+  document.getElementById('fLinks').textContent = D.footer.footerLinks;
+  document.getElementById('fSocials').innerHTML = D.footer.socials.map(s=>`<a href="${s.url}" class="f-soc">${s.label}</a>`).join('');
+  document.getElementById('footerTop').innerHTML +=
+    D.footer.columns.map(col=>`
+      <div class="f-col"><h4>${col.heading}</h4>
+      <ul class="f-links">${col.links.map(([l,u])=>`<li><a href="${u}">${l}</a></li>`).join('')}</ul></div>`).join('');
+  document.getElementById('fabBtn').textContent = D.fab;
+}
+
+/* ════════ THREE.JS — HERO PARTICLE ROAD ════════ */
+function initHeroThree(){
+  const canvas = document.getElementById('three-canvas');
+  const W = ()=>canvas.parentElement.clientWidth;
+  const H = ()=>canvas.parentElement.clientHeight;
+  canvas.width = W(); canvas.height = H();
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if(!gl){ canvas.style.display='none'; return; }
+
+  const vsrc = `
+    attribute vec3 pos;
+    attribute float size;
+    attribute float opacity;
+    uniform mat4 proj;
+    uniform mat4 view;
+    varying float vOpacity;
+    void main(){
+      vOpacity = opacity;
+      vec4 mvPos = view * vec4(pos,1.0);
+      gl_PointSize = size * (300.0 / -mvPos.z);
+      gl_Position = proj * mvPos;
+    }`;
+  const fsrc = `
+    precision mediump float;
+    varying float vOpacity;
+    void main(){
+      float d = length(gl_PointCoord - vec2(.5));
+      if(d > .5) discard;
+      gl_FragColor = vec4(0.054,0.647,0.914, vOpacity*(1.0-d*1.6));
+    }`;
+
+  function compileShader(type, source){
+    const s = gl.createShader(type);
+    gl.shaderSource(s, source); gl.compileShader(s); return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compileShader(gl.VERTEX_SHADER, vsrc));
+  gl.attachShader(prog, compileShader(gl.FRAGMENT_SHADER, fsrc));
+  gl.linkProgram(prog); gl.useProgram(prog);
+
+  const N = 1200;
+  const positions = new Float32Array(N*3);
+  const sizes     = new Float32Array(N);
+  const opacities = new Float32Array(N);
+  const speeds    = new Float32Array(N);
+
+  for(let i=0;i<N;i++){
+    positions[i*3]   = (Math.random()-0.5)*80;
+    positions[i*3+1] = (Math.random()-0.5)*40;
+    positions[i*3+2] = (Math.random()-0.5)*60 - 20;
+    sizes[i]     = Math.random()*2.5+0.5;
+    opacities[i] = Math.random()*0.6+0.1;
+    speeds[i]    = Math.random()*0.015+0.004;
+  }
+
+  const posLoc  = gl.getAttribLocation(prog,'pos');
+  const sizeLoc = gl.getAttribLocation(prog,'size');
+  const opLoc   = gl.getAttribLocation(prog,'opacity');
+  const projLoc = gl.getUniformLocation(prog,'proj');
+  const viewLoc = gl.getUniformLocation(prog,'view');
+
+  const posBuf = gl.createBuffer();
+  const szBuf  = gl.createBuffer();
+  const opBuf  = gl.createBuffer();
+
+  function mat4Persp(fov,asp,near,far){
+    const f=1/Math.tan(fov/2),r=1/(near-far);
+    return new Float32Array([f/asp,0,0,0, 0,f,0,0, 0,0,(near+far)*r,-1, 0,0,near*far*r*2,0]);
+  }
+  function mat4Id(){ return new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]); }
+
+  let t=0;
+  function frame(){
+    t+=0.008;
+    canvas.width=W(); canvas.height=H();
+    gl.viewport(0,0,W(),H());
+    gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA,gl.ONE);
+
+    for(let i=0;i<N;i++){
+      positions[i*3+2] += speeds[i];
+      if(positions[i*3+2] > 20){ positions[i*3+2]=-60; }
+    }
+
+    gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);
+    gl.bufferData(gl.ARRAY_BUFFER,positions,gl.DYNAMIC_DRAW);
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc,3,gl.FLOAT,false,0,0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER,szBuf);
+    gl.bufferData(gl.ARRAY_BUFFER,sizes,gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(sizeLoc);
+    gl.vertexAttribPointer(sizeLoc,1,gl.FLOAT,false,0,0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER,opBuf);
+    gl.bufferData(gl.ARRAY_BUFFER,opacities,gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(opLoc);
+    gl.vertexAttribPointer(opLoc,1,gl.FLOAT,false,0,0);
+
+    gl.uniformMatrix4fv(projLoc,false,mat4Persp(Math.PI/3,W()/H(),.1,200));
+    gl.uniformMatrix4fv(viewLoc,false,mat4Id());
+    gl.drawArrays(gl.POINTS,0,N);
+    requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+/* ════════ THREE.JS — ROUTE CANVAS (animated road lines) ════════ */
+function initRouteThree(){
+  const canvas = document.getElementById('route-canvas');
+  const section = document.getElementById('route-map');
+  const resize = ()=>{ canvas.width=section.clientWidth; canvas.height=section.clientHeight; };
+  resize();
+  const ctx = canvas.getContext('2d');
+  if(!ctx) return;
+
+  /* Define a few road path animations */
+  const lines = Array.from({length:14}, (_,i)=>({
+    y: 0.12 + i*0.065,
+    x: 0,
+    speed: 0.0015 + Math.random()*0.002,
+    opacity: 0.25 + Math.random()*0.35,
+    width: 0.5 + Math.random()*1.2,
+    phase: Math.random()*Math.PI*2,
+    amp: 0.02 + Math.random()*0.03
+  }));
+
+  /* Moving dot clusters along each line */
+  const dots = Array.from({length:40}, ()=>({
+    lineIdx: Math.floor(Math.random()*14),
+    t: Math.random(),
+    speed: 0.001 + Math.random()*0.003,
+    r: 1.5 + Math.random()*2.5
+  }));
+
+  let animT = 0;
+  function frame(){
+    resize();
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    animT += 0.006;
+    const W = canvas.width, H = canvas.height;
+
+    /* Road lines */
+    lines.forEach(ln=>{
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(14,165,233,${ln.opacity})`;
+      ctx.lineWidth = ln.width;
+      ctx.setLineDash([8,18]);
+      ctx.lineDashOffset = -animT*60*ln.speed*800;
+      for(let x=0;x<=W;x+=4){
+        const nx = x/W;
+        const ny = ln.y + Math.sin(nx*Math.PI*3 + animT*1.5 + ln.phase)*ln.amp;
+        if(x===0) ctx.moveTo(x, ny*H);
+        else ctx.lineTo(x, ny*H);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+    });
+
+    /* Moving dots */
+    dots.forEach(d=>{
+      d.t += d.speed;
+      if(d.t>1) d.t=0;
+      const ln = lines[d.lineIdx];
+      const x = d.t * W;
+      const ny = ln.y + Math.sin(d.t*Math.PI*3 + animT*1.5 + ln.phase)*ln.amp;
+      const y = ny * H;
+      const grd = ctx.createRadialGradient(x,y,0,x,y,d.r*2.5);
+      grd.addColorStop(0,'rgba(14,165,233,0.9)');
+      grd.addColorStop(1,'rgba(14,165,233,0)');
+      ctx.beginPath();
+      ctx.arc(x,y,d.r*2.5,0,Math.PI*2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+/* ════════ OBSERVERS ════════ */
+function initObservers(){
+  const io = new IntersectionObserver(e=>{
+    e.forEach(x=>{ if(x.isIntersecting){ x.target.classList.add('vis'); io.unobserve(x.target); }});
+  },{threshold:0.1});
+  document.querySelectorAll('.sr:not(.vis),.gi:not(.vis),.client-card:not(.vis)').forEach(el=>io.observe(el));
+
+  /* Bar fills */
+  const bio = new IntersectionObserver(e=>{
+    e.forEach(x=>{ if(x.isIntersecting){ x.target.style.width=x.target.dataset.pct+'%'; bio.unobserve(x.target); }});
+  },{threshold:.3});
+  document.querySelectorAll('.rsc-fill[data-pct]').forEach(el=>bio.observe(el));
+}
+
+/* ════════ COUNTERS ════════ */
+function initCounters(){
+  const cio = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const el=e.target,target=parseInt(el.dataset.target),suf=el.querySelector('.suf').textContent;
+      let v=0;const step=target/70;
+      const t=setInterval(()=>{
+        v=Math.min(v+step,target);
+        el.innerHTML=Math.floor(v).toLocaleString()+'<span class="suf">'+suf+'</span>';
+        if(v>=target)clearInterval(t);
+      },22);
+      cio.unobserve(el);
+    });
+  },{threshold:.5});
+  document.querySelectorAll('.srn-val[data-target]').forEach(el=>cio.observe(el));
+}
+
+/* ════════ FILTER ════════ */
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('.gf-btn');
+  if(!btn)return;
+  document.querySelectorAll('.gf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const cat=btn.dataset.filter;
+  document.querySelectorAll('.gi').forEach(el=>{
+    el.classList.toggle('hidden', cat!=='all'&&el.dataset.cat!==cat);
+  });
+  setTimeout(initObservers,50);
+});
+
+/* ════════ LIGHTBOX ════════ */
+let lbItems=[], lbIdx=0;
+document.addEventListener('click',e=>{
+  const gi=e.target.closest('.gi');
+  if(!gi||gi.classList.contains('hidden'))return;
+  const visible=[...document.querySelectorAll('.gi:not(.hidden)')];
+  lbItems=visible;
+  lbIdx=visible.indexOf(gi);
+  showLb(lbIdx);
+});
+function showLb(i){
+  const el=lbItems[i];
+  document.getElementById('lbImg').src=el.dataset.img;
+  document.getElementById('lbTitle').textContent=el.dataset.title;
+  document.getElementById('lbSub').textContent=el.dataset.sub;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+document.getElementById('lbClose').onclick=()=>{document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';};
+document.getElementById('lbPrev').onclick=()=>{ lbIdx=(lbIdx-1+lbItems.length)%lbItems.length; showLb(lbIdx); };
+document.getElementById('lbNext').onclick=()=>{ lbIdx=(lbIdx+1)%lbItems.length; showLb(lbIdx); };
+document.getElementById('lightbox').addEventListener('click',e=>{ if(e.target===e.currentTarget){ document.getElementById('lightbox').classList.remove('open');document.body.style.overflow=''; }});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}});
+
+/* ════════ THEME ════════ */
+function applyTheme(t){document.documentElement.dataset.theme=t;localStorage.setItem('mt-theme',t);}
+function toggleTheme(){applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');}
+document.getElementById('themeToggle').addEventListener('click',toggleTheme);
+document.getElementById('themeToggleMob').addEventListener('click',toggleTheme);
+const saved=localStorage.getItem('mt-theme');if(saved)applyTheme(saved);
+
+/* ════════ DRAWER ════════ */
+const ham=document.getElementById('hamburger'),drw=document.getElementById('mobDrawer'),ov=document.getElementById('mobOverlay');
+function openD(){ham.classList.add('open');drw.classList.add('open');ov.classList.add('open');document.body.style.overflow='hidden';}
+function closeD(){ham.classList.remove('open');drw.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}
+ham.addEventListener('click',openD);
+document.getElementById('drClose').addEventListener('click',closeD);
+ov.addEventListener('click',closeD);
+document.getElementById('drLinks').addEventListener('click',e=>{if(e.target.tagName==='A')closeD();});
+
+/* ════════ NAV SCROLL ════════ */
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>40));
+
+/* ════════ BOOT ════════ */
+render(DATA);
+initObservers();
+initCounters();
+initHeroThree();
+initRouteThree();
+</script>
+</body>
+</html>
