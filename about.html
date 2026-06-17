@@ -166,27 +166,208 @@ section{padding:5.5rem 5%;}
 .mv-title{font-family:var(--font-d);font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;}
 .mv-text{font-size:.82rem;color:var(--muted);line-height:1.65;}
 
-/* ═══════════ TIMELINE ═══════════ */
-#timeline{background:var(--bg);}
-.tl-head{text-align:center;margin-bottom:4rem;}
-.tl-head .sec-tag{justify-content:center;}
+/* ═══════════ TIMELINE — REDESIGNED ═══════════ */
+#timeline{
+  background:var(--dark-bg);
+  position:relative;
+  overflow:hidden;
+  padding:6rem 5%;
+}
+/* animated grid bg */
+#timeline::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+/* radial glow */
+#timeline::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(14,165,233,.1),transparent 70%);
+  pointer-events:none;
+}
+.tl-head{text-align:center;margin-bottom:4.5rem;position:relative;z-index:2;}
+.tl-head .sec-tag{justify-content:center;color:var(--accent);}
 .tl-head .sec-tag::before{display:none;}
-.timeline-wrap{position:relative;max-width:900px;margin:0 auto;}
-.timeline-wrap::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--accent),var(--blue),transparent);transform:translateX(-50%);}
-.tl-item{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;align-items:start;margin-bottom:3rem;opacity:0;transform:translateY(20px);transition:all .6s ease;}
-.tl-item.vis{opacity:1;transform:translateY(0);}
-.tl-left{text-align:right;padding-right:2.5rem;}
-.tl-right{padding-left:2.5rem;}
-.tl-center{display:flex;flex-direction:column;align-items:center;gap:.35rem;position:relative;z-index:2;}
-.tl-year-dot{width:48px;height:48px;background:var(--card);border:2.5px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:.7rem;font-weight:800;color:var(--accent);flex-shrink:0;box-shadow:var(--shadow-bl);}
-.tl-item:nth-child(even) .tl-left{order:3;text-align:left;padding-right:0;padding-left:2.5rem;}
-.tl-item:nth-child(even) .tl-right{order:1;text-align:right;padding-left:0;padding-right:2.5rem;}
-.tl-item:nth-child(even) .tl-center{order:2;}
-.tl-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;box-shadow:var(--shadow);transition:all .3s;}
-.tl-card:hover{border-color:var(--accent);box-shadow:var(--shadow-bl);}
-.tl-card-year{font-family:var(--font-d);font-size:.72rem;font-weight:700;color:var(--accent);letter-spacing:.1em;margin-bottom:.4rem;}
-.tl-card-title{font-family:var(--font-d);font-size:.98rem;font-weight:700;color:var(--ink);margin-bottom:.4rem;}
-.tl-card-desc{font-size:.8rem;color:var(--muted);line-height:1.6;}
+.tl-head .sec-h{color:#f1f5f9;}
+.tl-head p{color:rgba(255,255,255,.38);font-size:.93rem;max-width:440px;margin:.8rem auto 0;line-height:1.7;}
+
+/* ── PROGRESS RAIL ── */
+.tl-outer{position:relative;max-width:980px;margin:0 auto;z-index:2;}
+.tl-rail{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);}
+.tl-rail-bg{position:absolute;inset:0;background:rgba(255,255,255,.06);border-radius:2px;}
+.tl-rail-fill{position:absolute;top:0;left:0;right:0;background:linear-gradient(to bottom,var(--accent),#60a5fa,var(--purple));border-radius:2px;height:0%;transition:height 1.2s cubic-bezier(.4,0,.2,1);}
+.tl-rail.animated .tl-rail-fill{height:100%;}
+
+/* ── ITEMS ── */
+.tl-row{
+  display:grid;
+  grid-template-columns:1fr 80px 1fr;
+  align-items:center;
+  margin-bottom:0;
+  position:relative;
+}
+/* odd → card left, empty right */
+.tl-row:nth-child(odd)  .tl-side-l{padding-right:2rem;display:flex;justify-content:flex-end;}
+.tl-row:nth-child(odd)  .tl-side-r{padding-left:2rem;}
+/* even → empty left, card right */
+.tl-row:nth-child(even) .tl-side-l{padding-right:2rem;}
+.tl-row:nth-child(even) .tl-side-r{padding-left:2rem;display:flex;justify-content:flex-start;}
+
+.tl-side-l,.tl-side-r{padding-top:1.5rem;padding-bottom:1.5rem;}
+
+/* ── NODE ── */
+.tl-node{
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;z-index:3;gap:.5rem;
+}
+.tl-node-ring{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--dark-bg);
+  border:2px solid rgba(14,165,233,.3);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  transition:border-color .4s,box-shadow .4s;
+  flex-shrink:0;
+}
+/* animated pulse ring */
+.tl-node-ring::before{
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  border:1.5px solid var(--accent);opacity:0;
+  transition:opacity .4s;
+  animation:none;
+}
+.tl-row.vis .tl-node-ring::before{
+  opacity:.35;
+  animation:pulse-ring 2.5s ease-in-out infinite;
+}
+@keyframes pulse-ring{
+  0%,100%{transform:scale(1);opacity:.35;}
+  50%{transform:scale(1.18);opacity:.08;}
+}
+.tl-node-inner{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--blue));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-d);font-size:.65rem;font-weight:800;color:#fff;
+  box-shadow:0 0 20px rgba(14,165,233,.5);
+  transition:transform .3s;
+}
+.tl-row.vis .tl-node-ring{border-color:var(--accent);box-shadow:0 0 0 6px rgba(14,165,233,.08);}
+.tl-row:hover .tl-node-inner{transform:scale(1.12);}
+.tl-node-year{
+  font-family:var(--font-d);font-size:.62rem;font-weight:800;
+  color:var(--accent);letter-spacing:.1em;white-space:nowrap;
+  opacity:0;transform:translateY(4px);transition:all .4s .2s;
+}
+.tl-row.vis .tl-node-year{opacity:1;transform:translateY(0);}
+
+/* ── CARD ── */
+.tl-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--radius-xl);
+  padding:1.5rem 1.65rem;
+  max-width:400px;
+  width:100%;
+  position:relative;
+  overflow:hidden;
+  transition:all .35s;
+  cursor:default;
+  /* entry state */
+  opacity:0;
+  transform:translateX(0) translateY(16px);
+}
+/* slide from left for odd items */
+.tl-row:nth-child(odd) .tl-card{transform:translateX(-24px) translateY(0);}
+/* slide from right for even items */
+.tl-row:nth-child(even) .tl-card{transform:translateX(24px) translateY(0);}
+
+.tl-row.vis .tl-card{
+  opacity:1;transform:translateX(0) translateY(0);
+  transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1),background .3s,border-color .3s,box-shadow .3s;
+}
+/* top accent bar */
+.tl-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2.5px;
+  background:linear-gradient(to right,var(--accent),var(--blue));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .5s ease;
+}
+.tl-row.vis .tl-card::before{transform:scaleX(1);}
+/* glow on hover */
+.tl-card::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 20% 40%,rgba(14,165,233,.07),transparent);
+  opacity:0;transition:opacity .3s;pointer-events:none;
+}
+.tl-card:hover{
+  background:rgba(255,255,255,.07);
+  border-color:rgba(14,165,233,.3);
+  box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 0 1px rgba(14,165,233,.15);
+  transform:translateY(-4px) !important;
+}
+.tl-card:hover::after{opacity:1;}
+
+.tl-card-icon{
+  font-size:1.35rem;margin-bottom:.65rem;
+  display:inline-block;
+  transition:transform .3s;
+}
+.tl-card:hover .tl-card-icon{transform:scale(1.18) rotate(-4deg);}
+.tl-card-year-pill{
+  display:inline-flex;align-items:center;gap:.35rem;
+  background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.2);
+  border-radius:100px;padding:.2rem .75rem;
+  font-size:.65rem;font-weight:800;letter-spacing:.1em;color:var(--accent);
+  margin-bottom:.65rem;
+}
+.tl-card-title{
+  font-family:var(--font-d);font-size:1.02rem;font-weight:700;
+  color:#f1f5f9;margin-bottom:.5rem;line-height:1.2;
+}
+.tl-card-desc{font-size:.81rem;color:rgba(255,255,255,.42);line-height:1.68;}
+.tl-card-tag{
+  display:inline-flex;align-items:center;gap:.3rem;
+  margin-top:.85rem;font-size:.68rem;font-weight:700;
+  letter-spacing:.06em;color:rgba(255,255,255,.25);
+}
+.tl-card-tag::before{content:'↗';color:var(--accent);font-size:.7rem;}
+
+/* connector arrows – pointing toward the node */
+.tl-row:nth-child(odd)  .tl-card::after,
+.tl-row:nth-child(even) .tl-card::after{border-radius:0;}
+
+/* ── SPACER FOR MOBILE ── */
+.tl-empty{display:block;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .tl-rail{left:28px;}
+  .tl-outer{padding-left:0;}
+  .tl-row{grid-template-columns:56px 1fr;grid-template-rows:auto;}
+  .tl-row:nth-child(odd)  .tl-side-l,
+  .tl-row:nth-child(even) .tl-side-l{display:none;}
+  .tl-row:nth-child(odd)  .tl-side-r,
+  .tl-row:nth-child(even) .tl-side-r{
+    grid-column:2;grid-row:1;
+    padding-left:1.5rem;padding-right:0;
+    display:flex;justify-content:flex-start;
+  }
+  .tl-node{grid-column:1;grid-row:1;align-self:flex-start;padding-top:1.75rem;}
+  .tl-card{max-width:100%;}
+  .tl-row:nth-child(odd) .tl-card,
+  .tl-row:nth-child(even) .tl-card{transform:translateX(14px);}
+  .tl-row.vis .tl-card{transform:translateX(0);}
+  .tl-node-ring{width:46px;height:46px;}
+  .tl-node-inner{width:30px;height:30px;font-size:.6rem;}
+}
+@media(max-width:480px){
+  #timeline{padding:4rem 4%;}
+  .tl-card{padding:1.1rem 1.2rem;}
+  .tl-card-title{font-size:.92rem;}
+}
 
 /* ═══════════ VALUES ═══════════ */
 #values{background:var(--bg2);}
@@ -386,13 +567,6 @@ footer{background:var(--dark-bar);padding:4.5rem 5% 2rem;}
   .sust-grid{grid-template-columns:1fr;}
   .test-grid{grid-template-columns:1fr 1fr;}
   .f-top{grid-template-columns:1fr 1fr;gap:2.5rem;}
-  .timeline-wrap::before{left:24px;}
-  .tl-item{grid-template-columns:0 48px 1fr;}
-  .tl-item .tl-left{display:none;}
-  .tl-item:nth-child(even) .tl-left{display:none;}
-  .tl-item:nth-child(even) .tl-right{order:3;text-align:left;padding-left:2rem;padding-right:0;}
-  .tl-item:nth-child(even) .tl-center{order:2;}
-  .tl-right{padding-left:2rem;}
   .why-vs{grid-template-columns:1fr;}
 }
 @media(max-width:640px){
@@ -566,10 +740,16 @@ footer{background:var(--dark-bar);padding:4.5rem 5% 2rem;}
 <section id="timeline">
   <div class="tl-head reveal">
     <div class="sec-tag">Our Journey</div>
-    <h2 class="sec-h">25 Years of <span class="hl">Milestones</span></h2>
-    <p style="color:var(--muted);font-size:.93rem;max-width:460px;margin:.8rem auto 0;line-height:1.7;">From a single depot to a global network — the moments that shaped MahaveerTrans.</p>
+    <h2 class="sec-h" style="color:#f1f5f9;">25 Years of <span class="hl">Milestones</span></h2>
+    <p>From a single depot in Mumbai to a global network spanning 180+ countries — the defining moments that built MahaveerTrans.</p>
   </div>
-  <div class="timeline-wrap" id="tlWrap"></div>
+  <div class="tl-outer" id="tlOuter">
+    <div class="tl-rail">
+      <div class="tl-rail-bg"></div>
+      <div class="tl-rail-fill" id="tlRailFill"></div>
+    </div>
+    <div id="tlWrap"></div>
+  </div>
 </section>
 
 <!-- ═══════════ VALUES ═══════════ -->
@@ -777,29 +957,65 @@ document.getElementById('ticker').innerHTML=ti+ti;
 
 /* ── TIMELINE DATA ── */
 const TL=[
-  {year:'1999',title:'Founded in Mumbai',desc:'Arvind Mahaveer starts with 3 trucks and a vision to modernise Indian road freight. First office: Dharavi Industrial Estate, Mumbai.'},
-  {year:'2003',title:'Ocean Freight Division Launched',desc:'Partnership with Hapag-Lloyd and MSC opens FCL & LCL lanes to the Middle East and Southeast Asia.'},
-  {year:'2006',title:'Air Cargo Certified',desc:'IATA certification obtained. First air freight desk opens at Mumbai CSIA, handling pharma and electronics for 40+ exporters.'},
-  {year:'2009',title:'Cold Chain Infrastructure',desc:'Commissioned India\'s first GDP-certified cold chain hub in Bhiwandi with 50,000 sq.ft of temperature-controlled storage.'},
-  {year:'2012',title:'Crossed ₹500 Cr Revenue',desc:'National expansion to 6 cities. FTL network covers all major industrial corridors. Team grows to 800+ employees.'},
-  {year:'2015',title:'MT Connect Platform Launched',desc:'Proprietary TMS and WMS go live. Clients get first real-time dashboard with live GPS tracking per consignment.'},
-  {year:'2018',title:'International Offices Open',desc:'Offices open in Dubai, Singapore, Frankfurt, and London. Global agency network expanded to 180+ countries.'},
-  {year:'2019',title:'BSE Listing (IPO)',desc:'Successfully listed on BSE at ₹240/share, raising ₹380 Cr for fleet expansion and warehouse automation.'},
-  {year:'2021',title:'3 Million Sq.Ft Warehousing',desc:'12 smart hub warehouses across India go fully operational. Same-day dispatch achieved across top 8 metros.'},
-  {year:'2024',title:'Net Zero Pledge & EV Fleet',desc:'Announced 2035 net-zero commitment. 120 EV delivery vehicles deployed. Solar capacity hits 12 MW across all hubs.'},
+  {year:'1999',icon:'🚛',title:'Founded in Mumbai',tag:'The Beginning',desc:'Arvind Mahaveer starts with 3 trucks and a conviction that India\'s exporters deserve more. First office opens at Dharavi Industrial Estate, Mumbai.'},
+  {year:'2003',icon:'🚢',title:'Ocean Freight Division',tag:'Global Reach',desc:'Strategic partnerships with Hapag-Lloyd and MSC unlock FCL & LCL lanes to the Middle East and Southeast Asia — our first international milestone.'},
+  {year:'2006',icon:'✈️',title:'Air Cargo Certified',tag:'IATA Accredited',desc:'IATA certification obtained. Air freight desk opens at Mumbai CSIA, handling pharma and electronics for 40+ exporters within the first year.'},
+  {year:'2009',icon:'❄️',title:'Cold Chain Hub Launched',tag:'GDP Certified',desc:'India\'s first GDP-certified cold chain facility commissioned in Bhiwandi — 50,000 sq.ft of temperature-controlled storage for pharma clients.'},
+  {year:'2012',icon:'📈',title:'₹500 Cr Revenue Milestone',tag:'National Scale',desc:'Expanded to 6 cities. FTL network covers all major industrial corridors. Team grows beyond 800 logistics professionals across India.'},
+  {year:'2015',icon:'💻',title:'MT Connect Platform',tag:'Tech Leap',desc:'Proprietary TMS and WMS go live. Clients receive India\'s first real-time logistics dashboard with live GPS per consignment — a market first.'},
+  {year:'2018',icon:'🌍',title:'Global Offices Open',tag:'International',desc:'Offices open in Dubai, Singapore, Frankfurt, and London. Agency network expands to 180+ countries, making us truly global.'},
+  {year:'2019',icon:'📊',title:'BSE Stock Exchange Listing',tag:'IPO',desc:'Listed on BSE at ₹240/share, raising ₹380 Cr. Funds deployed for fleet expansion, warehouse automation, and international growth.'},
+  {year:'2021',icon:'🏭',title:'3 Million Sq.Ft Warehousing',tag:'3PL Leader',desc:'12 smart hub warehouses fully operational across India. Same-day dispatch achieved across the top 8 metros. WMS API goes public.'},
+  {year:'2024',icon:'🌱',title:'Net Zero Pledge & EV Fleet',tag:'Green Future',desc:'2035 net-zero commitment announced. 120 EV delivery vehicles deployed. 12 MW solar capacity across all hubs. EcoVadis Gold rating achieved.'},
 ];
 
 const tlWrap=document.getElementById('tlWrap');
-tlWrap.innerHTML=TL.map((t,i)=>`
-  <div class="tl-item" style="transition-delay:${(i%4)*0.1}s">
-    <div class="tl-left">
-      ${i%2===0?`<div class="tl-card"><div class="tl-card-year">${t.year}</div><div class="tl-card-title">${t.title}</div><div class="tl-card-desc">${t.desc}</div></div>`:''}
+tlWrap.innerHTML=TL.map((t,i)=>{
+  const isOdd=i%2===0; // odd rows: card on left
+  const card=`
+    <div class="tl-card">
+      <div class="tl-card-icon">${t.icon}</div>
+      <div class="tl-card-year-pill">${t.year} · ${t.tag}</div>
+      <div class="tl-card-title">${t.title}</div>
+      <div class="tl-card-desc">${t.desc}</div>
+      <div class="tl-card-tag">View milestone</div>
+    </div>`;
+  const empty=`<div></div>`;
+  return `
+  <div class="tl-row" style="--delay:${i*0.08}s">
+    <div class="tl-side-l">${isOdd?card:empty}</div>
+    <div class="tl-node">
+      <div class="tl-node-ring">
+        <div class="tl-node-inner">${String(i+1).padStart(2,'0')}</div>
+      </div>
+      <div class="tl-node-year">${t.year}</div>
     </div>
-    <div class="tl-center"><div class="tl-year-dot">${t.year.slice(2)}</div></div>
-    <div class="tl-right">
-      ${i%2!==0?`<div class="tl-card"><div class="tl-card-year">${t.year}</div><div class="tl-card-title">${t.title}</div><div class="tl-card-desc">${t.desc}</div></div>`:''}
-    </div>
-  </div>`).join('');
+    <div class="tl-side-r">${isOdd?empty:card}</div>
+  </div>`;
+}).join('');
+
+/* Rail fill + row reveal via IntersectionObserver */
+const railEl=document.getElementById('tlRailFill');
+const railObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelector('.tl-rail').classList.add('animated');
+      railObs.disconnect();
+    }
+  });
+},{threshold:.1});
+if(railEl) railObs.observe(document.getElementById('tlOuter'));
+
+const rowObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const delay=parseFloat(e.target.style.getPropertyValue('--delay')||0)*1000;
+      setTimeout(()=>e.target.classList.add('vis'),delay);
+      rowObs.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.tl-row').forEach(r=>rowObs.observe(r));
 
 /* ── VALUES DATA ── */
 const VALUES=[
@@ -935,7 +1151,7 @@ document.getElementById('testGrid').innerHTML=TESTS.map((t,i)=>`
 const io=new IntersectionObserver(e=>{
   e.forEach(x=>{if(x.isIntersecting) x.target.classList.add('vis');});
 },{threshold:0.1});
-document.querySelectorAll('.reveal,.val-card,.lead-card,.cert-card,.tl-item,.why-card,.tc-card,.office-card').forEach(el=>io.observe(el));
+document.querySelectorAll('.reveal,.val-card,.lead-card,.cert-card,.why-card,.tc-card,.office-card').forEach(el=>io.observe(el));
 
 /* ═══════════ COUNTER ANIMATION ═══════════ */
 const cio=new IntersectionObserver(entries=>{
