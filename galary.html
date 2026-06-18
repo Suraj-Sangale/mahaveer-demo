@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery &amp; Clients — MahaveerTrans</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══ TOKENS ═══ */
+:root{
+  --bg:#ffffff;--bg2:#f9fafb;--bg3:#f3f4f6;
+  --ink:#0d1117;--ink2:#1e2530;--ink3:#374151;
+  --muted:#6b7280;--muted2:#9ca3af;
+  --border:#e5e7eb;--border2:#d1d5db;--card:#ffffff;
+  --dark-bg:#0d1117;--dark-bar:#080c14;
+  --accent:#0ea5e9;--accent-dk:#0284c7;--accent-lt:#f0f9ff;
+  --green:#16a34a;--green-lt:#f0fdf4;
+  --amber:#f59e0b;
+  --shadow:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.12);
+  --shadow-bl:0 8px 32px rgba(14,165,233,.25);
+  --radius:12px;--radius-lg:20px;--radius-xl:28px;
+  --font-d:'Syne',sans-serif;--font-b:'Instrument Sans',sans-serif;
+  --tr:.3s ease;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-b);overflow-x:hidden;line-height:1.6;}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:66px;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s,background .3s;}
+.nav-logo{font-family:var(--font-d);font-size:1.3rem;font-weight:800;color:var(--ink);letter-spacing:-.02em;display:flex;align-items:center;gap:.45rem;white-space:nowrap;}
+.nav-logo .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+.nav-links{display:flex;gap:.15rem;}
+.nav-links a{color:var(--muted);font-size:.855rem;font-weight:500;padding:.4rem .85rem;border-radius:8px;transition:all .2s;}
+.nav-links a:hover{color:var(--ink);background:var(--bg3);}
+.nav-links a.active{color:var(--accent);background:var(--accent-lt);}
+.nav-right{display:flex;align-items:center;gap:.65rem;}
+.btn-ghost{background:none;border:1.5px solid var(--border2);color:var(--ink3);padding:.46rem 1.1rem;border-radius:8px;font-family:var(--font-b);font-size:.855rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-cta-nav{background:var(--ink);color:var(--bg);padding:.5rem 1.3rem;border-radius:8px;font-family:var(--font-b);font-size:.855rem;font-weight:600;border:none;cursor:pointer;transition:all .2s;}
+.btn-cta-nav:hover{opacity:.85;transform:translateY(-1px);}
+.theme-icon{font-size:.85rem;}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;align-items:center;gap:.5rem;padding:5.5rem 5% 0;}
+.bc-item{font-size:.78rem;color:var(--muted);transition:color .2s;}
+.bc-item:hover,.bc-item.cur{color:var(--accent);}
+.bc-item.cur{font-weight:600;}
+.bc-sep{color:var(--muted2);font-size:.75rem;}
+
+/* ── SHARED ── */
+.sec-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+.sec-tag::before{content:'';width:18px;height:2px;background:var(--accent);}
+.sec-tag.c{justify-content:center;}
+.sec-tag.c::before{display:none;}
+.sec-h{font-family:var(--font-d);font-size:clamp(1.9rem,4vw,3.2rem);font-weight:800;line-height:1.06;letter-spacing:-.03em;color:var(--ink);}
+.sec-h .hl{color:var(--accent);}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+#hero-section{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;
+  overflow:hidden;background:var(--dark-bg);
+}
+.hero-bg-img{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80&auto=format&fit=crop');
+  background-size:cover;background-position:center;
+  filter:brightness(.2) saturate(.5);
+  transform:scale(1.04);
+  animation:slowzoom 20s ease-in-out infinite alternate;
+}
+@keyframes slowzoom{from{transform:scale(1.04);}to{transform:scale(1.1);}}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to right,rgba(13,17,23,.92) 45%,rgba(13,17,23,.3) 100%),
+             linear-gradient(to top,rgba(13,17,23,.8) 0%,transparent 40%);
+}
+.hero-glow{
+  position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse 60% 60% at 65% 45%,rgba(14,165,233,.10),transparent 70%);
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative;z-index:2;
+  padding:7rem 5% 5rem;
+  max-width:700px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.25);
+  color:var(--accent);font-size:.75rem;font-weight:600;letter-spacing:.05em;
+  padding:.35rem .95rem;border-radius:100px;margin-bottom:1.75rem;
+  animation:fadeUp .7s .1s ease-out both;
+}
+.live-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:blink 1.4s infinite;}
+.hero-h1{
+  font-family:var(--font-d);font-size:clamp(2.8rem,7vw,6rem);
+  font-weight:800;line-height:.98;letter-spacing:-.03em;
+  color:#f1f5f9;margin-bottom:1.5rem;
+  animation:fadeUp .7s .25s ease-out both;
+}
+.hero-h1 .hl{color:var(--accent);}
+.hero-h1 .outline{-webkit-text-stroke:1.5px rgba(255,255,255,.25);color:transparent;}
+.hero-desc{
+  color:rgba(255,255,255,.45);font-size:1.05rem;line-height:1.75;
+  max-width:500px;margin-bottom:2.5rem;
+  animation:fadeUp .7s .4s ease-out both;
+}
+.hero-actions{
+  display:flex;gap:.85rem;flex-wrap:wrap;
+  animation:fadeUp .7s .55s ease-out both;
+}
+.btn-primary{background:var(--accent);color:#fff;padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:600;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;box-shadow:var(--shadow-bl);}
+.btn-primary:hover{background:var(--accent-dk);transform:translateY(-2px);box-shadow:0 12px 36px rgba(14,165,233,.4);}
+.btn-wg{background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:600;border:1.5px solid rgba(255,255,255,.1);cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;}
+.btn-wg:hover{border-color:var(--accent);color:var(--accent);}
+.hero-stats-strip{
+  position:absolute;bottom:3rem;right:5%;z-index:2;
+  display:flex;flex-direction:column;gap:1rem;
+  animation:slideLeft .8s .7s ease-out both;
+}
+@keyframes slideLeft{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
+.hs-card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius-lg);padding:1rem 1.5rem;text-align:right;
+  border-right:2px solid var(--accent);
+}
+.hs-val{font-family:var(--font-d);font-size:2rem;font-weight:800;color:#f1f5f9;line-height:1;}
+.hs-val .s{color:var(--accent);}
+.hs-lbl{font-size:.68rem;color:rgba(255,255,255,.38);letter-spacing:.06em;margin-top:.15rem;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+
+/* ══════════════════════════════════════
+   TICKER
+══════════════════════════════════════ */
+.ticker-wrap{background:var(--dark-bar);overflow:hidden;padding:.82rem 0;}
+.ticker{display:flex;width:max-content;animation:tick 42s linear infinite;}
+.t-item{display:flex;align-items:center;gap:.5rem;padding:0 1.8rem;font-family:var(--font-d);font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap;}
+.t-dot{width:4px;height:4px;background:var(--accent);border-radius:50%;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ══════════════════════════════════════
+   STATS ROW
+══════════════════════════════════════ */
+#stats-row{background:var(--dark-bg);display:grid;grid-template-columns:repeat(4,1fr);padding:0;}
+.sr-num{padding:3rem 2.25rem;border-right:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden;transition:background .3s;}
+.sr-num:last-child{border-right:none;}
+.sr-num:hover{background:rgba(255,255,255,.02);}
+.sr-num::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent),#60a5fa);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.sr-num:hover::after{transform:scaleX(1);}
+.srn-val{font-family:var(--font-d);font-size:2.7rem;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1;margin-bottom:.4rem;}
+.srn-val .suf{color:var(--accent);}
+.srn-lbl{font-size:.78rem;color:rgba(255,255,255,.38);}
+
+/* ══════════════════════════════════════
+   PHOTO GALLERY
+══════════════════════════════════════ */
+#photo-gallery{background:var(--bg);padding:5.5rem 5%;}
+.gal-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;}
+.gal-filters{display:flex;gap:.5rem;flex-wrap:wrap;}
+.gf-btn{display:flex;align-items:center;gap:.45rem;padding:.45rem 1.1rem;border-radius:100px;border:1.5px solid var(--border2);background:none;color:var(--muted);font-family:var(--font-b);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.gf-btn:hover{border-color:var(--accent);color:var(--accent);}
+.gf-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.gf-dot{width:6px;height:6px;border-radius:50%;}
+.gal-masonry{columns:3;column-gap:1rem;}
+.gi{
+  break-inside:avoid;
+  margin-bottom:1rem;
+  position:relative;
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  cursor:pointer;
+  background:var(--bg3);
+}
+.gi img{
+  width:100%;display:block;object-fit:cover;
+  filter:brightness(.78);
+  transition:transform .6s cubic-bezier(.4,0,.2,1),filter .4s;
+}
+.gi[data-size="tall"] img{height:460px;}
+.gi[data-size="medium"] img{height:290px;}
+.gi[data-size="short"] img{height:200px;}
+.gi:hover img{transform:scale(1.06);filter:brightness(.55);}
+.gi-tag{position:absolute;top:.85rem;left:.85rem;font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.22rem .7rem;border-radius:100px;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);color:#fff;border:1px solid rgba(255,255,255,.18);}
+.gi-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:1.25rem 1.35rem;
+  background:linear-gradient(to top,rgba(13,17,23,.92) 0%,transparent 100%);
+  opacity:0;transform:translateY(6px);
+  transition:opacity .35s,transform .35s;
+}
+.gi:hover .gi-label{opacity:1;transform:translateY(0);}
+.gi-label h4{font-family:var(--font-d);font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.15rem;}
+.gi-label p{font-size:.72rem;color:rgba(255,255,255,.55);}
+
+/* ══════════════════════════════════════
+   ROUTE MAP SECTION
+══════════════════════════════════════ */
+#route-map{
+  background:var(--dark-bg);position:relative;overflow:hidden;
+  padding:5.5rem 5%;
+}
+.route-map-bg{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1600&q=80&auto=format&fit=crop');
+  background-size:cover;background-position:center;
+  opacity:.06;
+}
+.route-inner{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
+}
+.route-left .sec-tag{color:var(--accent);}
+.route-left .sec-h{color:#f1f5f9;margin-bottom:1rem;}
+.route-left > p{color:rgba(255,255,255,.42);line-height:1.75;font-size:.93rem;margin-bottom:2rem;}
+.route-points{display:flex;flex-direction:column;gap:.75rem;}
+.rp{display:flex;align-items:center;gap:.85rem;padding:.85rem 1.1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);}
+.rp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.rp-city{font-size:.88rem;font-weight:600;color:#e2e8f0;}
+.rp-dist{font-size:.75rem;color:rgba(255,255,255,.3);margin-left:auto;}
+.route-right{display:flex;flex-direction:column;gap:1rem;}
+.route-stat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-lg);padding:1.35rem 1.5rem;transition:border-color .3s;}
+.route-stat-card:hover{border-color:var(--accent);}
+.rsc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;}
+.rsc-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.rsc-badge{font-size:.65rem;font-weight:700;padding:.18rem .6rem;border-radius:100px;}
+.badge-green{background:rgba(22,163,74,.15);color:#4ade80;}
+.badge-amber{background:rgba(245,158,11,.15);color:#fbbf24;}
+.rsc-val{font-family:var(--font-d);font-size:1.55rem;font-weight:800;color:#f1f5f9;line-height:1;}
+.rsc-sub{font-size:.75rem;color:rgba(255,255,255,.3);margin-top:.25rem;}
+.rsc-bar{height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-top:.75rem;}
+.rsc-fill{height:100%;border-radius:2px;background:linear-gradient(to right,var(--accent),#60a5fa);}
+
+/* ══════════════════════════════════════
+   HAPPY CLIENTS
+══════════════════════════════════════ */
+#clients{background:var(--bg2);padding:5.5rem 5%;}
+.clients-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1.5rem;}
+.logo-bar{display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center;padding:2rem 0 3rem;border-bottom:1px solid var(--border);margin-bottom:3.5rem;}
+.client-logo-pill{font-family:var(--font-d);font-size:1rem;font-weight:800;letter-spacing:.05em;color:var(--muted2);transition:color .25s;cursor:default;}
+.client-logo-pill:hover{color:var(--ink);}
+.client-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
+.client-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);
+  overflow:hidden;transition:all .35s;
+}
+.client-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.client-card::before{content:'';display:block;height:3px;background:linear-gradient(to right,var(--accent),#60a5fa);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.client-card:hover::before{transform:scaleX(1);}
+.cc-img-wrap{position:relative;overflow:hidden;}
+.cc-img{width:100%;height:200px;object-fit:cover;filter:brightness(.82);transition:transform .5s,filter .4s;}
+.client-card:hover .cc-img{transform:scale(1.04);filter:brightness(.68);}
+.cc-industry-tag{position:absolute;top:.85rem;left:.85rem;font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.22rem .7rem;border-radius:100px;}
+.tag-road{background:rgba(245,158,11,.15);backdrop-filter:blur(8px);color:#fbbf24;border:1px solid rgba(245,158,11,.2);}
+.tag-cold{background:rgba(22,163,74,.15);backdrop-filter:blur(8px);color:#4ade80;border:1px solid rgba(22,163,74,.2);}
+.tag-bulk{background:rgba(14,165,233,.15);backdrop-filter:blur(8px);color:#38bdf8;border:1px solid rgba(14,165,233,.2);}
+.tag-fmcg{background:rgba(124,58,237,.15);backdrop-filter:blur(8px);color:#a78bfa;border:1px solid rgba(124,58,237,.2);}
+.cc-body{padding:1.4rem 1.6rem 1.6rem;}
+.cc-company{display:flex;align-items:center;gap:.75rem;margin-bottom:.9rem;}
+.cc-logo-placeholder{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:var(--bg3);flex-shrink:0;}
+.cc-name{font-family:var(--font-d);font-size:1rem;font-weight:700;color:var(--ink);}
+.cc-sector{font-size:.72rem;color:var(--muted);margin-top:.1rem;}
+.cc-testimonial{color:var(--ink3);font-size:.86rem;line-height:1.7;font-style:italic;margin-bottom:1.1rem;}
+.cc-meta{display:flex;align-items:center;justify-content:space-between;}
+.cc-stars{color:var(--amber);font-size:.8rem;letter-spacing:.1em;}
+.cc-stat{font-size:.75rem;font-weight:600;color:var(--accent);}
+
+/* ══════════════════════════════════════
+   TESTIMONIAL MARQUEE
+══════════════════════════════════════ */
+#testimonial-marquee{background:var(--bg);padding:5rem 0;overflow:hidden;}
+.tm-label{text-align:center;margin-bottom:2.5rem;padding:0 5%;}
+.marquee-overflow{overflow:hidden;padding:1.5rem 0;}
+.marquee-track{display:flex;gap:1.5rem;animation:marquee 40s linear infinite;width:max-content;}
+.marquee-track:hover{animation-play-state:paused;}
+.mq-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:1.75rem;min-width:340px;flex-shrink:0;transition:all .3s;}
+.mq-card:hover{box-shadow:var(--shadow-lg);border-color:transparent;transform:translateY(-3px);}
+.mq-stars{color:var(--amber);font-size:.8rem;letter-spacing:.1em;margin-bottom:.85rem;}
+.mq-text{color:var(--ink3);font-size:.88rem;line-height:1.72;font-style:italic;margin-bottom:1.25rem;}
+.mq-author{display:flex;align-items:center;gap:.75rem;}
+.mq-av{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--border);}
+.mq-name{font-size:.85rem;font-weight:600;color:var(--ink);}
+.mq-role{font-size:.73rem;color:var(--muted);margin-top:.08rem;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ══════════════════════════════════════
+   DARK CTA
+══════════════════════════════════════ */
+#cta-section{background:var(--dark-bg);position:relative;overflow:hidden;text-align:center;padding:8rem 5%;}
+#cta-section::before{
+  content:'';position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1600&q=80&auto=format&fit=crop');
+  background-size:cover;background-position:center;
+  opacity:.07;
+}
+#cta-section::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(14,165,233,.2),transparent);pointer-events:none;}
+.cta-inner-center{position:relative;z-index:2;max-width:660px;margin:0 auto;}
+.cta-inner-center .sec-tag{justify-content:center;color:var(--accent);}
+.cta-inner-center .sec-tag::before{display:none;}
+.cta-inner-center .sec-h{color:#f1f5f9;font-size:clamp(2.2rem,5vw,3.8rem);margin-bottom:1.1rem;}
+.cta-inner-center > p{color:rgba(255,255,255,.42);line-height:1.75;margin-bottom:2.25rem;}
+.cta-btns{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;}
+.btn-w{background:#fff;color:var(--dark-bg);padding:.82rem 1.9rem;border-radius:10px;font-family:var(--font-b);font-size:.92rem;font-weight:700;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;transition:all .25s;}
+.btn-w:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,255,255,.12);}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer{background:var(--dark-bar);padding:4.5rem 5% 2rem;}
+.f-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3.5rem;margin-bottom:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid rgba(255,255,255,.05);}
+.f-brand-logo{font-family:var(--font-d);font-size:1.35rem;font-weight:800;color:#fff;display:block;margin-bottom:.9rem;}
+.f-brand p{color:rgba(255,255,255,.3);font-size:.855rem;line-height:1.7;max-width:240px;}
+.f-socs{display:flex;gap:.55rem;margin-top:1.35rem;}
+.f-soc{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;transition:all .2s;}
+.f-soc:hover{border-color:var(--accent);color:var(--accent);}
+.f-col h4{font-family:var(--font-d);font-size:.76rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:1.35rem;}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.f-links a{color:rgba(255,255,255,.3);font-size:.855rem;transition:color .2s;}
+.f-links a:hover{color:#fff;}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.9rem;}
+.f-bottom p{color:rgba(255,255,255,.18);font-size:.78rem;}
+
+/* FAB */
+.fab{position:fixed;bottom:1.75rem;right:1.75rem;z-index:400;background:var(--accent);color:#fff;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;box-shadow:0 8px 28px rgba(14,165,233,.42);animation:fab-p 3s ease-in-out infinite;cursor:pointer;border:none;text-decoration:none;}
+.fab:hover{background:var(--accent-dk);transform:scale(1.08);}
+@keyframes fab-p{0%,100%{box-shadow:0 8px 28px rgba(14,165,233,.42);}50%{box-shadow:0 8px 44px rgba(14,165,233,.68);}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .nav-links,.nav-right .btn-ghost,.nav-right .btn-cta-nav{display:none;}
+  .hero-stats-strip{display:none;}
+  .route-inner{grid-template-columns:1fr;gap:2.5rem;}
+  #stats-row{grid-template-columns:1fr 1fr;}
+  .sr-num{border-right:none;border-bottom:1px solid rgba(255,255,255,.05);}
+  .sr-num:nth-child(odd){border-right:1px solid rgba(255,255,255,.05);}
+  .f-top{grid-template-columns:1fr 1fr;gap:2.5rem;}
+}
+@media(max-width:640px){
+  nav{padding:0 4%;height:60px;}
+  .breadcrumb{padding:4.5rem 4% 0;}
+  #photo-gallery,#clients,#route-map{padding:3rem 4%;}
+  #testimonial-marquee{padding:3rem 0;}
+  .gal-masonry{columns:1;}
+  #stats-row{grid-template-columns:1fr 1fr;}
+  .hero-h1{font-size:2.6rem;}
+  .hero-inner{padding:5rem 4% 3rem;}
+  .cta-btns{flex-direction:column;align-items:center;}
+  .btn-w,.btn-wg{width:100%;max-width:340px;justify-content:center;}
+  .f-top{grid-template-columns:1fr;gap:2rem;padding-bottom:2rem;margin-bottom:2rem;}
+  .f-bottom{flex-direction:column;text-align:center;}
+  footer{padding:3rem 4% 1.5rem;}
+}
+@media(max-width:400px){
+  .gal-masonry{columns:1;}
+  #stats-row{grid-template-columns:1fr;}
+  .sr-num:nth-child(odd){border-right:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span>Mahaveer</span>Trans
+    <div class="dot"></div>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="fleet.html">Fleet</a>
+    <a href="tracking.html">Track</a>
+    <a href="gallery.html" class="active">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <span class="theme-icon">☀️</span>
+    <span class="theme-icon">🌙</span>
+    <button class="btn-ghost">Log in</button>
+    <button class="btn-cta-nav">Get Quote →</button>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="index.html" class="bc-item">Home</a>
+  <span class="bc-sep">/</span>
+  <a href="gallery.html" class="bc-item cur">Gallery</a>
+</div>
+
+<!-- HERO -->
+<section id="hero-section">
+  <div class="hero-bg-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="live-dot"></span>
+      Trusted by 4,800+ businesses across India
+    </div>
+    <h1 class="hero-h1">
+      Where Every <span class="hl">Road</span><br>
+      <span class="outline">Tells a Story</span>
+    </h1>
+    <p class="hero-desc">From the dusty NH44 highways of the Deccan to the snow-cut passes of Himachal — our trucks have covered every kilometre so your cargo doesn't have to worry about the journey.</p>
+    <div class="hero-actions">
+      <button class="btn-primary">Explore Gallery →</button>
+      <button class="btn-wg">View Our Clients</button>
+    </div>
+  </div>
+  <div class="hero-stats-strip">
+    <div class="hs-card">
+      <div class="hs-val">4,800<span class="s">+</span></div>
+      <div class="hs-lbl">Happy Clients</div>
+    </div>
+    <div class="hs-card">
+      <div class="hs-val">2.4M<span class="s"> km</span></div>
+      <div class="hs-lbl">Driven This Year</div>
+    </div>
+    <div class="hs-card">
+      <div class="hs-val">99<span class="s">%</span></div>
+      <div class="hs-lbl">On-time Delivery</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="t-item"><span class="t-dot"></span>Mumbai to Delhi</span>
+    <span class="t-item"><span class="t-dot"></span>Chennai to Kolkata</span>
+    <span class="t-item"><span class="t-dot"></span>Pune to Ahmedabad</span>
+    <span class="t-item"><span class="t-dot"></span>Hyderabad to Bengaluru</span>
+    <span class="t-item"><span class="t-dot"></span>Jaipur to Nagpur</span>
+    <span class="t-item"><span class="t-dot"></span>Surat to Lucknow</span>
+    <span class="t-item"><span class="t-dot"></span>Indore to Vizag</span>
+    <span class="t-item"><span class="t-dot"></span>Coimbatore to Patna</span>
+    <!-- duplicate for seamless loop -->
+    <span class="t-item"><span class="t-dot"></span>Mumbai to Delhi</span>
+    <span class="t-item"><span class="t-dot"></span>Chennai to Kolkata</span>
+    <span class="t-item"><span class="t-dot"></span>Pune to Ahmedabad</span>
+    <span class="t-item"><span class="t-dot"></span>Hyderabad to Bengaluru</span>
+    <span class="t-item"><span class="t-dot"></span>Jaipur to Nagpur</span>
+    <span class="t-item"><span class="t-dot"></span>Surat to Lucknow</span>
+    <span class="t-item"><span class="t-dot"></span>Indore to Vizag</span>
+    <span class="t-item"><span class="t-dot"></span>Coimbatore to Patna</span>
+  </div>
+</div>
+
+<!-- STATS ROW -->
+<div id="stats-row">
+  <div class="sr-num">
+    <div class="srn-val">4,800<span class="suf">+</span></div>
+    <div class="srn-lbl">Happy clients served</div>
+  </div>
+  <div class="sr-num">
+    <div class="srn-val">2,400,000<span class="suf"> km</span></div>
+    <div class="srn-lbl">Kilometres driven this year</div>
+  </div>
+  <div class="sr-num">
+    <div class="srn-val">200<span class="suf">+</span></div>
+    <div class="srn-lbl">Long-route vehicles</div>
+  </div>
+  <div class="sr-num">
+    <div class="srn-val">99<span class="suf">%</span></div>
+    <div class="srn-lbl">On-time delivery rate</div>
+  </div>
+</div>
+
+<!-- PHOTO GALLERY -->
+<section id="photo-gallery">
+  <div class="gal-head">
+    <div>
+      <div class="sec-tag">Photo Gallery</div>
+      <h2 class="sec-h">On the Road, <span class="hl">Every Day</span></h2>
+    </div>
+    <div class="gal-filters">
+      <button class="gf-btn active"><span class="gf-dot" style="background:#0ea5e9"></span>All Photos</button>
+      <button class="gf-btn"><span class="gf-dot" style="background:#f59e0b"></span>Our Fleet</button>
+      <button class="gf-btn"><span class="gf-dot" style="background:#16a34a"></span>On the Road</button>
+      <button class="gf-btn"><span class="gf-dot" style="background:#7c3aed"></span>Operations</button>
+      <button class="gf-btn"><span class="gf-dot" style="background:#dc2626"></span>Cargo &amp; Load</button>
+    </div>
+  </div>
+
+  <div class="gal-masonry">
+
+    <div class="gi" data-cat="trucks" data-size="tall">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80&auto=format&fit=crop" alt="25T Multi-axle on NH48" loading="lazy">
+      <div class="gi-tag">Heavy Haulage</div>
+      <div class="gi-label">
+        <h4>25T Multi-axle on NH48</h4>
+        <p>Mumbai–Bengaluru Express Highway</p>
+      </div>
+    </div>
+
+    <div class="gi" data-cat="roads" data-size="medium">
+      <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=700&q=80&auto=format&fit=crop" alt="Dawn Run — Yamuna Expressway" loading="lazy">
+      <div class="gi-tag">Highway</div>
+      <div class="gi-label">
+        <h4>Dawn Run — Yamuna Expressway</h4>
+        <p>Delhi to Agra corridor, 4:30 AM</p>
+      </div>
+    </div>
+
+    <div class="gi" data-cat="cargo" data-size="short">
+      <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80&auto=format&fit=crop" alt="Container Loading — JNPT" loading="lazy">
+      <div class="gi-tag">Loading</div>
+      <div class="gi-label">
+        <h4>Container Loading — JNPT</h4>
+        <p>Navi Mumbai Port Terminal</p>
+      </div>
+    </div>
+
+    <div class="gi" data-cat="trucks" data-size="medium">
+      <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=700&q=80&auto=format&fit=crop" alt="Cold Chain Convoy" loading="lazy">
+      <div class="gi-tag">Reefer Fleet</div>
+      <div class="gi-label">
+        <h4>Cold Chain Convoy</h4>
+        <p>Pharma delivery — Pune to Delhi</p>
+      </div>
+    </div>
+
+    <div class="gi" data-cat="roads" data-size="tall">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80&auto=format&fit=crop" alt="Rohtang Pass Delivery" loading="lazy">
+      <div class="gi-tag">Mountain Route</div>
+      <div class="gi-label">
+        <h4>Rohtang Pass Delivery</h4>
+        <p>High-altitude cargo, Manali sector</p>
+      </div>
+    </div>
+
+    <div class="gi" data-cat="ops" data-size="short">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format&fit=crop" alt="24/7 Fleet Operations" loading="lazy">
+      <div class="gi-tag">Control Room</div>
+      <div class="gi-label">
+        <h4>24/7 Fleet Operations</h4>
+        <p>MahaveerTrans Control Tower, Mumbai</p>
+      </div>
+    </div>
+
+    <div class="gi" data-cat="trucks" data-size="short">
+      <img src="https://images.unsplash.com/photo-1540835296355-0a0015f3c02e?w=600&q=80&auto=format&fit=crop" alt="Steel Coil Transport" loading="lazy">
+      <div class="gi-tag">Flatbed</div>
+      <div class="gi-label">
+        <h4>Steel Coil Transport</h4>
+        <p>Bhilai to Pune Industrial Corridor</p>
+      </div>
+    </div>
+
+    <div class="gi" data-cat="cargo" data-size="tall">
+      <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=700&q=80&auto=format&fit=crop" alt="Smart Warehouse — Bhiwandi" loading="lazy">
+      <div class="gi-tag">Warehouse</div>
+      <div class="gi-label">
+        <h4>Smart Warehouse — Bhiwandi</h4>
+        <p>3M sqft distribution centre</p>
+      </div>
+    </div>
+
+    <div class="gi" data-cat="roads" data-size="medium">
+      <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=700&q=80&auto=format&fit=crop" alt="Night Convoy — NH44" loading="lazy">
+      <div class="gi-tag">Night Ops</div>
+      <div class="gi-label">
+        <h4>Night Convoy — NH44</h4>
+        <p>Hyderabad to Chennai, 2:00 AM</p>
+      </div>
+    </div>
+
+    <div class="gi" data-cat="ops" data-size="medium">
+      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&q=80&auto=format&fit=crop" alt="Driver Briefing — Mumbai Hub" loading="lazy">
+      <div class="gi-tag">Team</div>
+      <div class="gi-label">
+        <h4>Driver Briefing — Mumbai Hub</h4>
+        <p>Daily safety &amp; route debrief</p>
+      </div>
+    </div>
+
+    <div class="gi" data-cat="trucks" data-size="tall">
+      <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=700&q=80&auto=format&fit=crop" alt="Electric Delivery Fleet" loading="lazy">
+      <div class="gi-tag">EV Last Mile</div>
+      <div class="gi-label">
+        <h4>Electric Delivery Fleet</h4>
+        <p>Bengaluru urban zone, 200+ EVs</p>
+      </div>
+    </div>
+
+    <div class="gi" data-cat="roads" data-size="short">
+      <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80&auto=format&fit=crop" alt="Golden Hour — Rajasthan NH" loading="lazy">
+      <div class="gi-tag">Sunset Run</div>
+      <div class="gi-label">
+        <h4>Golden Hour — Rajasthan NH</h4>
+        <p>Jaipur to Jodhpur corridor</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ROUTE MAP -->
+<section id="route-map">
+  <div class="route-map-bg"></div>
+  <div class="route-inner">
+    <div class="route-left">
+      <div class="sec-tag">Our Routes</div>
+      <h2 class="sec-h">Every Major <span class="hl">Highway Covered</span></h2>
+      <p>MahaveerTrans runs dedicated long-distance truck lanes on 18 national highway corridors — covering 96% of India's industrial clusters with scheduled departures.</p>
+      <div class="route-points">
+        <div class="rp">
+          <span class="rp-dot" style="background:#0ea5e9"></span>
+          <span class="rp-city">Mumbai ↔ Delhi</span>
+          <span class="rp-dist">1,421 km</span>
+        </div>
+        <div class="rp">
+          <span class="rp-dot" style="background:#f59e0b"></span>
+          <span class="rp-city">Chennai ↔ Kolkata</span>
+          <span class="rp-dist">1,659 km</span>
+        </div>
+        <div class="rp">
+          <span class="rp-dot" style="background:#16a34a"></span>
+          <span class="rp-city">Bengaluru ↔ Pune</span>
+          <span class="rp-dist">840 km</span>
+        </div>
+        <div class="rp">
+          <span class="rp-dot" style="background:#7c3aed"></span>
+          <span class="rp-city">Hyderabad ↔ Ahmedabad</span>
+          <span class="rp-dist">1,100 km</span>
+        </div>
+        <div class="rp">
+          <span class="rp-dot" style="background:#dc2626"></span>
+          <span class="rp-city">Surat ↔ Lucknow</span>
+          <span class="rp-dist">1,206 km</span>
+        </div>
+      </div>
+    </div>
+    <div class="route-right">
+
+      <div class="route-stat-card">
+        <div class="rsc-top">
+          <span class="rsc-label">Scheduled Departures / Day</span>
+          <span class="rsc-badge badge-green">Live</span>
+        </div>
+        <div class="rsc-val">48+</div>
+        <div class="rsc-sub">Across all major corridors</div>
+        <div class="rsc-bar"><div class="rsc-fill" style="width:96%"></div></div>
+      </div>
+
+      <div class="route-stat-card">
+        <div class="rsc-top">
+          <span class="rsc-label">Average Transit Accuracy</span>
+          <span class="rsc-badge badge-green">SLA</span>
+        </div>
+        <div class="rsc-val">99%</div>
+        <div class="rsc-sub">On-time within ±2 hr window</div>
+        <div class="rsc-bar"><div class="rsc-fill" style="width:99%"></div></div>
+      </div>
+
+      <div class="route-stat-card">
+        <div class="rsc-top">
+          <span class="rsc-label">Active Trucks On Road Now</span>
+          <span class="rsc-badge badge-amber">Now</span>
+        </div>
+        <div class="rsc-val">200+</div>
+        <div class="rsc-sub">GPS tracked, live dashboard</div>
+        <div class="rsc-bar"><div class="rsc-fill" style="width:72%"></div></div>
+      </div>
+
+      <div class="route-stat-card">
+        <div class="rsc-top">
+          <span class="rsc-label">Shortest Turnaround Route</span>
+          <span class="rsc-badge badge-green">Fast</span>
+        </div>
+        <div class="rsc-val">6 hrs</div>
+        <div class="rsc-sub">Pune ↔ Mumbai express lane</div>
+        <div class="rsc-bar"><div class="rsc-fill" style="width:100%"></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HAPPY CLIENTS -->
+<section id="clients">
+  <div class="clients-head">
+    <div>
+      <div class="sec-tag">Happy Clients</div>
+      <h2 class="sec-h">Brands That <span class="hl">Trust Our Wheels</span></h2>
+    </div>
+    <p style="max-width:310px;color:var(--muted);font-size:.88rem;line-height:1.65;">From FMCG giants to pharma exporters — businesses that moved their goods with MahaveerTrans keep coming back.</p>
+  </div>
+
+  <div class="logo-bar">
+    <span class="client-logo-pill">MAHINDRA</span>
+    <span class="client-logo-pill">RELIANCE</span>
+    <span class="client-logo-pill">CIPLA</span>
+    <span class="client-logo-pill">L&amp;T</span>
+    <span class="client-logo-pill">NYKAA</span>
+    <span class="client-logo-pill">TVS</span>
+    <span class="client-logo-pill">TATA MOTORS</span>
+    <span class="client-logo-pill">GODREJ</span>
+    <span class="client-logo-pill">WIPRO</span>
+    <span class="client-logo-pill">ITC</span>
+  </div>
+
+  <div class="client-grid">
+
+    <div class="client-card">
+      <div class="cc-img-wrap">
+        <img class="cc-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80&auto=format&fit=crop" alt="Mahindra Logistics" loading="lazy">
+        <span class="cc-industry-tag tag-road">Road Freight</span>
+      </div>
+      <div class="cc-body">
+        <div class="cc-company">
+          <div class="cc-logo-placeholder">🏭</div>
+          <div>
+            <div class="cc-name">Mahindra Logistics</div>
+            <div class="cc-sector">Automotive OEM &amp; Parts</div>
+          </div>
+        </div>
+        <p class="cc-testimonial">"MahaveerTrans handles 400+ FTL trips monthly for our plant-to-dealer network. Zero stockouts in 18 months since onboarding."</p>
+        <div class="cc-meta">
+          <span class="cc-stars">★★★★★</span>
+          <span class="cc-stat">400 trips/month</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="client-card">
+      <div class="cc-img-wrap">
+        <img class="cc-img" src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&q=80&auto=format&fit=crop" alt="Cipla Ltd." loading="lazy">
+        <span class="cc-industry-tag tag-cold">Cold Chain</span>
+      </div>
+      <div class="cc-body">
+        <div class="cc-company">
+          <div class="cc-logo-placeholder">💊</div>
+          <div>
+            <div class="cc-name">Cipla Ltd.</div>
+            <div class="cc-sector">Pharmaceuticals</div>
+          </div>
+        </div>
+        <p class="cc-testimonial">"GDP-compliant cold chain to 22 states. Temperature deviation rate under 0.3% across 12 months of pharma deliveries."</p>
+        <div class="cc-meta">
+          <span class="cc-stars">★★★★★</span>
+          <span class="cc-stat">22 states covered</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="client-card">
+      <div class="cc-img-wrap">
+        <img class="cc-img" src="https://images.unsplash.com/photo-1540835296355-0a0015f3c02e?w=500&q=80&auto=format&fit=crop" alt="L&T Construction" loading="lazy">
+        <span class="cc-industry-tag tag-bulk">Bulk Road</span>
+      </div>
+      <div class="cc-body">
+        <div class="cc-company">
+          <div class="cc-logo-placeholder">🏗️</div>
+          <div>
+            <div class="cc-name">L&amp;T Construction</div>
+            <div class="cc-sector">Infrastructure</div>
+          </div>
+        </div>
+        <p class="cc-testimonial">"Multi-axle fleet for heavy equipment movement across 8 active project sites. Permit management handled end-to-end — zero delays."</p>
+        <div class="cc-meta">
+          <span class="cc-stars">★★★★★</span>
+          <span class="cc-stat">8 project sites</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="client-card">
+      <div class="cc-img-wrap">
+        <img class="cc-img" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=500&q=80&auto=format&fit=crop" alt="ITC Limited" loading="lazy">
+        <span class="cc-industry-tag tag-fmcg">FMCG</span>
+      </div>
+      <div class="cc-body">
+        <div class="cc-company">
+          <div class="cc-logo-placeholder">🛒</div>
+          <div>
+            <div class="cc-name">ITC Limited</div>
+            <div class="cc-sector">FMCG &amp; Consumer Goods</div>
+          </div>
+        </div>
+        <p class="cc-testimonial">"Daily replenishment runs to 1,200 retail points across Maharashtra and Karnataka. 98.6% fill rate, up from 91% with previous 3PL."</p>
+        <div class="cc-meta">
+          <span class="cc-stars">★★★★★</span>
+          <span class="cc-stat">1,200 retail points</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="client-card">
+      <div class="cc-img-wrap">
+        <img class="cc-img" src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=500&q=80&auto=format&fit=crop" alt="Nykaa Fashion" loading="lazy">
+        <span class="cc-industry-tag tag-road">Road Freight</span>
+      </div>
+      <div class="cc-body">
+        <div class="cc-company">
+          <div class="cc-logo-placeholder">👗</div>
+          <div>
+            <div class="cc-name">Nykaa Fashion</div>
+            <div class="cc-sector">E-Commerce &amp; Apparel</div>
+          </div>
+        </div>
+        <p class="cc-testimonial">"Our MahaveerTrans last-mile fleet handles 6,000 B2C deliveries per day in 12 metros with 94% same-day success rate."</p>
+        <div class="cc-meta">
+          <span class="cc-stars">★★★★★</span>
+          <span class="cc-stat">6,000 deliveries/day</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="client-card">
+      <div class="cc-img-wrap">
+        <img class="cc-img" src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=500&q=80&auto=format&fit=crop" alt="TVS Motor Company" loading="lazy">
+        <span class="cc-industry-tag tag-bulk">Bulk Road</span>
+      </div>
+      <div class="cc-body">
+        <div class="cc-company">
+          <div class="cc-logo-placeholder">🚜</div>
+          <div>
+            <div class="cc-name">TVS Motor Company</div>
+            <div class="cc-sector">Two-Wheeler Manufacturing</div>
+          </div>
+        </div>
+        <p class="cc-testimonial">"JIT delivery from our Hosur plant reduced line stoppages by 91%. MahaveerTrans's telematics dashboard gave us the visibility we needed."</p>
+        <div class="cc-meta">
+          <span class="cc-stars">★★★★★</span>
+          <span class="cc-stat">91% fewer stoppages</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIAL MARQUEE -->
+<section id="testimonial-marquee">
+  <div class="tm-label">
+    <div class="sec-tag c">Client Voices</div>
+    <h2 class="sec-h">Straight From <span class="hl">The Road</span></h2>
+  </div>
+  <div class="marquee-overflow">
+    <div class="marquee-track">
+      <!-- set 1 -->
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"Switched to MahaveerTrans 2 years ago. On-time delivery jumped from 83% to 99%. Our retailers stopped complaining."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face" alt="Ravi Shankar">
+          <div>
+            <div class="mq-name">Ravi Shankar</div>
+            <div class="mq-role">Distribution Head, Reliance Retail</div>
+          </div>
+        </div>
+      </div>
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"Their drivers know the NH48 better than anyone. We run Chennai to Mumbai twice a week — never a missed window."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face" alt="Kalpana Murthy">
+          <div>
+            <div class="mq-name">Kalpana Murthy</div>
+            <div class="mq-role">Logistics Manager, Ashok Leyland</div>
+          </div>
+        </div>
+      </div>
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"Best reefer fleet in western India. The temp logs are immaculate. Regulators were impressed in our last GDP audit."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face" alt="Dr. Sunil Joshi">
+          <div>
+            <div class="mq-name">Dr. Sunil Joshi</div>
+            <div class="mq-role">VP Supply Chain, Sun Pharma</div>
+          </div>
+        </div>
+      </div>
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"1,200 retail drops across Maharashtra, every single day. MahaveerTrans has never missed a Monday fresh-goods window in 14 months."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&q=80&auto=format&fit=crop&crop=face" alt="Priya Iyer">
+          <div>
+            <div class="mq-name">Priya Iyer</div>
+            <div class="mq-role">Supply Chain Director, Marico</div>
+          </div>
+        </div>
+      </div>
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"Flatbed permit management used to take us 2 weeks. MahaveerTrans does it in 48 hours. Our Pune project is running ahead of schedule."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=80&q=80&auto=format&fit=crop&crop=face" alt="Arun Desai">
+          <div>
+            <div class="mq-name">Arun Desai</div>
+            <div class="mq-role">Project Manager, Shapoorji Pallonji</div>
+          </div>
+        </div>
+      </div>
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"The GPS dashboard gives our planners visibility we never had. We can see every truck live and reroute before a delay becomes a problem."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1554151228-14d9def656e4?w=80&q=80&auto=format&fit=crop&crop=face" alt="Neha Kulkarni">
+          <div>
+            <div class="mq-name">Neha Kulkarni</div>
+            <div class="mq-role">Operations Lead, Godrej Consumer</div>
+          </div>
+        </div>
+      </div>
+      <!-- duplicate set 2 for seamless loop -->
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"Switched to MahaveerTrans 2 years ago. On-time delivery jumped from 83% to 99%. Our retailers stopped complaining."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&auto=format&fit=crop&crop=face" alt="Ravi Shankar">
+          <div>
+            <div class="mq-name">Ravi Shankar</div>
+            <div class="mq-role">Distribution Head, Reliance Retail</div>
+          </div>
+        </div>
+      </div>
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"Their drivers know the NH48 better than anyone. We run Chennai to Mumbai twice a week — never a missed window."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&auto=format&fit=crop&crop=face" alt="Kalpana Murthy">
+          <div>
+            <div class="mq-name">Kalpana Murthy</div>
+            <div class="mq-role">Logistics Manager, Ashok Leyland</div>
+          </div>
+        </div>
+      </div>
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"Best reefer fleet in western India. The temp logs are immaculate. Regulators were impressed in our last GDP audit."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&auto=format&fit=crop&crop=face" alt="Dr. Sunil Joshi">
+          <div>
+            <div class="mq-name">Dr. Sunil Joshi</div>
+            <div class="mq-role">VP Supply Chain, Sun Pharma</div>
+          </div>
+        </div>
+      </div>
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"1,200 retail drops across Maharashtra, every single day. MahaveerTrans has never missed a Monday fresh-goods window in 14 months."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&q=80&auto=format&fit=crop&crop=face" alt="Priya Iyer">
+          <div>
+            <div class="mq-name">Priya Iyer</div>
+            <div class="mq-role">Supply Chain Director, Marico</div>
+          </div>
+        </div>
+      </div>
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"Flatbed permit management used to take us 2 weeks. MahaveerTrans does it in 48 hours. Our Pune project is running ahead of schedule."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=80&q=80&auto=format&fit=crop&crop=face" alt="Arun Desai">
+          <div>
+            <div class="mq-name">Arun Desai</div>
+            <div class="mq-role">Project Manager, Shapoorji Pallonji</div>
+          </div>
+        </div>
+      </div>
+      <div class="mq-card">
+        <div class="mq-stars">★★★★★</div>
+        <p class="mq-text">"The GPS dashboard gives our planners visibility we never had. We can see every truck live and reroute before a delay becomes a problem."</p>
+        <div class="mq-author">
+          <img class="mq-av" src="https://images.unsplash.com/photo-1554151228-14d9def656e4?w=80&q=80&auto=format&fit=crop&crop=face" alt="Neha Kulkarni">
+          <div>
+            <div class="mq-name">Neha Kulkarni</div>
+            <div class="mq-role">Operations Lead, Godrej Consumer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta-section">
+  <div class="cta-inner-center">
+    <div class="sec-tag">Partner With Us</div>
+    <h2 class="sec-h">Move Your Goods <span class="hl">With Confidence</span></h2>
+    <p>Join 4,800+ businesses that trust MahaveerTrans for reliable, GPS-tracked, on-time road freight across India.</p>
+    <div class="cta-btns">
+      <button class="btn-w">Get a Free Quote →</button>
+      <button class="btn-wg">📞 +91 22 4001 8000</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-top">
+    <div class="f-brand">
+      <span class="f-brand-logo">MahaveerTrans</span>
+      <p>Delivering the world's goods with precision and care. Your trusted road logistics partner since 1999.</p>
+      <div class="f-socs">
+        <a href="#" class="f-soc">in</a>
+        <a href="#" class="f-soc">tw</a>
+        <a href="#" class="f-soc">yt</a>
+        <a href="#" class="f-soc">ig</a>
+      </div>
+    </div>
+    <div class="f-col">
+      <h4>Services</h4>
+      <ul class="f-links">
+        <li><a href="#">Road Transport</a></li>
+        <li><a href="#">Cold Chain</a></li>
+        <li><a href="#">Last Mile</a></li>
+        <li><a href="#">Warehousing</a></li>
+        <li><a href="#">Air Freight</a></li>
+        <li><a href="#">Sea Freight</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Company</h4>
+      <ul class="f-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Fleet</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Contact</h4>
+      <ul class="f-links">
+        <li><a href="#">📍 Mumbai, India</a></li>
+        <li><a href="#">📞 +91 22 4001 8000</a></li>
+        <li><a href="#">✉️ hello@mahaveertrans.com</a></li>
+        <li><a href="#">🌐 mahaveertrans.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <p>© 2025 MahaveerTrans Logistics Pvt. Ltd. All rights reserved.</p>
+    <p>Privacy · Terms · Sitemap</p>
+  </div>
+</footer>
+
+<!-- FAB -->
+<a href="#" class="fab">💬</a>
+
+</body>
+</html>
