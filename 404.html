@@ -23,6 +23,7 @@
     --coil-size: clamp(4.6rem, 16.2vw, 9.6rem);
 
   --crane-duration: 11s;   /* ADD THIS LINE */
+  --canvas-center-x: 683px; 
   }
 
   *{ box-sizing: border-box; }
@@ -184,12 +185,13 @@
     justify-content:center;
     z-index:2;
     flex: 0 0 auto;
+    top: 1rem;
   }
 
   /* ===================== CRANE ===================== */
   .crane-rig{
     position:absolute;
-    left:8%;
+    left:8%; /* = 8% of 1366px = 109.28px from canvas left edge */
     top:8rem;
     width: 60px;/* to change   */
     max-width: 132vw;
@@ -214,7 +216,7 @@
     left: 18px;
     top: 0;
     width: 16px;
-    height: 260px;
+    height: 294px;
     background: repeating-linear-gradient(180deg, var(--orange) 0 22px, #b85a10 22px 24px);
     box-shadow: inset -3px 0 4px rgba(0,0,0,0.4), 2px 0 6px rgba(0,0,0,0.4);
     border-radius: 2px;
@@ -340,8 +342,8 @@
   }
   @keyframes cableLength{
     0%,32%{   height: 0px; }
-    46%{      height: 100px; }
-    58%,74%{  height: 100px; }
+    46%{      height: 119px; }
+    58%,74%{  height: 119px; }
     88%{      height: 0px; }
     100%{     height: 0px; }
   }
@@ -581,13 +583,30 @@
 
   @media (max-width: 560px){
     .stage{ gap: 2px; padding-top: 200px; margin-top: -200px; }
-    .crane-rig{ width: 420px; height: 220px; }
-    .boom{ width: 320px; }
+    .crane-rig{ width: 420px; height: 220px;
+    left: 59%; top: 4rem; }
+    .cable-assembly{
+      left: 10rem;
+    }
+    .boom{ width: 320px; 
+      
+    }
+    .coil{
+      width: 8rem;
+    }
+    .digit{
+      font-size: clamp(8rem, 19vw, 11.5rem);
+    }
+    .coil-slot{
+      width: clamp(8rem, 16.2vw, 9.6rem);
+      justify-content: flex-start;
+    }
+
     @keyframes trolleyMove{
       0%,20%{  left: 30px; }
-      32%{     left: 260px; }
-      82%{     left: 260px; }
-      100%{    left: 260px; }
+      32%{     left: 150px; }
+      82%{     left: 150px; }
+      100%{    left: 150px; }
     }
     @keyframes craneJourney{
       0%{      transform: translate(-140%, -300px); }
@@ -597,6 +616,16 @@
       86%{     transform: translate(-52%, -14px); }
       100%{    transform: translate(90%, -300px); }
     }
+    .cable{
+  animation: cableLength var(--crane-duration) cubic-bezier(.45,.05,.25,1) forwards;
+  }
+  @keyframes cableLength{
+    0%,32%{   height: 0px; }
+    46%{      height: 105px; }
+    58%,74%{  height: 105px; }
+    88%{      height: 0px; }
+    100%{     height: 0px; }
+  }
   }
 </style>
 </head>
@@ -618,7 +647,7 @@
       <div class="coil-slot">
         <div class="impact-ring"></div>
         <div class="coil-final">
-          <img src="image.png" class="coil" alt="Steel coil forming the number zero">
+          <img src="./image.png" class="coil" alt="Steel coil forming the number zero">
           <div class="shine"></div>
         </div>
       </div>
@@ -639,7 +668,7 @@
           <div class="cable"></div>
           <div class="hook"></div>
           <div class="coil-carried">
-            <img src="image.png" class="coil" alt="Steel coil being lifted by crane">
+            <img src="./image.png" class="coil" alt="Steel coil being lifted by crane">
           </div>
         </div>
       </div>
